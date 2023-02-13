@@ -22,8 +22,3 @@ _testmain.go
 *.exe
 *.test
 *.prof
-
-# GoLand
-.idea/
-.openapi-generator
-*.yaml

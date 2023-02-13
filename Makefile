@@ -8,7 +8,7 @@ generate: clean
 	@echo "Initializing..."
 	@wget https://repo1.maven.org/maven2/org/openapitools/openapi-generator-cli/$(OPENAPI_GENERATOR_VERSION)/openapi-generator-cli-$(OPENAPI_GENERATOR_VERSION).jar -O openapi-generator-cli.jar
 	@echo "Generating..."
-	@java -jar openapi-generator-cli.jar generate -i $(OPENAPI_YAML) -p packageName=$(GO_PACKAGE_NAME) $(OPENAPI_ARGS) -g go -p isGoSubmodule=true -p disallowAdditionalPropertiesIfNotPresent=false --git-user-id $(GIT_USER_ID) --git-repo-id $(GIT_REPO_NAME)
+	@java -jar openapi-generator-cli.jar generate -i $(OPENAPI_YAML) -p packageName=$(GO_PACKAGE_NAME) $(OPENAPI_ARGS) -g go -p isGoSubmodule=false -p disallowAdditionalPropertiesIfNotPresent=false --git-user-id $(GIT_USER_ID) --git-repo-id $(GIT_REPO_NAME)
 	@mkdir ./api/$(GO_PACKAGE_NAME) || (echo /api/$(GO_PACKAGE_NAME) exists)
 	@mv ./*.go ./api/$(GO_PACKAGE_NAME) -f || (echo no files to move)
 	@rm .travis.yml || (echo no .travis.yml to remove)
