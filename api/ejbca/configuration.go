@@ -14,6 +14,8 @@ import (
 	"context"
 	"fmt"
 	"net/http"
+	"net/url"
+	"os"
 	"strings"
 )
 
@@ -65,9 +67,9 @@ type ServerVariable struct {
 
 // ServerConfiguration stores the information about a server
 type ServerConfiguration struct {
-	URL string
+	URL         string
 	Description string
-	Variables map[string]ServerVariable
+	Variables   map[string]ServerVariable
 }
 
 // ServerConfigurations stores multiple ServerConfiguration items
@@ -75,31 +77,54 @@ type ServerConfigurations []ServerConfiguration
 
 // Configuration stores the configuration of the API client
 type Configuration struct {
-	Host             string            `json:"host,omitempty"`
-	Scheme           string            `json:"scheme,omitempty"`
-	DefaultHeader    map[string]string `json:"defaultHeader,omitempty"`
-	UserAgent        string            `json:"userAgent,omitempty"`
-	Debug            bool              `json:"debug,omitempty"`
-	Servers          ServerConfigurations
-	OperationServers map[string]ServerConfigurations
-	HTTPClient       *http.Client
+	Host                     string            `json:"host,omitempty"`
+	DefaultHeader            map[string]string `json:"defaultHeader,omitempty"`
+	UserAgent                string            `json:"userAgent,omitempty"`
+	Debug                    bool              `json:"debug,omitempty"`
+	ClientCertificatePath    string            `json:"clientCertificatePath,omitempty"`
+	ClientCertificateKeyPath string            `json:"clientCertificateKeyPath,omitempty"`
+	Servers                  ServerConfigurations
+	OperationServers         map[string]ServerConfigurations
+	HTTPClient               *http.Client
 }
 
 // NewConfiguration returns a new Configuration object
 func NewConfiguration() *Configuration {
 	cfg := &Configuration{
-		DefaultHeader:    make(map[string]string),
-		UserAgent:        "OpenAPI-Generator/1.0.0/go",
-		Debug:            false,
-		Servers:          ServerConfigurations{
+		DefaultHeader: make(map[string]string),
+		UserAgent:     "OpenAPI-Generator/1.0.0/go",
+		Debug:         false,
+		Servers: ServerConfigurations{
 			{
-				URL: "/ejbca/ejbca-rest-api",
+				URL:         "/ejbca/ejbca-rest-api",
 				Description: "No description provided",
 			},
 		},
-		OperationServers: map[string]ServerConfigurations{
-		},
+		OperationServers: map[string]ServerConfigurations{},
 	}
+
+	// Get hostname from environment variable
+	hostname := os.Getenv("EJBCA_HOSTNAME")
+	if hostname != "" {
+		if u, err := url.Parse(hostname); err == nil {
+			cfg.Host = u.Host
+		} else {
+			fmt.Errorf("EJBCA_HOSTNAME is not a valid URL: %s", err)
+		}
+	}
+
+	// Get client certificate path from environment variable
+	clientCertPath := os.Getenv("EJBCA_CLIENT_CERT_PATH")
+	if clientCertPath != "" {
+		cfg.ClientCertificatePath = clientCertPath
+	}
+
+	// Get client certificate key path from environment variable
+	clientCertKeyPath := os.Getenv("EJBCA_CLIENT_CERT_KEY_PATH")
+	if clientCertKeyPath != "" {
+		cfg.ClientCertificateKeyPath = clientCertKeyPath
+	}
+
 	return cfg
 }
 

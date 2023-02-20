@@ -13,7 +13,10 @@ package ejbca
 import (
 	"bytes"
 	"context"
+    "crypto/tls"
+	"crypto/x509"
 	"encoding/json"
+	"encoding/pem"
 	"encoding/xml"
 	"errors"
 	"fmt"
@@ -32,7 +35,6 @@ import (
 	"strings"
 	"time"
 	"unicode/utf8"
-
 )
 
 var (
@@ -75,10 +77,14 @@ type service struct {
 
 // NewAPIClient creates a new API client. Requires a userAgent string describing your application.
 // optionally a custom http.Client to allow for advanced features such as caching.
-func NewAPIClient(cfg *Configuration) *APIClient {
-	if cfg.HTTPClient == nil {
-		cfg.HTTPClient = http.DefaultClient
-	}
+func NewAPIClient(cfg *Configuration) (*APIClient, error) {
+    var err error
+    if cfg.HTTPClient == nil {
+        if cfg.HTTPClient, err = buildHttpClient(cfg); err != nil {
+			debugMessage(cfg.Debug, "Failed to build HTTP client: %s", err.Error())
+            return nil, fmt.Errorf("failed to build HTTP client: %s", err.Error())
+        }
+    }
 
 	c := &APIClient{}
 	c.cfg = cfg
@@ -95,7 +101,125 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.V2CertificateApi = (*V2CertificateApiService)(&c.common)
 	c.V2EndentityApi = (*V2EndentityApiService)(&c.common)
 
-	return c
+	return c, nil
+}
+
+func debugMessage(isDebug bool, message string, args ...interface{}) {
+	if isDebug {
+		fmt.Printf(message+"\n", args...)
+	}
+}
+
+func buildHttpClient(config *Configuration) (*http.Client, error) {
+	cert, err := findClientCertificate(config)
+	if err != nil {
+		return nil, err
+	}
+
+	// Configure new TLS object
+	debugMessage(config.Debug, "Setting up TLS to use client certificate")
+	debugMessage(config.Debug, "Setting TLS renegotiation to RenegotiateOnceAsClient [1]")
+	tlsConfig := &tls.Config{
+		Certificates:  []tls.Certificate{*cert},
+		Renegotiation: tls.RenegotiateOnceAsClient,
+	}
+
+	// Configure HTTP transports with TLS config
+	debugMessage(config.Debug, "Setting TLS handshake timeout to 10 seconds")
+	transport := &http.Transport{
+		TLSClientConfig:     tlsConfig,
+		TLSHandshakeTimeout: 10 * time.Second,
+	}
+
+	// Build new HTTP object to communicate with EJBCA
+	debugMessage(config.Debug, "Setting HTTP timeout to 10 seconds")
+	httpClient := &http.Client{
+		Transport: transport,
+		Timeout:   10 * time.Second,
+	}
+	return httpClient, nil
+}
+
+func findClientCertificate(config *Configuration) (*tls.Certificate, error) {
+	// Load client certificate
+	var cert tls.Certificate
+
+	if config.ClientCertificatePath == "" {
+		return nil, fmt.Errorf("path to client certificate is required")
+	}
+
+	// Read and parse the passed certificate file which could contain the certificate and private key
+	debugMessage(config.Debug, "Reading client certificate from %s", config.ClientCertificatePath)
+	buf, err := ioutil.ReadFile(config.ClientCertificatePath)
+	if err != nil {
+		return nil, err
+	}
+	certificates, privKey, err := decodePEMBytes(buf, config.Debug)
+	if err != nil {
+		return nil, err
+	}
+	if len(privKey) <= 0 {
+		// if no private key was found, see if a path was specified to a private key
+		if config.ClientCertificateKeyPath == "" {
+			return nil, fmt.Errorf("no private key found in %s and no path to a private key specified", config.ClientCertificatePath)
+		}
+		debugMessage(config.Debug, "Didn't find private key in client certificate file, looking in %s", config.ClientCertificateKeyPath)
+		buf, err = ioutil.ReadFile(config.ClientCertificateKeyPath)
+		if err != nil {
+			return nil, err
+		}
+		_, privKey, err = decodePEMBytes(buf, config.Debug)
+		if err != nil {
+			return nil, err
+		}
+		if len(privKey) <= 0 {
+			return nil, fmt.Errorf("didn't find private key in path %s", config.ClientCertificateKeyPath)
+		}
+	}
+	if len(certificates) <= 0 {
+		return nil, fmt.Errorf("didn't find certificate in file at path %s", config.ClientCertificatePath)
+	}
+	cert, err = tls.X509KeyPair(pem.EncodeToMemory(certificates[0]), privKey)
+	if err != nil {
+		return nil, err
+	}
+
+	debugMessage(config.Debug, "Successfully loaded client certificate")
+
+	return &cert, nil
+}
+
+func addCAToPool(tls *tls.Config, caPath string) error {
+	caCert, err := ioutil.ReadFile(caPath)
+	if err != nil {
+		return err
+	}
+
+	pool := x509.NewCertPool()
+	if !pool.AppendCertsFromPEM(caCert) {
+		return fmt.Errorf("failed to create cert pool from ca cert at path %s", caPath)
+	}
+	tls.RootCAs = pool
+
+	return nil
+}
+
+func decodePEMBytes(buf []byte, isDebug bool) ([]*pem.Block, []byte, error) {
+	var privKey []byte
+	var certificates []*pem.Block
+	var block *pem.Block
+	for {
+		block, buf = pem.Decode(buf)
+		if block == nil {
+			break
+		} else if strings.Contains(block.Type, "PRIVATE KEY") {
+			privKey = pem.EncodeToMemory(block)
+		} else {
+			certificates = append(certificates, block)
+		}
+		debugMessage(isDebug, "Found PEM block of type %s", block.Type)
+	}
+	return certificates, privKey, nil
 }
 
 func atoi(in string) (int, error) {
@@ -386,10 +510,8 @@ func (c *APIClient) prepareRequest(
 		url.Host = c.cfg.Host
 	}
 
-	// Override request scheme, if applicable
-	if c.cfg.Scheme != "" {
-		url.Scheme = c.cfg.Scheme
-	}
+	// Override request scheme
+	url.Scheme = "https"
 
 	// Adding Query Param
 	query := url.Query()
