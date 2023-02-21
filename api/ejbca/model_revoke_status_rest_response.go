@@ -39,8 +39,8 @@ type RevokeStatusRestResponse struct {
 	// Revokation date
 	RevocationDate *time.Time `json:"revocation_date,omitempty"`
 	// Message
-	Message *string `json:"message,omitempty"`
-	Revoked *bool `json:"revoked,omitempty"`
+	Message              *string `json:"message,omitempty"`
+	Revoked              *bool   `json:"revoked,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -256,7 +256,7 @@ func (o *RevokeStatusRestResponse) SetRevoked(v bool) {
 }
 
 func (o RevokeStatusRestResponse) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -348,5 +348,3 @@ func (v *NullableRevokeStatusRestResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

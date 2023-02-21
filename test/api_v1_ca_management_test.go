@@ -11,10 +11,10 @@ package ejbca
 
 import (
 	"context"
+	openapiclient "github.com/Keyfactor/ejbca-go-client-sdk"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"testing"
-	openapiclient "github.com/Keyfactor/ejbca-go-client-sdk"
 )
 
 func Test_ejbca_V1CaManagementApiService(t *testing.T) {
@@ -24,7 +24,7 @@ func Test_ejbca_V1CaManagementApiService(t *testing.T) {
 
 	t.Run("Test V1CaManagementApiService Activate", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var caName string
 
@@ -37,7 +37,7 @@ func Test_ejbca_V1CaManagementApiService(t *testing.T) {
 
 	t.Run("Test V1CaManagementApiService Deactivate", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var caName string
 
@@ -50,7 +50,7 @@ func Test_ejbca_V1CaManagementApiService(t *testing.T) {
 
 	t.Run("Test V1CaManagementApiService Status", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.V1CaManagementApi.Status(context.Background()).Execute()
 

@@ -29,14 +29,13 @@ import (
 	"strings"
 )
 
-
 // V1SshApiService V1SshApi service
 type V1SshApiService service
 
 type ApiPubkeyRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *V1SshApiService
-	caName string
+	caName     string
 }
 
 func (r ApiPubkeyRequest) Execute() (*SshPublicKeyRestResponse, *http.Response, error) {
@@ -48,26 +47,27 @@ Pubkey Retrieves a CA's public key in SSH format.
 
 Retrieves a CA's public key in SSH format.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param caName
- @return ApiPubkeyRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param caName
+	@return ApiPubkeyRequest
 */
 func (a *V1SshApiService) Pubkey(ctx context.Context, caName string) ApiPubkeyRequest {
 	return ApiPubkeyRequest{
 		ApiService: a,
-		ctx: ctx,
-		caName: caName,
+		ctx:        ctx,
+		caName:     caName,
 	}
 }
 
 // Execute executes the request
-//  @return SshPublicKeyRestResponse
+//
+//	@return SshPublicKeyRestResponse
 func (a *V1SshApiService) PubkeyExecute(r ApiPubkeyRequest) (*SshPublicKeyRestResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *SshPublicKeyRestResponse
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *SshPublicKeyRestResponse
 	)
 
 	localBasePath := "/ejbca/ejbca-rest-api"
@@ -134,7 +134,7 @@ func (a *V1SshApiService) PubkeyExecute(r ApiPubkeyRequest) (*SshPublicKeyRestRe
 }
 
 type ApiStatus8Request struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *V1SshApiService
 }
 
@@ -147,24 +147,25 @@ Status8 Get the status of this REST Resource
 
 Returns status, API version and EJBCA version.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiStatus8Request
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiStatus8Request
 */
 func (a *V1SshApiService) Status8(ctx context.Context) ApiStatus8Request {
 	return ApiStatus8Request{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return RestResourceStatusRestResponse
+//
+//	@return RestResourceStatusRestResponse
 func (a *V1SshApiService) Status8Execute(r ApiStatus8Request) (*RestResourceStatusRestResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *RestResourceStatusRestResponse
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *RestResourceStatusRestResponse
 	)
 
 	localBasePath := "/ejbca/ejbca-rest-api"

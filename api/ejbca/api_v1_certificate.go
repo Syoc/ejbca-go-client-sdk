@@ -30,13 +30,12 @@ import (
 	"time"
 )
 
-
 // V1CertificateApiService V1CertificateApi service
 type V1CertificateApiService service
 
 type ApiCertificateRequestRequest struct {
-	ctx context.Context
-	ApiService *V1CertificateApiService
+	ctx                           context.Context
+	ApiService                    *V1CertificateApiService
 	certificateRequestRestRequest *CertificateRequestRestRequest
 }
 
@@ -54,24 +53,25 @@ CertificateRequest Enrollment with client generated keys for an existing End Ent
 
 Enroll for a certificate given a PEM encoded PKCS#10 CSR.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiCertificateRequestRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiCertificateRequestRequest
 */
 func (a *V1CertificateApiService) CertificateRequest(ctx context.Context) ApiCertificateRequestRequest {
 	return ApiCertificateRequestRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return CertificateRestResponse
+//
+//	@return CertificateRestResponse
 func (a *V1CertificateApiService) CertificateRequestExecute(r ApiCertificateRequestRequest) (*CertificateRestResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *CertificateRestResponse
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *CertificateRestResponse
 	)
 
 	localBasePath := "/ejbca/ejbca-rest-api"
@@ -139,8 +139,8 @@ func (a *V1CertificateApiService) CertificateRequestExecute(r ApiCertificateRequ
 }
 
 type ApiEnrollKeystoreRequest struct {
-	ctx context.Context
-	ApiService *V1CertificateApiService
+	ctx                 context.Context
+	ApiService          *V1CertificateApiService
 	keyStoreRestRequest *KeyStoreRestRequest
 }
 
@@ -158,24 +158,25 @@ EnrollKeystore Keystore enrollment
 
 Creates a keystore for the specified end entity
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiEnrollKeystoreRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiEnrollKeystoreRequest
 */
 func (a *V1CertificateApiService) EnrollKeystore(ctx context.Context) ApiEnrollKeystoreRequest {
 	return ApiEnrollKeystoreRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return CertificateRestResponse
+//
+//	@return CertificateRestResponse
 func (a *V1CertificateApiService) EnrollKeystoreExecute(r ApiEnrollKeystoreRequest) (*CertificateRestResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *CertificateRestResponse
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *CertificateRestResponse
 	)
 
 	localBasePath := "/ejbca/ejbca-rest-api"
@@ -243,8 +244,8 @@ func (a *V1CertificateApiService) EnrollKeystoreExecute(r ApiEnrollKeystoreReque
 }
 
 type ApiEnrollPkcs10CertificateRequest struct {
-	ctx context.Context
-	ApiService *V1CertificateApiService
+	ctx                          context.Context
+	ApiService                   *V1CertificateApiService
 	enrollCertificateRestRequest *EnrollCertificateRestRequest
 }
 
@@ -262,24 +263,25 @@ EnrollPkcs10Certificate Enrollment with client generated keys, using CSR subject
 
 Enroll for a certificate given a PEM encoded PKCS#10 CSR.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiEnrollPkcs10CertificateRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiEnrollPkcs10CertificateRequest
 */
 func (a *V1CertificateApiService) EnrollPkcs10Certificate(ctx context.Context) ApiEnrollPkcs10CertificateRequest {
 	return ApiEnrollPkcs10CertificateRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return CertificateRestResponse
+//
+//	@return CertificateRestResponse
 func (a *V1CertificateApiService) EnrollPkcs10CertificateExecute(r ApiEnrollPkcs10CertificateRequest) (*CertificateRestResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *CertificateRestResponse
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *CertificateRestResponse
 	)
 
 	localBasePath := "/ejbca/ejbca-rest-api"
@@ -347,9 +349,9 @@ func (a *V1CertificateApiService) EnrollPkcs10CertificateExecute(r ApiEnrollPkcs
 }
 
 type ApiFinalizeEnrollmentRequest struct {
-	ctx context.Context
-	ApiService *V1CertificateApiService
-	requestId int32
+	ctx                 context.Context
+	ApiService          *V1CertificateApiService
+	requestId           int32
 	finalizeRestRequest *FinalizeRestRequest
 }
 
@@ -368,26 +370,27 @@ FinalizeEnrollment Finalize enrollment
 
 Finalizes enrollment after administrator approval using request Id
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param requestId Approval request id
- @return ApiFinalizeEnrollmentRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param requestId Approval request id
+	@return ApiFinalizeEnrollmentRequest
 */
 func (a *V1CertificateApiService) FinalizeEnrollment(ctx context.Context, requestId int32) ApiFinalizeEnrollmentRequest {
 	return ApiFinalizeEnrollmentRequest{
 		ApiService: a,
-		ctx: ctx,
-		requestId: requestId,
+		ctx:        ctx,
+		requestId:  requestId,
 	}
 }
 
 // Execute executes the request
-//  @return CertificateRestResponse
+//
+//	@return CertificateRestResponse
 func (a *V1CertificateApiService) FinalizeEnrollmentExecute(r ApiFinalizeEnrollmentRequest) (*CertificateRestResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *CertificateRestResponse
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *CertificateRestResponse
 	)
 
 	localBasePath := "/ejbca/ejbca-rest-api"
@@ -456,10 +459,10 @@ func (a *V1CertificateApiService) FinalizeEnrollmentExecute(r ApiFinalizeEnrollm
 }
 
 type ApiGetCertificatesAboutToExpireRequest struct {
-	ctx context.Context
-	ApiService *V1CertificateApiService
-	days *int64
-	offset *int32
+	ctx                context.Context
+	ApiService         *V1CertificateApiService
+	days               *int64
+	offset             *int32
 	maxNumberOfResults *int32
 }
 
@@ -490,24 +493,25 @@ GetCertificatesAboutToExpire Get a list of certificates that are about to expire
 
 List of certificates expiring within specified number of days
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetCertificatesAboutToExpireRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetCertificatesAboutToExpireRequest
 */
 func (a *V1CertificateApiService) GetCertificatesAboutToExpire(ctx context.Context) ApiGetCertificatesAboutToExpireRequest {
 	return ApiGetCertificatesAboutToExpireRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return ExpiringCertificatesRestResponse
+//
+//	@return ExpiringCertificatesRestResponse
 func (a *V1CertificateApiService) GetCertificatesAboutToExpireExecute(r ApiGetCertificatesAboutToExpireRequest) (*ExpiringCertificatesRestResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *ExpiringCertificatesRestResponse
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ExpiringCertificatesRestResponse
 	)
 
 	localBasePath := "/ejbca/ejbca-rest-api"
@@ -582,9 +586,9 @@ func (a *V1CertificateApiService) GetCertificatesAboutToExpireExecute(r ApiGetCe
 }
 
 type ApiRevocationStatusRequest struct {
-	ctx context.Context
-	ApiService *V1CertificateApiService
-	issuerDn string
+	ctx                     context.Context
+	ApiService              *V1CertificateApiService
+	issuerDn                string
 	certificateSerialNumber string
 }
 
@@ -597,28 +601,29 @@ RevocationStatus Checks revocation status of the specified certificate
 
 Checks revocation status of the specified certificate
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param issuerDn Subject DN of the issuing CA
- @param certificateSerialNumber hex serial number (without prefix, e.g. '00')
- @return ApiRevocationStatusRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param issuerDn Subject DN of the issuing CA
+	@param certificateSerialNumber hex serial number (without prefix, e.g. '00')
+	@return ApiRevocationStatusRequest
 */
 func (a *V1CertificateApiService) RevocationStatus(ctx context.Context, issuerDn string, certificateSerialNumber string) ApiRevocationStatusRequest {
 	return ApiRevocationStatusRequest{
-		ApiService: a,
-		ctx: ctx,
-		issuerDn: issuerDn,
+		ApiService:              a,
+		ctx:                     ctx,
+		issuerDn:                issuerDn,
 		certificateSerialNumber: certificateSerialNumber,
 	}
 }
 
 // Execute executes the request
-//  @return RevokeStatusRestResponse
+//
+//	@return RevokeStatusRestResponse
 func (a *V1CertificateApiService) RevocationStatusExecute(r ApiRevocationStatusRequest) (*RevokeStatusRestResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *RevokeStatusRestResponse
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *RevokeStatusRestResponse
 	)
 
 	localBasePath := "/ejbca/ejbca-rest-api"
@@ -686,12 +691,12 @@ func (a *V1CertificateApiService) RevocationStatusExecute(r ApiRevocationStatusR
 }
 
 type ApiRevokeCertificateRequest struct {
-	ctx context.Context
-	ApiService *V1CertificateApiService
-	issuerDn string
+	ctx                     context.Context
+	ApiService              *V1CertificateApiService
+	issuerDn                string
 	certificateSerialNumber string
-	reason *string
-	date *time.Time
+	reason                  *string
+	date                    *time.Time
 }
 
 // Must be valid RFC5280 reason. One of  NOT_REVOKED, UNSPECIFIED ,KEY_COMPROMISE,  CA_COMPROMISE, AFFILIATION_CHANGED, SUPERSEDED, CESSATION_OF_OPERATION,  CERTIFICATE_HOLD, REMOVE_FROM_CRL, PRIVILEGES_WITHDRAWN, AA_COMPROMISE
@@ -715,28 +720,29 @@ RevokeCertificate Revokes the specified certificate
 
 Revokes the specified certificate
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param issuerDn Subject DN of the issuing CA
- @param certificateSerialNumber hex serial number (without prefix, e.g. '00')
- @return ApiRevokeCertificateRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param issuerDn Subject DN of the issuing CA
+	@param certificateSerialNumber hex serial number (without prefix, e.g. '00')
+	@return ApiRevokeCertificateRequest
 */
 func (a *V1CertificateApiService) RevokeCertificate(ctx context.Context, issuerDn string, certificateSerialNumber string) ApiRevokeCertificateRequest {
 	return ApiRevokeCertificateRequest{
-		ApiService: a,
-		ctx: ctx,
-		issuerDn: issuerDn,
+		ApiService:              a,
+		ctx:                     ctx,
+		issuerDn:                issuerDn,
 		certificateSerialNumber: certificateSerialNumber,
 	}
 }
 
 // Execute executes the request
-//  @return RevokeStatusRestResponse
+//
+//	@return RevokeStatusRestResponse
 func (a *V1CertificateApiService) RevokeCertificateExecute(r ApiRevokeCertificateRequest) (*RevokeStatusRestResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPut
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *RevokeStatusRestResponse
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *RevokeStatusRestResponse
 	)
 
 	localBasePath := "/ejbca/ejbca-rest-api"
@@ -810,8 +816,8 @@ func (a *V1CertificateApiService) RevokeCertificateExecute(r ApiRevokeCertificat
 }
 
 type ApiSearchCertificatesRequest struct {
-	ctx context.Context
-	ApiService *V1CertificateApiService
+	ctx                           context.Context
+	ApiService                    *V1CertificateApiService
 	searchCertificatesRestRequest *SearchCertificatesRestRequest
 }
 
@@ -830,24 +836,25 @@ SearchCertificates Searches for certificates confirming given criteria.
 
 Insert as many search criteria as needed. A reference about allowed values for criteria could be found below, under SearchCertificateCriteriaRestRequest model.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiSearchCertificatesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiSearchCertificatesRequest
 */
 func (a *V1CertificateApiService) SearchCertificates(ctx context.Context) ApiSearchCertificatesRequest {
 	return ApiSearchCertificatesRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return SearchCertificatesRestResponse
+//
+//	@return SearchCertificatesRestResponse
 func (a *V1CertificateApiService) SearchCertificatesExecute(r ApiSearchCertificatesRequest) (*SearchCertificatesRestResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *SearchCertificatesRestResponse
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *SearchCertificatesRestResponse
 	)
 
 	localBasePath := "/ejbca/ejbca-rest-api"
@@ -915,7 +922,7 @@ func (a *V1CertificateApiService) SearchCertificatesExecute(r ApiSearchCertifica
 }
 
 type ApiStatus2Request struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *V1CertificateApiService
 }
 
@@ -928,24 +935,25 @@ Status2 Get the status of this REST Resource
 
 Returns status, API version and EJBCA version.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiStatus2Request
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiStatus2Request
 */
 func (a *V1CertificateApiService) Status2(ctx context.Context) ApiStatus2Request {
 	return ApiStatus2Request{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return RestResourceStatusRestResponse
+//
+//	@return RestResourceStatusRestResponse
 func (a *V1CertificateApiService) Status2Execute(r ApiStatus2Request) (*RestResourceStatusRestResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *RestResourceStatusRestResponse
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *RestResourceStatusRestResponse
 	)
 
 	localBasePath := "/ejbca/ejbca-rest-api"

@@ -29,9 +29,9 @@ var _ MappedNullable = &ConfigdumpResults{}
 
 // ConfigdumpResults struct for ConfigdumpResults
 type ConfigdumpResults struct {
-	Success *bool `json:"success,omitempty"`
-	Errors []string `json:"errors,omitempty"`
-	Warnings []string `json:"warnings,omitempty"`
+	Success              *bool    `json:"success,omitempty"`
+	Errors               []string `json:"errors,omitempty"`
+	Warnings             []string `json:"warnings,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -151,7 +151,7 @@ func (o *ConfigdumpResults) SetWarnings(v []string) {
 }
 
 func (o ConfigdumpResults) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -231,5 +231,3 @@ func (v *NullableConfigdumpResults) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

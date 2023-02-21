@@ -29,14 +29,13 @@ import (
 	"strings"
 )
 
-
 // V1CaManagementApiService V1CaManagementApi service
 type V1CaManagementApiService service
 
 type ApiActivateRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *V1CaManagementApiService
-	caName string
+	caName     string
 }
 
 func (r ApiActivateRequest) Execute() (*http.Response, error) {
@@ -48,24 +47,24 @@ Activate Activate a CA
 
 Activates CA with given name
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param caName Name of the CA to activate
- @return ApiActivateRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param caName Name of the CA to activate
+	@return ApiActivateRequest
 */
 func (a *V1CaManagementApiService) Activate(ctx context.Context, caName string) ApiActivateRequest {
 	return ApiActivateRequest{
 		ApiService: a,
-		ctx: ctx,
-		caName: caName,
+		ctx:        ctx,
+		caName:     caName,
 	}
 }
 
 // Execute executes the request
 func (a *V1CaManagementApiService) ActivateExecute(r ApiActivateRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPut
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodPut
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath := "/ejbca/ejbca-rest-api"
@@ -123,9 +122,9 @@ func (a *V1CaManagementApiService) ActivateExecute(r ApiActivateRequest) (*http.
 }
 
 type ApiDeactivateRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *V1CaManagementApiService
-	caName string
+	caName     string
 }
 
 func (r ApiDeactivateRequest) Execute() (*http.Response, error) {
@@ -137,24 +136,24 @@ Deactivate Deactivate a CA
 
 Deactivates CA with given name
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param caName Name of the CA to deactivate
- @return ApiDeactivateRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param caName Name of the CA to deactivate
+	@return ApiDeactivateRequest
 */
 func (a *V1CaManagementApiService) Deactivate(ctx context.Context, caName string) ApiDeactivateRequest {
 	return ApiDeactivateRequest{
 		ApiService: a,
-		ctx: ctx,
-		caName: caName,
+		ctx:        ctx,
+		caName:     caName,
 	}
 }
 
 // Execute executes the request
 func (a *V1CaManagementApiService) DeactivateExecute(r ApiDeactivateRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPut
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodPut
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath := "/ejbca/ejbca-rest-api"
@@ -212,7 +211,7 @@ func (a *V1CaManagementApiService) DeactivateExecute(r ApiDeactivateRequest) (*h
 }
 
 type ApiStatusRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *V1CaManagementApiService
 }
 
@@ -225,24 +224,25 @@ Status Get the status of this REST Resource
 
 Returns status, API version and EJBCA version.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiStatusRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiStatusRequest
 */
 func (a *V1CaManagementApiService) Status(ctx context.Context) ApiStatusRequest {
 	return ApiStatusRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return RestResourceStatusRestResponse
+//
+//	@return RestResourceStatusRestResponse
 func (a *V1CaManagementApiService) StatusExecute(r ApiStatusRequest) (*RestResourceStatusRestResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *RestResourceStatusRestResponse
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *RestResourceStatusRestResponse
 	)
 
 	localBasePath := "/ejbca/ejbca-rest-api"

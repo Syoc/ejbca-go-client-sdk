@@ -11,10 +11,10 @@ package ejbca
 
 import (
 	"context"
+	openapiclient "github.com/Keyfactor/ejbca-go-client-sdk"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"testing"
-	openapiclient "github.com/Keyfactor/ejbca-go-client-sdk"
 )
 
 func Test_ejbca_V1CaApiService(t *testing.T) {
@@ -24,7 +24,7 @@ func Test_ejbca_V1CaApiService(t *testing.T) {
 
 	t.Run("Test V1CaApiService CreateCrl", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var issuerDn string
 
@@ -38,7 +38,7 @@ func Test_ejbca_V1CaApiService(t *testing.T) {
 
 	t.Run("Test V1CaApiService GetCertificateAsPem", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var subjectDn string
 
@@ -51,7 +51,7 @@ func Test_ejbca_V1CaApiService(t *testing.T) {
 
 	t.Run("Test V1CaApiService GetLatestCrl", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var issuerDn string
 
@@ -65,7 +65,7 @@ func Test_ejbca_V1CaApiService(t *testing.T) {
 
 	t.Run("Test V1CaApiService ImportCrl", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var issuerDn string
 
@@ -78,7 +78,7 @@ func Test_ejbca_V1CaApiService(t *testing.T) {
 
 	t.Run("Test V1CaApiService ListCas", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.V1CaApi.ListCas(context.Background()).Execute()
 
@@ -90,7 +90,7 @@ func Test_ejbca_V1CaApiService(t *testing.T) {
 
 	t.Run("Test V1CaApiService Status1", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.V1CaApi.Status1(context.Background()).Execute()
 

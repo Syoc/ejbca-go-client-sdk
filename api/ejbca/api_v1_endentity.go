@@ -29,13 +29,12 @@ import (
 	"strings"
 )
 
-
 // V1EndentityApiService V1EndentityApi service
 type V1EndentityApiService service
 
 type ApiAddRequest struct {
-	ctx context.Context
-	ApiService *V1EndentityApiService
+	ctx                     context.Context
+	ApiService              *V1EndentityApiService
 	addEndEntityRestRequest *AddEndEntityRestRequest
 }
 
@@ -54,22 +53,22 @@ Add Add new end entity, if it does not exist
 
 Register new end entity based on provided registration data
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiAddRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiAddRequest
 */
 func (a *V1EndentityApiService) Add(ctx context.Context) ApiAddRequest {
 	return ApiAddRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
 func (a *V1EndentityApiService) AddExecute(r ApiAddRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath := "/ejbca/ejbca-rest-api"
@@ -128,8 +127,8 @@ func (a *V1EndentityApiService) AddExecute(r ApiAddRequest) (*http.Response, err
 }
 
 type ApiDeleteRequest struct {
-	ctx context.Context
-	ApiService *V1EndentityApiService
+	ctx           context.Context
+	ApiService    *V1EndentityApiService
 	endentityName string
 }
 
@@ -142,14 +141,14 @@ Delete Deletes end entity
 
 Deletes specified end entity and keeps certificate information untouched, if end entity does not exist success is still returned
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param endentityName Name of the end entity
- @return ApiDeleteRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param endentityName Name of the end entity
+	@return ApiDeleteRequest
 */
 func (a *V1EndentityApiService) Delete(ctx context.Context, endentityName string) ApiDeleteRequest {
 	return ApiDeleteRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:    a,
+		ctx:           ctx,
 		endentityName: endentityName,
 	}
 }
@@ -157,9 +156,9 @@ func (a *V1EndentityApiService) Delete(ctx context.Context, endentityName string
 // Execute executes the request
 func (a *V1EndentityApiService) DeleteExecute(r ApiDeleteRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodDelete
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath := "/ejbca/ejbca-rest-api"
@@ -217,9 +216,9 @@ func (a *V1EndentityApiService) DeleteExecute(r ApiDeleteRequest) (*http.Respons
 }
 
 type ApiRevokeRequest struct {
-	ctx context.Context
-	ApiService *V1EndentityApiService
-	endentityName string
+	ctx                            context.Context
+	ApiService                     *V1EndentityApiService
+	endentityName                  string
 	endEntityRevocationRestRequest *EndEntityRevocationRestRequest
 }
 
@@ -238,14 +237,14 @@ Revoke Revokes all end entity certificates
 
 Revokes all certificates associated with given end entity name with specified reason code (see RFC 5280 Section 5.3.1), and optionally deletes the end entity
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param endentityName Name of the end entity
- @return ApiRevokeRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param endentityName Name of the end entity
+	@return ApiRevokeRequest
 */
 func (a *V1EndentityApiService) Revoke(ctx context.Context, endentityName string) ApiRevokeRequest {
 	return ApiRevokeRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:    a,
+		ctx:           ctx,
 		endentityName: endentityName,
 	}
 }
@@ -253,9 +252,9 @@ func (a *V1EndentityApiService) Revoke(ctx context.Context, endentityName string
 // Execute executes the request
 func (a *V1EndentityApiService) RevokeExecute(r ApiRevokeRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPut
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodPut
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath := "/ejbca/ejbca-rest-api"
@@ -315,8 +314,8 @@ func (a *V1EndentityApiService) RevokeExecute(r ApiRevokeRequest) (*http.Respons
 }
 
 type ApiSearchRequest struct {
-	ctx context.Context
-	ApiService *V1EndentityApiService
+	ctx                          context.Context
+	ApiService                   *V1EndentityApiService
 	searchEndEntitiesRestRequest *SearchEndEntitiesRestRequest
 }
 
@@ -335,24 +334,25 @@ Search Searches for end entity confirming given criteria.
 
 Insert as many search criteria as needed. A reference about allowed values for criteria could be found below, under SearchEndEntityCriteriaRestRequest model.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiSearchRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiSearchRequest
 */
 func (a *V1EndentityApiService) Search(ctx context.Context) ApiSearchRequest {
 	return ApiSearchRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return SearchEndEntitiesRestResponse
+//
+//	@return SearchEndEntitiesRestResponse
 func (a *V1EndentityApiService) SearchExecute(r ApiSearchRequest) (*SearchEndEntitiesRestResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *SearchEndEntitiesRestResponse
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *SearchEndEntitiesRestResponse
 	)
 
 	localBasePath := "/ejbca/ejbca-rest-api"
@@ -420,9 +420,9 @@ func (a *V1EndentityApiService) SearchExecute(r ApiSearchRequest) (*SearchEndEnt
 }
 
 type ApiSetstatusRequest struct {
-	ctx context.Context
-	ApiService *V1EndentityApiService
-	endentityName string
+	ctx                           context.Context
+	ApiService                    *V1EndentityApiService
+	endentityName                 string
 	setEndEntityStatusRestRequest *SetEndEntityStatusRestRequest
 }
 
@@ -441,14 +441,14 @@ Setstatus Edits end entity setting new status
 
 Edit status, password and token type of related end entity
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param endentityName Name of the end entity to edit status for
- @return ApiSetstatusRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param endentityName Name of the end entity to edit status for
+	@return ApiSetstatusRequest
 */
 func (a *V1EndentityApiService) Setstatus(ctx context.Context, endentityName string) ApiSetstatusRequest {
 	return ApiSetstatusRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:    a,
+		ctx:           ctx,
 		endentityName: endentityName,
 	}
 }
@@ -456,9 +456,9 @@ func (a *V1EndentityApiService) Setstatus(ctx context.Context, endentityName str
 // Execute executes the request
 func (a *V1EndentityApiService) SetstatusExecute(r ApiSetstatusRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath := "/ejbca/ejbca-rest-api"
@@ -518,7 +518,7 @@ func (a *V1EndentityApiService) SetstatusExecute(r ApiSetstatusRequest) (*http.R
 }
 
 type ApiStatus6Request struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *V1EndentityApiService
 }
 
@@ -531,24 +531,25 @@ Status6 Get the status of this REST Resource
 
 Returns status, API version and EJBCA version.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiStatus6Request
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiStatus6Request
 */
 func (a *V1EndentityApiService) Status6(ctx context.Context) ApiStatus6Request {
 	return ApiStatus6Request{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return RestResourceStatusRestResponse
+//
+//	@return RestResourceStatusRestResponse
 func (a *V1EndentityApiService) Status6Execute(r ApiStatus6Request) (*RestResourceStatusRestResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *RestResourceStatusRestResponse
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *RestResourceStatusRestResponse
 	)
 
 	localBasePath := "/ejbca/ejbca-rest-api"

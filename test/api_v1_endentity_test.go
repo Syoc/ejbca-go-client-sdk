@@ -11,10 +11,10 @@ package ejbca
 
 import (
 	"context"
+	openapiclient "github.com/Keyfactor/ejbca-go-client-sdk"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"testing"
-	openapiclient "github.com/Keyfactor/ejbca-go-client-sdk"
 )
 
 func Test_ejbca_V1EndentityApiService(t *testing.T) {
@@ -24,7 +24,7 @@ func Test_ejbca_V1EndentityApiService(t *testing.T) {
 
 	t.Run("Test V1EndentityApiService Add", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		httpRes, err := apiClient.V1EndentityApi.Add(context.Background()).Execute()
 
@@ -35,7 +35,7 @@ func Test_ejbca_V1EndentityApiService(t *testing.T) {
 
 	t.Run("Test V1EndentityApiService Delete", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var endentityName string
 
@@ -48,7 +48,7 @@ func Test_ejbca_V1EndentityApiService(t *testing.T) {
 
 	t.Run("Test V1EndentityApiService Revoke", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var endentityName string
 
@@ -61,7 +61,7 @@ func Test_ejbca_V1EndentityApiService(t *testing.T) {
 
 	t.Run("Test V1EndentityApiService Search", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.V1EndentityApi.Search(context.Background()).Execute()
 
@@ -73,7 +73,7 @@ func Test_ejbca_V1EndentityApiService(t *testing.T) {
 
 	t.Run("Test V1EndentityApiService Setstatus", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var endentityName string
 
@@ -86,7 +86,7 @@ func Test_ejbca_V1EndentityApiService(t *testing.T) {
 
 	t.Run("Test V1EndentityApiService Status6", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.V1EndentityApi.Status6(context.Background()).Execute()
 

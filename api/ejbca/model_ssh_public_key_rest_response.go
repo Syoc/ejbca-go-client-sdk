@@ -32,7 +32,7 @@ type SshPublicKeyRestResponse struct {
 	// Certificate Authority (CA) name
 	CaName *string `json:"ca_name,omitempty"`
 	// CA’s public key
-	Response *string `json:"response,omitempty"`
+	Response             *string `json:"response,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -120,7 +120,7 @@ func (o *SshPublicKeyRestResponse) SetResponse(v string) {
 }
 
 func (o SshPublicKeyRestResponse) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -196,5 +196,3 @@ func (v *NullableSshPublicKeyRestResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

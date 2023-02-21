@@ -34,11 +34,11 @@ type CreateCrlRestResponse struct {
 	// Latest base CRL version
 	LatestCrlVersion *int32 `json:"latest_crl_version,omitempty"`
 	// Latest delta CRL version
-	LatestDeltaCrlVersion *int32 `json:"latest_delta_crl_version,omitempty"`
-	LatestPartitionCrlVersions *map[string]int32 `json:"latest_partition_crl_versions,omitempty"`
+	LatestDeltaCrlVersion           *int32            `json:"latest_delta_crl_version,omitempty"`
+	LatestPartitionCrlVersions      *map[string]int32 `json:"latest_partition_crl_versions,omitempty"`
 	LatestPartitionDeltaCrlVersions *map[string]int32 `json:"latest_partition_delta_crl_versions,omitempty"`
-	AllSuccess *bool `json:"all_success,omitempty"`
-	AdditionalProperties map[string]interface{}
+	AllSuccess                      *bool             `json:"all_success,omitempty"`
+	AdditionalProperties            map[string]interface{}
 }
 
 type _CreateCrlRestResponse CreateCrlRestResponse
@@ -253,7 +253,7 @@ func (o *CreateCrlRestResponse) SetAllSuccess(v bool) {
 }
 
 func (o CreateCrlRestResponse) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -345,5 +345,3 @@ func (v *NullableCreateCrlRestResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

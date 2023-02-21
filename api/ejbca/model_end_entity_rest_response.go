@@ -42,7 +42,7 @@ type EndEntityRestResponse struct {
 	// Token type
 	Token *string `json:"token,omitempty"`
 	// Extended Information
-	ExtensionData []ExtendedInformationRestResponseComponent `json:"extension_data,omitempty"`
+	ExtensionData        []ExtendedInformationRestResponseComponent `json:"extension_data,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -290,7 +290,7 @@ func (o *EndEntityRestResponse) SetExtensionData(v []ExtendedInformationRestResp
 }
 
 func (o EndEntityRestResponse) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -386,5 +386,3 @@ func (v *NullableEndEntityRestResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

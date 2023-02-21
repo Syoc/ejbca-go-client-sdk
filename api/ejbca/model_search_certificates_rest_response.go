@@ -29,8 +29,8 @@ var _ MappedNullable = &SearchCertificatesRestResponse{}
 
 // SearchCertificatesRestResponse struct for SearchCertificatesRestResponse
 type SearchCertificatesRestResponse struct {
-	Certificates []CertificateRestResponse `json:"certificates,omitempty"`
-	MoreResults *bool `json:"more_results,omitempty"`
+	Certificates         []CertificateRestResponse `json:"certificates,omitempty"`
+	MoreResults          *bool                     `json:"more_results,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -118,7 +118,7 @@ func (o *SearchCertificatesRestResponse) SetMoreResults(v bool) {
 }
 
 func (o SearchCertificatesRestResponse) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -194,5 +194,3 @@ func (v *NullableSearchCertificatesRestResponse) UnmarshalJSON(src []byte) error
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

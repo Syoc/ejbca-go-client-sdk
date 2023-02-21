@@ -29,8 +29,8 @@ var _ MappedNullable = &SearchCertificatesRestResponseV2{}
 
 // SearchCertificatesRestResponseV2 struct for SearchCertificatesRestResponseV2
 type SearchCertificatesRestResponseV2 struct {
-	Certificates []CertificateRestResponseV2 `json:"certificates,omitempty"`
-	PaginationSummary *PaginationSummary `json:"pagination_summary,omitempty"`
+	Certificates         []CertificateRestResponseV2 `json:"certificates,omitempty"`
+	PaginationSummary    *PaginationSummary          `json:"pagination_summary,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -118,7 +118,7 @@ func (o *SearchCertificatesRestResponseV2) SetPaginationSummary(v PaginationSumm
 }
 
 func (o SearchCertificatesRestResponseV2) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -194,5 +194,3 @@ func (v *NullableSearchCertificatesRestResponseV2) UnmarshalJSON(src []byte) err
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

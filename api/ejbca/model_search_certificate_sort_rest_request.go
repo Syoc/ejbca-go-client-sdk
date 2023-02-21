@@ -27,12 +27,12 @@ import (
 // checks if the SearchCertificateSortRestRequest type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &SearchCertificateSortRestRequest{}
 
-// SearchCertificateSortRestRequest Use one of allowed values as property and operation. Available propertiesUSERNAME  ISSUER_DN  SUBJECT_DN  EXTERNAL_ACCOUNT_BINDING_ID  END_ENTITY_PROFILE  CERTIFICATE_PROFILE  STATUS  TAG  TYPE  UPDATE_TIME  ISSUED_DATE  EXPIRE_DATE  REVOCATION_DATE   Available operationsASC  DESC  
+// SearchCertificateSortRestRequest Use one of allowed values as property and operation. Available propertiesUSERNAME  ISSUER_DN  SUBJECT_DN  EXTERNAL_ACCOUNT_BINDING_ID  END_ENTITY_PROFILE  CERTIFICATE_PROFILE  STATUS  TAG  TYPE  UPDATE_TIME  ISSUED_DATE  EXPIRE_DATE  REVOCATION_DATE   Available operationsASC  DESC
 type SearchCertificateSortRestRequest struct {
 	// Sorted by
 	Property *string `json:"property,omitempty"`
 	// Sort ascending or descending. 'ASC' for ascending, 'DESC' for descending.
-	Operation *string `json:"operation,omitempty"`
+	Operation            *string `json:"operation,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -120,7 +120,7 @@ func (o *SearchCertificateSortRestRequest) SetOperation(v string) {
 }
 
 func (o SearchCertificateSortRestRequest) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -196,5 +196,3 @@ func (v *NullableSearchCertificateSortRestRequest) UnmarshalJSON(src []byte) err
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

@@ -40,7 +40,6 @@ func (c contextKey) String() string {
 var (
 	// ContextAccessToken takes a string oauth2 access token as authentication for the request.
 	ContextAccessToken = contextKey("accesstoken")
-
 )
 
 // BasicAuth provides basic http authentication to a request passed via context using ContextBasicAuth
@@ -54,7 +53,6 @@ type APIKey struct {
 	Key    string
 	Prefix string
 }
-
 
 // Configuration stores the configuration of the API client
 type Configuration struct {
@@ -70,14 +68,14 @@ type Configuration struct {
 // NewConfiguration returns a new Configuration object
 func NewConfiguration() *Configuration {
 	cfg := &Configuration{
-		DefaultHeader:    make(map[string]string),
-		UserAgent:        "OpenAPI-Generator/1.0.0/go",
-		Debug:            false,
+		DefaultHeader: make(map[string]string),
+		UserAgent:     "OpenAPI-Generator/1.0.0/go",
+		Debug:         false,
 	}
 
 	// Get hostname from environment variable
 	hostname := os.Getenv("EJBCA_HOSTNAME")
-	if (hostname != "") {
+	if hostname != "" {
 		if u, err := url.Parse(hostname); err == nil {
 			cfg.Host = u.Host
 		} else {
@@ -87,13 +85,13 @@ func NewConfiguration() *Configuration {
 
 	// Get client certificate path from environment variable
 	clientCertPath := os.Getenv("EJBCA_CLIENT_CERT_PATH")
-	if (clientCertPath != "") {
+	if clientCertPath != "" {
 		cfg.ClientCertificatePath = clientCertPath
 	}
 
 	// Get client certificate key path from environment variable
 	clientCertKeyPath := os.Getenv("EJBCA_CLIENT_CERT_KEY_PATH")
-	if (clientCertKeyPath != "") {
+	if clientCertKeyPath != "" {
 		cfg.ClientCertificateKeyPath = clientCertKeyPath
 	}
 

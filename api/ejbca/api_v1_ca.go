@@ -26,19 +26,18 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"strings"
 	"os"
+	"strings"
 )
-
 
 // V1CaApiService V1CaApi service
 type V1CaApiService service
 
 type ApiCreateCrlRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *V1CaApiService
-	issuerDn string
-	deltacrl *bool
+	issuerDn   string
+	deltacrl   *bool
 }
 
 // true to also create the deltaCRL, false to only create the base CRL
@@ -54,28 +53,27 @@ func (r ApiCreateCrlRequest) Execute() (*CreateCrlRestResponse, *http.Response, 
 /*
 CreateCrl Create CRL(main, partition and delta) issued by this CA
 
-
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param issuerDn the CRL issuers DN (CAs subject DN)
- @return ApiCreateCrlRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param issuerDn the CRL issuers DN (CAs subject DN)
+	@return ApiCreateCrlRequest
 */
 func (a *V1CaApiService) CreateCrl(ctx context.Context, issuerDn string) ApiCreateCrlRequest {
 	return ApiCreateCrlRequest{
 		ApiService: a,
-		ctx: ctx,
-		issuerDn: issuerDn,
+		ctx:        ctx,
+		issuerDn:   issuerDn,
 	}
 }
 
 // Execute executes the request
-//  @return CreateCrlRestResponse
+//
+//	@return CreateCrlRestResponse
 func (a *V1CaApiService) CreateCrlExecute(r ApiCreateCrlRequest) (*CreateCrlRestResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *CreateCrlRestResponse
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *CreateCrlRestResponse
 	)
 
 	localBasePath := "/ejbca/ejbca-rest-api"
@@ -145,9 +143,9 @@ func (a *V1CaApiService) CreateCrlExecute(r ApiCreateCrlRequest) (*CreateCrlRest
 }
 
 type ApiGetCertificateAsPemRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *V1CaApiService
-	subjectDn string
+	subjectDn  string
 }
 
 func (r ApiGetCertificateAsPemRequest) Execute() (*http.Response, error) {
@@ -157,26 +155,24 @@ func (r ApiGetCertificateAsPemRequest) Execute() (*http.Response, error) {
 /*
 GetCertificateAsPem Get PEM file with the active CA certificate chain
 
-
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param subjectDn CAs subject DN
- @return ApiGetCertificateAsPemRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param subjectDn CAs subject DN
+	@return ApiGetCertificateAsPemRequest
 */
 func (a *V1CaApiService) GetCertificateAsPem(ctx context.Context, subjectDn string) ApiGetCertificateAsPemRequest {
 	return ApiGetCertificateAsPemRequest{
 		ApiService: a,
-		ctx: ctx,
-		subjectDn: subjectDn,
+		ctx:        ctx,
+		subjectDn:  subjectDn,
 	}
 }
 
 // Execute executes the request
 func (a *V1CaApiService) GetCertificateAsPemExecute(r ApiGetCertificateAsPemRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath := "/ejbca/ejbca-rest-api"
@@ -234,10 +230,10 @@ func (a *V1CaApiService) GetCertificateAsPemExecute(r ApiGetCertificateAsPemRequ
 }
 
 type ApiGetLatestCrlRequest struct {
-	ctx context.Context
-	ApiService *V1CaApiService
-	issuerDn string
-	deltaCrl *bool
+	ctx               context.Context
+	ApiService        *V1CaApiService
+	issuerDn          string
+	deltaCrl          *bool
 	crlPartitionIndex *int32
 }
 
@@ -260,28 +256,27 @@ func (r ApiGetLatestCrlRequest) Execute() (*CrlRestResponse, *http.Response, err
 /*
 GetLatestCrl Returns the latest CRL issued by this CA
 
-
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param issuerDn the CRL issuers DN (CAs subject DN)
- @return ApiGetLatestCrlRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param issuerDn the CRL issuers DN (CAs subject DN)
+	@return ApiGetLatestCrlRequest
 */
 func (a *V1CaApiService) GetLatestCrl(ctx context.Context, issuerDn string) ApiGetLatestCrlRequest {
 	return ApiGetLatestCrlRequest{
 		ApiService: a,
-		ctx: ctx,
-		issuerDn: issuerDn,
+		ctx:        ctx,
+		issuerDn:   issuerDn,
 	}
 }
 
 // Execute executes the request
-//  @return CrlRestResponse
+//
+//	@return CrlRestResponse
 func (a *V1CaApiService) GetLatestCrlExecute(r ApiGetLatestCrlRequest) (*CrlRestResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *CrlRestResponse
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *CrlRestResponse
 	)
 
 	localBasePath := "/ejbca/ejbca-rest-api"
@@ -354,10 +349,10 @@ func (a *V1CaApiService) GetLatestCrlExecute(r ApiGetLatestCrlRequest) (*CrlRest
 }
 
 type ApiImportCrlRequest struct {
-	ctx context.Context
-	ApiService *V1CaApiService
-	issuerDn string
-	crlFile *os.File
+	ctx               context.Context
+	ApiService        *V1CaApiService
+	issuerDn          string
+	crlFile           *os.File
 	crlPartitionIndex *int32
 }
 
@@ -380,26 +375,24 @@ func (r ApiImportCrlRequest) Execute() (*http.Response, error) {
 /*
 ImportCrl Import a certificate revocation list (CRL) for a CA
 
-
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param issuerDn the CRL issuers DN (CAs subject DN)
- @return ApiImportCrlRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param issuerDn the CRL issuers DN (CAs subject DN)
+	@return ApiImportCrlRequest
 */
 func (a *V1CaApiService) ImportCrl(ctx context.Context, issuerDn string) ApiImportCrlRequest {
 	return ApiImportCrlRequest{
 		ApiService: a,
-		ctx: ctx,
-		issuerDn: issuerDn,
+		ctx:        ctx,
+		issuerDn:   issuerDn,
 	}
 }
 
 // Execute executes the request
 func (a *V1CaApiService) ImportCrlExecute(r ApiImportCrlRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath := "/ejbca/ejbca-rest-api"
@@ -429,11 +422,10 @@ func (a *V1CaApiService) ImportCrlExecute(r ApiImportCrlRequest) (*http.Response
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	var crlFileLocalVarFormFileName string
-	var crlFileLocalVarFileName     string
-	var crlFileLocalVarFileBytes    []byte
+	var crlFileLocalVarFileName string
+	var crlFileLocalVarFileBytes []byte
 
 	crlFileLocalVarFormFileName = "crlFile"
-
 
 	crlFileLocalVarFile := r.crlFile
 
@@ -477,7 +469,7 @@ func (a *V1CaApiService) ImportCrlExecute(r ApiImportCrlRequest) (*http.Response
 }
 
 type ApiListCasRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *V1CaApiService
 }
 
@@ -490,24 +482,25 @@ ListCas Returns the Response containing the list of CAs with general information
 
 Returns the Response containing the list of CAs with general information per CA as Json
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiListCasRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiListCasRequest
 */
 func (a *V1CaApiService) ListCas(ctx context.Context) ApiListCasRequest {
 	return ApiListCasRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return CaInfosRestResponse
+//
+//	@return CaInfosRestResponse
 func (a *V1CaApiService) ListCasExecute(r ApiListCasRequest) (*CaInfosRestResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *CaInfosRestResponse
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *CaInfosRestResponse
 	)
 
 	localBasePath := "/ejbca/ejbca-rest-api"
@@ -573,7 +566,7 @@ func (a *V1CaApiService) ListCasExecute(r ApiListCasRequest) (*CaInfosRestRespon
 }
 
 type ApiStatus1Request struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *V1CaApiService
 }
 
@@ -586,24 +579,25 @@ Status1 Get the status of this REST Resource
 
 Returns status, API version and EJBCA version.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiStatus1Request
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiStatus1Request
 */
 func (a *V1CaApiService) Status1(ctx context.Context) ApiStatus1Request {
 	return ApiStatus1Request{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return RestResourceStatusRestResponse
+//
+//	@return RestResourceStatusRestResponse
 func (a *V1CaApiService) Status1Execute(r ApiStatus1Request) (*RestResourceStatusRestResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *RestResourceStatusRestResponse
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *RestResourceStatusRestResponse
 	)
 
 	localBasePath := "/ejbca/ejbca-rest-api"

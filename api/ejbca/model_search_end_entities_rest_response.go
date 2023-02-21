@@ -29,8 +29,8 @@ var _ MappedNullable = &SearchEndEntitiesRestResponse{}
 
 // SearchEndEntitiesRestResponse struct for SearchEndEntitiesRestResponse
 type SearchEndEntitiesRestResponse struct {
-	EndEntities []EndEntityRestResponse `json:"end_entities,omitempty"`
-	MoreResults *bool `json:"more_results,omitempty"`
+	EndEntities          []EndEntityRestResponse `json:"end_entities,omitempty"`
+	MoreResults          *bool                   `json:"more_results,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -118,7 +118,7 @@ func (o *SearchEndEntitiesRestResponse) SetMoreResults(v bool) {
 }
 
 func (o SearchEndEntitiesRestResponse) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -194,5 +194,3 @@ func (v *NullableSearchEndEntitiesRestResponse) UnmarshalJSON(src []byte) error 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

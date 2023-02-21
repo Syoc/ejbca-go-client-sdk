@@ -34,8 +34,8 @@ type SearchEndEntitiesRestRequestV2 struct {
 	// Current page number
 	CurrentPage *int32 `json:"current_page,omitempty"`
 	// A List of search criteria.
-	Criteria []SearchEndEntityCriteriaRestRequest `json:"criteria,omitempty"`
-	SortOperation *SearchEndEntitiesSortRestRequest `json:"sort_operation,omitempty"`
+	Criteria             []SearchEndEntityCriteriaRestRequest `json:"criteria,omitempty"`
+	SortOperation        *SearchEndEntitiesSortRestRequest    `json:"sort_operation,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -187,7 +187,7 @@ func (o *SearchEndEntitiesRestRequestV2) SetSortOperation(v SearchEndEntitiesSor
 }
 
 func (o SearchEndEntitiesRestRequestV2) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -271,5 +271,3 @@ func (v *NullableSearchEndEntitiesRestRequestV2) UnmarshalJSON(src []byte) error
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

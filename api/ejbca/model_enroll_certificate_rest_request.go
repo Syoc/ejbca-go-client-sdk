@@ -43,9 +43,9 @@ type EnrollCertificateRestRequest struct {
 	Password *string `json:"password,omitempty"`
 	// Account Binding ID
 	AccountBindingId *string `json:"account_binding_id,omitempty"`
-	IncludeChain *bool `json:"include_chain,omitempty"`
+	IncludeChain     *bool   `json:"include_chain,omitempty"`
 	// Email
-	Email *string `json:"email,omitempty"`
+	Email                *string `json:"email,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -357,7 +357,7 @@ func (o *EnrollCertificateRestRequest) SetEmail(v string) {
 }
 
 func (o EnrollCertificateRestRequest) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -461,5 +461,3 @@ func (v *NullableEnrollCertificateRestRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

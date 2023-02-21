@@ -11,10 +11,10 @@ package ejbca
 
 import (
 	"context"
+	openapiclient "github.com/Keyfactor/ejbca-go-client-sdk"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"testing"
-	openapiclient "github.com/Keyfactor/ejbca-go-client-sdk"
 )
 
 func Test_ejbca_V1ConfigdumpApiService(t *testing.T) {
@@ -24,7 +24,7 @@ func Test_ejbca_V1ConfigdumpApiService(t *testing.T) {
 
 	t.Run("Test V1ConfigdumpApiService GetJsonConfigdump", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.V1ConfigdumpApi.GetJsonConfigdump(context.Background()).Execute()
 
@@ -36,7 +36,7 @@ func Test_ejbca_V1ConfigdumpApiService(t *testing.T) {
 
 	t.Run("Test V1ConfigdumpApiService GetJsonConfigdumpForType", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var type_ string
 
@@ -50,7 +50,7 @@ func Test_ejbca_V1ConfigdumpApiService(t *testing.T) {
 
 	t.Run("Test V1ConfigdumpApiService GetJsonConfigdumpForTypeAndSetting", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var type_ string
 		var setting string
@@ -65,7 +65,7 @@ func Test_ejbca_V1ConfigdumpApiService(t *testing.T) {
 
 	t.Run("Test V1ConfigdumpApiService GetZipExport", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.V1ConfigdumpApi.GetZipExport(context.Background()).Execute()
 
@@ -77,7 +77,7 @@ func Test_ejbca_V1ConfigdumpApiService(t *testing.T) {
 
 	t.Run("Test V1ConfigdumpApiService PostJsonImport", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.V1ConfigdumpApi.PostJsonImport(context.Background()).Execute()
 
@@ -89,7 +89,7 @@ func Test_ejbca_V1ConfigdumpApiService(t *testing.T) {
 
 	t.Run("Test V1ConfigdumpApiService PostZipImport", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.V1ConfigdumpApi.PostZipImport(context.Background()).Execute()
 
@@ -101,7 +101,7 @@ func Test_ejbca_V1ConfigdumpApiService(t *testing.T) {
 
 	t.Run("Test V1ConfigdumpApiService Status4", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.V1ConfigdumpApi.Status4(context.Background()).Execute()
 

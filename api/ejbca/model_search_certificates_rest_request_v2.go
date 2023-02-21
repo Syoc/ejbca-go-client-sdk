@@ -29,10 +29,10 @@ var _ MappedNullable = &SearchCertificatesRestRequestV2{}
 
 // SearchCertificatesRestRequestV2 struct for SearchCertificatesRestRequestV2
 type SearchCertificatesRestRequestV2 struct {
-	Pagination *Pagination `json:"pagination,omitempty"`
-	Sort *SearchCertificateSortRestRequest `json:"sort,omitempty"`
+	Pagination *Pagination                       `json:"pagination,omitempty"`
+	Sort       *SearchCertificateSortRestRequest `json:"sort,omitempty"`
 	// A List of search criteria.
-	Criteria []SearchCertificateCriteriaRestRequest `json:"criteria,omitempty"`
+	Criteria             []SearchCertificateCriteriaRestRequest `json:"criteria,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -152,7 +152,7 @@ func (o *SearchCertificatesRestRequestV2) SetCriteria(v []SearchCertificateCrite
 }
 
 func (o SearchCertificatesRestRequestV2) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -232,5 +232,3 @@ func (v *NullableSearchCertificatesRestRequestV2) UnmarshalJSON(src []byte) erro
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

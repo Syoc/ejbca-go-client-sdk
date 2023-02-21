@@ -29,14 +29,13 @@ import (
 	"strings"
 )
 
-
 // V1CryptotokenApiService V1CryptotokenApi service
 type V1CryptotokenApiService service
 
 type ApiActivate1Request struct {
-	ctx context.Context
-	ApiService *V1CryptotokenApiService
-	cryptotokenName string
+	ctx                              context.Context
+	ApiService                       *V1CryptotokenApiService
+	cryptotokenName                  string
 	cryptoTokenActivationRestRequest *CryptoTokenActivationRestRequest
 }
 
@@ -55,14 +54,14 @@ Activate1 Activate a Crypto Token
 
 Activates Crypto Token given name and activation code
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param cryptotokenName Name of the token to activate
- @return ApiActivate1Request
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param cryptotokenName Name of the token to activate
+	@return ApiActivate1Request
 */
 func (a *V1CryptotokenApiService) Activate1(ctx context.Context, cryptotokenName string) ApiActivate1Request {
 	return ApiActivate1Request{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:      a,
+		ctx:             ctx,
 		cryptotokenName: cryptotokenName,
 	}
 }
@@ -70,9 +69,9 @@ func (a *V1CryptotokenApiService) Activate1(ctx context.Context, cryptotokenName
 // Execute executes the request
 func (a *V1CryptotokenApiService) Activate1Execute(r ApiActivate1Request) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPut
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodPut
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath := "/ejbca/ejbca-rest-api"
@@ -132,8 +131,8 @@ func (a *V1CryptotokenApiService) Activate1Execute(r ApiActivate1Request) (*http
 }
 
 type ApiDeactivate1Request struct {
-	ctx context.Context
-	ApiService *V1CryptotokenApiService
+	ctx             context.Context
+	ApiService      *V1CryptotokenApiService
 	cryptotokenName string
 }
 
@@ -146,14 +145,14 @@ Deactivate1 Deactivate a Crypto Token
 
 Deactivates Crypto Token given name
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param cryptotokenName Name of the token to deactivate
- @return ApiDeactivate1Request
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param cryptotokenName Name of the token to deactivate
+	@return ApiDeactivate1Request
 */
 func (a *V1CryptotokenApiService) Deactivate1(ctx context.Context, cryptotokenName string) ApiDeactivate1Request {
 	return ApiDeactivate1Request{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:      a,
+		ctx:             ctx,
 		cryptotokenName: cryptotokenName,
 	}
 }
@@ -161,9 +160,9 @@ func (a *V1CryptotokenApiService) Deactivate1(ctx context.Context, cryptotokenNa
 // Execute executes the request
 func (a *V1CryptotokenApiService) Deactivate1Execute(r ApiDeactivate1Request) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPut
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodPut
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath := "/ejbca/ejbca-rest-api"
@@ -221,9 +220,9 @@ func (a *V1CryptotokenApiService) Deactivate1Execute(r ApiDeactivate1Request) (*
 }
 
 type ApiGenerateKeysRequest struct {
-	ctx context.Context
-	ApiService *V1CryptotokenApiService
-	cryptotokenName string
+	ctx                                 context.Context
+	ApiService                          *V1CryptotokenApiService
+	cryptotokenName                     string
 	cryptoTokenKeyGenerationRestRequest *CryptoTokenKeyGenerationRestRequest
 }
 
@@ -241,14 +240,14 @@ GenerateKeys Generate keys
 
 Generates a key pair given crypto token name, key pair alias, key algorithm and key specification
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param cryptotokenName Name of the token to generate keys for
- @return ApiGenerateKeysRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param cryptotokenName Name of the token to generate keys for
+	@return ApiGenerateKeysRequest
 */
 func (a *V1CryptotokenApiService) GenerateKeys(ctx context.Context, cryptotokenName string) ApiGenerateKeysRequest {
 	return ApiGenerateKeysRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:      a,
+		ctx:             ctx,
 		cryptotokenName: cryptotokenName,
 	}
 }
@@ -256,9 +255,9 @@ func (a *V1CryptotokenApiService) GenerateKeys(ctx context.Context, cryptotokenN
 // Execute executes the request
 func (a *V1CryptotokenApiService) GenerateKeysExecute(r ApiGenerateKeysRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath := "/ejbca/ejbca-rest-api"
@@ -318,10 +317,10 @@ func (a *V1CryptotokenApiService) GenerateKeysExecute(r ApiGenerateKeysRequest) 
 }
 
 type ApiRemoveKeysRequest struct {
-	ctx context.Context
-	ApiService *V1CryptotokenApiService
+	ctx             context.Context
+	ApiService      *V1CryptotokenApiService
 	cryptotokenName string
-	keyPairAlias string
+	keyPairAlias    string
 }
 
 func (r ApiRemoveKeysRequest) Execute() (*http.Response, error) {
@@ -333,26 +332,26 @@ RemoveKeys Remove keys
 
 Remove a key pair given crypto token name and key pair alias to be removed.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param cryptotokenName Name of the token to remove keys for.
- @param keyPairAlias Alias for the key to be removed from the crypto token.
- @return ApiRemoveKeysRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param cryptotokenName Name of the token to remove keys for.
+	@param keyPairAlias Alias for the key to be removed from the crypto token.
+	@return ApiRemoveKeysRequest
 */
 func (a *V1CryptotokenApiService) RemoveKeys(ctx context.Context, cryptotokenName string, keyPairAlias string) ApiRemoveKeysRequest {
 	return ApiRemoveKeysRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:      a,
+		ctx:             ctx,
 		cryptotokenName: cryptotokenName,
-		keyPairAlias: keyPairAlias,
+		keyPairAlias:    keyPairAlias,
 	}
 }
 
 // Execute executes the request
 func (a *V1CryptotokenApiService) RemoveKeysExecute(r ApiRemoveKeysRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath := "/ejbca/ejbca-rest-api"
@@ -411,7 +410,7 @@ func (a *V1CryptotokenApiService) RemoveKeysExecute(r ApiRemoveKeysRequest) (*ht
 }
 
 type ApiStatus5Request struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *V1CryptotokenApiService
 }
 
@@ -424,24 +423,25 @@ Status5 Get the status of this REST Resource
 
 Returns status, API version and EJBCA version.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiStatus5Request
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiStatus5Request
 */
 func (a *V1CryptotokenApiService) Status5(ctx context.Context) ApiStatus5Request {
 	return ApiStatus5Request{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return RestResourceStatusRestResponse
+//
+//	@return RestResourceStatusRestResponse
 func (a *V1CryptotokenApiService) Status5Execute(r ApiStatus5Request) (*RestResourceStatusRestResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *RestResourceStatusRestResponse
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *RestResourceStatusRestResponse
 	)
 
 	localBasePath := "/ejbca/ejbca-rest-api"

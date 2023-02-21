@@ -11,10 +11,10 @@ package ejbca
 
 import (
 	"context"
+	openapiclient "github.com/Keyfactor/ejbca-go-client-sdk"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"testing"
-	openapiclient "github.com/Keyfactor/ejbca-go-client-sdk"
 )
 
 func Test_ejbca_V2CertificateApiService(t *testing.T) {
@@ -24,7 +24,7 @@ func Test_ejbca_V2CertificateApiService(t *testing.T) {
 
 	t.Run("Test V2CertificateApiService GetCertificateProfileInfo", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var profileName string
 
@@ -38,7 +38,7 @@ func Test_ejbca_V2CertificateApiService(t *testing.T) {
 
 	t.Run("Test V2CertificateApiService SearchCertificates1", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.V2CertificateApi.SearchCertificates1(context.Background()).Execute()
 
@@ -50,7 +50,7 @@ func Test_ejbca_V2CertificateApiService(t *testing.T) {
 
 	t.Run("Test V2CertificateApiService Status3", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.V2CertificateApi.Status3(context.Background()).Execute()
 

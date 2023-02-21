@@ -57,8 +57,8 @@ type CertificateRestResponseV2 struct {
 	SubjectDN *string `json:"subjectDN,omitempty"`
 	// Subject Key Identifier
 	SubjectKeyId *string `json:"subjectKeyId,omitempty"`
-	Tag *string `json:"tag,omitempty"`
-	Type *int32 `json:"type,omitempty"`
+	Tag          *string `json:"tag,omitempty"`
+	Type         *int32  `json:"type,omitempty"`
 	// Update time
 	UdpateTime *int64 `json:"udpateTime,omitempty"`
 	// Username
@@ -68,7 +68,7 @@ type CertificateRestResponseV2 struct {
 	// Certificate request
 	CertificateRequest *string `json:"certificateRequest,omitempty"`
 	// CRL partition index
-	CrlPartitionIndex *int32 `json:"crlPartitionIndex,omitempty"`
+	CrlPartitionIndex    *int32 `json:"crlPartitionIndex,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -764,7 +764,7 @@ func (o *CertificateRestResponseV2) SetCrlPartitionIndex(v int32) {
 }
 
 func (o CertificateRestResponseV2) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -874,5 +874,3 @@ func (v *NullableCertificateRestResponseV2) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

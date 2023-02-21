@@ -32,7 +32,7 @@ type ExtendedInformationRestResponseComponent struct {
 	// Extended Information property name
 	Name *string `json:"name,omitempty"`
 	// Property value
-	Value *string `json:"value,omitempty"`
+	Value                *string `json:"value,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -120,7 +120,7 @@ func (o *ExtendedInformationRestResponseComponent) SetValue(v string) {
 }
 
 func (o ExtendedInformationRestResponseComponent) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -196,5 +196,3 @@ func (v *NullableExtendedInformationRestResponseComponent) UnmarshalJSON(src []b
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

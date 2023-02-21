@@ -11,10 +11,10 @@ package ejbca
 
 import (
 	"context"
+	openapiclient "github.com/Keyfactor/ejbca-go-client-sdk"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"testing"
-	openapiclient "github.com/Keyfactor/ejbca-go-client-sdk"
 )
 
 func Test_ejbca_V2EndentityApiService(t *testing.T) {
@@ -24,7 +24,7 @@ func Test_ejbca_V2EndentityApiService(t *testing.T) {
 
 	t.Run("Test V2EndentityApiService GetAuthorizedEndEntityProfiles", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.V2EndentityApi.GetAuthorizedEndEntityProfiles(context.Background()).Execute()
 
@@ -36,7 +36,7 @@ func Test_ejbca_V2EndentityApiService(t *testing.T) {
 
 	t.Run("Test V2EndentityApiService Profile", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var endentityProfileName string
 
@@ -50,7 +50,7 @@ func Test_ejbca_V2EndentityApiService(t *testing.T) {
 
 	t.Run("Test V2EndentityApiService SortedSearch", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.V2EndentityApi.SortedSearch(context.Background()).Execute()
 
@@ -62,7 +62,7 @@ func Test_ejbca_V2EndentityApiService(t *testing.T) {
 
 	t.Run("Test V2EndentityApiService Status7", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.V2EndentityApi.Status7(context.Background()).Execute()
 

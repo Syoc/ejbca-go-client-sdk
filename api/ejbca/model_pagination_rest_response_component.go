@@ -29,9 +29,9 @@ var _ MappedNullable = &PaginationRestResponseComponent{}
 
 // PaginationRestResponseComponent struct for PaginationRestResponseComponent
 type PaginationRestResponseComponent struct {
-	MoreResults *bool `json:"more_results,omitempty"`
-	NextOffset *int32 `json:"next_offset,omitempty"`
-	NumberOfResults *int32 `json:"number_of_results,omitempty"`
+	MoreResults          *bool  `json:"more_results,omitempty"`
+	NextOffset           *int32 `json:"next_offset,omitempty"`
+	NumberOfResults      *int32 `json:"number_of_results,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -151,7 +151,7 @@ func (o *PaginationRestResponseComponent) SetNumberOfResults(v int32) {
 }
 
 func (o PaginationRestResponseComponent) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -231,5 +231,3 @@ func (v *NullablePaginationRestResponseComponent) UnmarshalJSON(src []byte) erro
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

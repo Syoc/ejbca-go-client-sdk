@@ -32,7 +32,7 @@ type ExtendedInformationRestRequestComponent struct {
 	// Certificate Extension Object Identifier (OID)
 	Name *string `json:"name,omitempty"`
 	// OID value
-	Value *string `json:"value,omitempty"`
+	Value                *string `json:"value,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -120,7 +120,7 @@ func (o *ExtendedInformationRestRequestComponent) SetValue(v string) {
 }
 
 func (o ExtendedInformationRestRequestComponent) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -196,5 +196,3 @@ func (v *NullableExtendedInformationRestRequestComponent) UnmarshalJSON(src []by
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

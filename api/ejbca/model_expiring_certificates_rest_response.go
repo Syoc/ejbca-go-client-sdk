@@ -30,8 +30,8 @@ var _ MappedNullable = &ExpiringCertificatesRestResponse{}
 // ExpiringCertificatesRestResponse struct for ExpiringCertificatesRestResponse
 type ExpiringCertificatesRestResponse struct {
 	PaginationRestResponseComponent *PaginationRestResponseComponent `json:"pagination_rest_response_component,omitempty"`
-	CertificatesRestResponse *CertificatesRestResponse `json:"certificates_rest_response,omitempty"`
-	AdditionalProperties map[string]interface{}
+	CertificatesRestResponse        *CertificatesRestResponse        `json:"certificates_rest_response,omitempty"`
+	AdditionalProperties            map[string]interface{}
 }
 
 type _ExpiringCertificatesRestResponse ExpiringCertificatesRestResponse
@@ -118,7 +118,7 @@ func (o *ExpiringCertificatesRestResponse) SetCertificatesRestResponse(v Certifi
 }
 
 func (o ExpiringCertificatesRestResponse) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -194,5 +194,3 @@ func (v *NullableExpiringCertificatesRestResponse) UnmarshalJSON(src []byte) err
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

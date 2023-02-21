@@ -29,9 +29,9 @@ var _ MappedNullable = &PaginationSummary{}
 
 // PaginationSummary struct for PaginationSummary
 type PaginationSummary struct {
-	PageSize *int32 `json:"page_size,omitempty"`
-	CurrentPage *int32 `json:"current_page,omitempty"`
-	TotalCerts *int64 `json:"total_certs,omitempty"`
+	PageSize             *int32 `json:"page_size,omitempty"`
+	CurrentPage          *int32 `json:"current_page,omitempty"`
+	TotalCerts           *int64 `json:"total_certs,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -151,7 +151,7 @@ func (o *PaginationSummary) SetTotalCerts(v int64) {
 }
 
 func (o PaginationSummary) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -231,5 +231,3 @@ func (v *NullablePaginationSummary) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

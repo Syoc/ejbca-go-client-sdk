@@ -11,10 +11,10 @@ package ejbca
 
 import (
 	"context"
+	openapiclient "github.com/Keyfactor/ejbca-go-client-sdk"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"testing"
-	openapiclient "github.com/Keyfactor/ejbca-go-client-sdk"
 )
 
 func Test_ejbca_V1CryptotokenApiService(t *testing.T) {
@@ -24,7 +24,7 @@ func Test_ejbca_V1CryptotokenApiService(t *testing.T) {
 
 	t.Run("Test V1CryptotokenApiService Activate1", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var cryptotokenName string
 
@@ -37,7 +37,7 @@ func Test_ejbca_V1CryptotokenApiService(t *testing.T) {
 
 	t.Run("Test V1CryptotokenApiService Deactivate1", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var cryptotokenName string
 
@@ -50,7 +50,7 @@ func Test_ejbca_V1CryptotokenApiService(t *testing.T) {
 
 	t.Run("Test V1CryptotokenApiService GenerateKeys", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var cryptotokenName string
 
@@ -63,7 +63,7 @@ func Test_ejbca_V1CryptotokenApiService(t *testing.T) {
 
 	t.Run("Test V1CryptotokenApiService RemoveKeys", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var cryptotokenName string
 		var keyPairAlias string
@@ -77,7 +77,7 @@ func Test_ejbca_V1CryptotokenApiService(t *testing.T) {
 
 	t.Run("Test V1CryptotokenApiService Status5", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.V1CryptotokenApi.Status5(context.Background()).Execute()
 

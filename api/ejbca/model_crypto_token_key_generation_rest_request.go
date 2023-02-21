@@ -34,7 +34,7 @@ type CryptoTokenKeyGenerationRestRequest struct {
 	// Key algorithm
 	KeyAlg *string `json:"key_alg,omitempty"`
 	// Key specification
-	KeySpec *string `json:"key_spec,omitempty"`
+	KeySpec              *string `json:"key_spec,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -154,7 +154,7 @@ func (o *CryptoTokenKeyGenerationRestRequest) SetKeySpec(v string) {
 }
 
 func (o CryptoTokenKeyGenerationRestRequest) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -234,5 +234,3 @@ func (v *NullableCryptoTokenKeyGenerationRestRequest) UnmarshalJSON(src []byte) 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

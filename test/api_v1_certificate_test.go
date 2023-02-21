@@ -11,10 +11,10 @@ package ejbca
 
 import (
 	"context"
+	openapiclient "github.com/Keyfactor/ejbca-go-client-sdk"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"testing"
-	openapiclient "github.com/Keyfactor/ejbca-go-client-sdk"
 )
 
 func Test_ejbca_V1CertificateApiService(t *testing.T) {
@@ -24,7 +24,7 @@ func Test_ejbca_V1CertificateApiService(t *testing.T) {
 
 	t.Run("Test V1CertificateApiService CertificateRequest", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.V1CertificateApi.CertificateRequest(context.Background()).Execute()
 
@@ -36,7 +36,7 @@ func Test_ejbca_V1CertificateApiService(t *testing.T) {
 
 	t.Run("Test V1CertificateApiService EnrollKeystore", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.V1CertificateApi.EnrollKeystore(context.Background()).Execute()
 
@@ -48,7 +48,7 @@ func Test_ejbca_V1CertificateApiService(t *testing.T) {
 
 	t.Run("Test V1CertificateApiService EnrollPkcs10Certificate", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.V1CertificateApi.EnrollPkcs10Certificate(context.Background()).Execute()
 
@@ -60,7 +60,7 @@ func Test_ejbca_V1CertificateApiService(t *testing.T) {
 
 	t.Run("Test V1CertificateApiService FinalizeEnrollment", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var requestId int32
 
@@ -74,7 +74,7 @@ func Test_ejbca_V1CertificateApiService(t *testing.T) {
 
 	t.Run("Test V1CertificateApiService GetCertificatesAboutToExpire", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.V1CertificateApi.GetCertificatesAboutToExpire(context.Background()).Execute()
 
@@ -86,7 +86,7 @@ func Test_ejbca_V1CertificateApiService(t *testing.T) {
 
 	t.Run("Test V1CertificateApiService RevocationStatus", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var issuerDn string
 		var certificateSerialNumber string
@@ -101,7 +101,7 @@ func Test_ejbca_V1CertificateApiService(t *testing.T) {
 
 	t.Run("Test V1CertificateApiService RevokeCertificate", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		var issuerDn string
 		var certificateSerialNumber string
@@ -116,7 +116,7 @@ func Test_ejbca_V1CertificateApiService(t *testing.T) {
 
 	t.Run("Test V1CertificateApiService SearchCertificates", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.V1CertificateApi.SearchCertificates(context.Background()).Execute()
 
@@ -128,7 +128,7 @@ func Test_ejbca_V1CertificateApiService(t *testing.T) {
 
 	t.Run("Test V1CertificateApiService Status2", func(t *testing.T) {
 
-		t.Skip("skip test")  // remove to run test
+		t.Skip("skip test") // remove to run test
 
 		resp, httpRes, err := apiClient.V1CertificateApi.Status2(context.Background()).Execute()
 

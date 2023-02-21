@@ -27,14 +27,14 @@ import (
 // checks if the SetEndEntityStatusRestRequest type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &SetEndEntityStatusRestRequest{}
 
-// SetEndEntityStatusRestRequest Use one of allowed values as property(see enum values below). Available TOKEN - USERGENERATED, P12, BCFKS, JKS, PEM;  Available STATUS - NEW, FAILED, INITIALIZED, INPROCESS, GENERATED, REVOKED, HISTORICAL, KEYRECOVERY, WAITINGFORADDAPPROVAL; 
+// SetEndEntityStatusRestRequest Use one of allowed values as property(see enum values below). Available TOKEN - USERGENERATED, P12, BCFKS, JKS, PEM;  Available STATUS - NEW, FAILED, INITIALIZED, INPROCESS, GENERATED, REVOKED, HISTORICAL, KEYRECOVERY, WAITINGFORADDAPPROVAL;
 type SetEndEntityStatusRestRequest struct {
 	// Password
 	Password *string `json:"password,omitempty"`
 	// Token type property
 	Token *string `json:"token,omitempty"`
 	// End entity status property
-	Status *string `json:"status,omitempty"`
+	Status               *string `json:"status,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -154,7 +154,7 @@ func (o *SetEndEntityStatusRestRequest) SetStatus(v string) {
 }
 
 func (o SetEndEntityStatusRestRequest) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -234,5 +234,3 @@ func (v *NullableSetEndEntityStatusRestRequest) UnmarshalJSON(src []byte) error 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

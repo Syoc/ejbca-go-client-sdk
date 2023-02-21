@@ -26,23 +26,22 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"strings"
-	"reflect"
 	"os"
+	"reflect"
+	"strings"
 )
-
 
 // V1ConfigdumpApiService V1ConfigdumpApi service
 type V1ConfigdumpApiService service
 
 type ApiGetJsonConfigdumpRequest struct {
-	ctx context.Context
-	ApiService *V1ConfigdumpApiService
+	ctx          context.Context
+	ApiService   *V1ConfigdumpApiService
 	ignoreerrors *bool
-	defaults *bool
-	externalcas *bool
-	include *[]string
-	exclude *[]string
+	defaults     *bool
+	externalcas  *bool
+	include      *[]string
+	exclude      *[]string
 }
 
 // Print a warning instead of aborting and throwing an exception on errors.
@@ -84,24 +83,25 @@ GetJsonConfigdump Get the configuration in JSON.
 
 Returns the configdump data in JSON.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetJsonConfigdumpRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetJsonConfigdumpRequest
 */
 func (a *V1ConfigdumpApiService) GetJsonConfigdump(ctx context.Context) ApiGetJsonConfigdumpRequest {
 	return ApiGetJsonConfigdumpRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return []string
+//
+//	@return []string
 func (a *V1ConfigdumpApiService) GetJsonConfigdumpExecute(r ApiGetJsonConfigdumpRequest) ([]string, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  []string
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue []string
 	)
 
 	localBasePath := "/ejbca/ejbca-rest-api"
@@ -198,12 +198,12 @@ func (a *V1ConfigdumpApiService) GetJsonConfigdumpExecute(r ApiGetJsonConfigdump
 }
 
 type ApiGetJsonConfigdumpForTypeRequest struct {
-	ctx context.Context
-	ApiService *V1ConfigdumpApiService
-	type_ string
+	ctx          context.Context
+	ApiService   *V1ConfigdumpApiService
+	type_        string
 	ignoreerrors *bool
-	defaults *bool
-	externalcas *bool
+	defaults     *bool
+	externalcas  *bool
 }
 
 // Print a warning instead of aborting and throwing an exception on errors.
@@ -233,26 +233,27 @@ GetJsonConfigdumpForType Get the configuration for type in JSON.
 
 Returns the configdump data in JSON.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param type_ Configuration type to export.  Supported types are: ACMECONFIG/acme-config, CA/certification-authorities,  CRYPTOTOKEN/crypto-tokens, PUBLISHER/publishers, APPROVALPROFILE/approval-profiles, CERTPROFILE/certificate-profiles, EEPROFILE/end-entity-profiles, SERVICE/services, ROLE/admin-roles, KEYBINDING/internal-key-bindings, ADMINPREFS/admin-preferences, OCSPCONFIG/ocsp-configuration, PEERCONNECTOR/peer-connectors, SCEPCONFIG/scep-config, CMPCONFIG/cmp-config, ESTCONFIG/est-config, VALIDATOR/validators, CTLOG/ct-logs, EXTENDEDKEYUSAGE/extended-key-usage, CERTEXTENSION/custom-certificate-extensions,  OAUTHKEY/trusted-oauth-providers, AVAILABLEPROTOCOLS/available-protocols
- @return ApiGetJsonConfigdumpForTypeRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param type_ Configuration type to export.  Supported types are: ACMECONFIG/acme-config, CA/certification-authorities,  CRYPTOTOKEN/crypto-tokens, PUBLISHER/publishers, APPROVALPROFILE/approval-profiles, CERTPROFILE/certificate-profiles, EEPROFILE/end-entity-profiles, SERVICE/services, ROLE/admin-roles, KEYBINDING/internal-key-bindings, ADMINPREFS/admin-preferences, OCSPCONFIG/ocsp-configuration, PEERCONNECTOR/peer-connectors, SCEPCONFIG/scep-config, CMPCONFIG/cmp-config, ESTCONFIG/est-config, VALIDATOR/validators, CTLOG/ct-logs, EXTENDEDKEYUSAGE/extended-key-usage, CERTEXTENSION/custom-certificate-extensions,  OAUTHKEY/trusted-oauth-providers, AVAILABLEPROTOCOLS/available-protocols
+	@return ApiGetJsonConfigdumpForTypeRequest
 */
 func (a *V1ConfigdumpApiService) GetJsonConfigdumpForType(ctx context.Context, type_ string) ApiGetJsonConfigdumpForTypeRequest {
 	return ApiGetJsonConfigdumpForTypeRequest{
 		ApiService: a,
-		ctx: ctx,
-		type_: type_,
+		ctx:        ctx,
+		type_:      type_,
 	}
 }
 
 // Execute executes the request
-//  @return []string
+//
+//	@return []string
 func (a *V1ConfigdumpApiService) GetJsonConfigdumpForTypeExecute(r ApiGetJsonConfigdumpForTypeRequest) ([]string, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  []string
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue []string
 	)
 
 	localBasePath := "/ejbca/ejbca-rest-api"
@@ -328,12 +329,12 @@ func (a *V1ConfigdumpApiService) GetJsonConfigdumpForTypeExecute(r ApiGetJsonCon
 }
 
 type ApiGetJsonConfigdumpForTypeAndSettingRequest struct {
-	ctx context.Context
-	ApiService *V1ConfigdumpApiService
-	type_ string
-	setting string
+	ctx          context.Context
+	ApiService   *V1ConfigdumpApiService
+	type_        string
+	setting      string
 	ignoreerrors *bool
-	defaults *bool
+	defaults     *bool
 }
 
 // Print a warning instead of aborting and throwing an exception on errors.
@@ -357,28 +358,29 @@ GetJsonConfigdumpForTypeAndSetting Get the configuration for a type and setting 
 
 Returns the configdump data in JSON.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param type_ Configuration type to export.  Supported types are: ACMECONFIG/acme-config, CA/certification-authorities,  CRYPTOTOKEN/crypto-tokens, PUBLISHER/publishers, APPROVALPROFILE/approval-profiles, CERTPROFILE/certificate-profiles, EEPROFILE/end-entity-profiles, SERVICE/services, ROLE/admin-roles, KEYBINDING/internal-key-bindings, ADMINPREFS/admin-preferences, OCSPCONFIG/ocsp-configuration, PEERCONNECTOR/peer-connectors, SCEPCONFIG/scep-config, CMPCONFIG/cmp-config, ESTCONFIG/est-config, VALIDATOR/validators, CTLOG/ct-logs, EXTENDEDKEYUSAGE/extended-key-usage, CERTEXTENSION/custom-certificate-extensions,  OAUTHKEY/trusted-oauth-providers, AVAILABLEPROTOCOLS/available-protocols
- @param setting Individual configuration name to export
- @return ApiGetJsonConfigdumpForTypeAndSettingRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param type_ Configuration type to export.  Supported types are: ACMECONFIG/acme-config, CA/certification-authorities,  CRYPTOTOKEN/crypto-tokens, PUBLISHER/publishers, APPROVALPROFILE/approval-profiles, CERTPROFILE/certificate-profiles, EEPROFILE/end-entity-profiles, SERVICE/services, ROLE/admin-roles, KEYBINDING/internal-key-bindings, ADMINPREFS/admin-preferences, OCSPCONFIG/ocsp-configuration, PEERCONNECTOR/peer-connectors, SCEPCONFIG/scep-config, CMPCONFIG/cmp-config, ESTCONFIG/est-config, VALIDATOR/validators, CTLOG/ct-logs, EXTENDEDKEYUSAGE/extended-key-usage, CERTEXTENSION/custom-certificate-extensions,  OAUTHKEY/trusted-oauth-providers, AVAILABLEPROTOCOLS/available-protocols
+	@param setting Individual configuration name to export
+	@return ApiGetJsonConfigdumpForTypeAndSettingRequest
 */
 func (a *V1ConfigdumpApiService) GetJsonConfigdumpForTypeAndSetting(ctx context.Context, type_ string, setting string) ApiGetJsonConfigdumpForTypeAndSettingRequest {
 	return ApiGetJsonConfigdumpForTypeAndSettingRequest{
 		ApiService: a,
-		ctx: ctx,
-		type_: type_,
-		setting: setting,
+		ctx:        ctx,
+		type_:      type_,
+		setting:    setting,
 	}
 }
 
 // Execute executes the request
-//  @return []string
+//
+//	@return []string
 func (a *V1ConfigdumpApiService) GetJsonConfigdumpForTypeAndSettingExecute(r ApiGetJsonConfigdumpForTypeAndSettingRequest) ([]string, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  []string
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue []string
 	)
 
 	localBasePath := "/ejbca/ejbca-rest-api"
@@ -452,13 +454,13 @@ func (a *V1ConfigdumpApiService) GetJsonConfigdumpForTypeAndSettingExecute(r Api
 }
 
 type ApiGetZipExportRequest struct {
-	ctx context.Context
-	ApiService *V1ConfigdumpApiService
+	ctx          context.Context
+	ApiService   *V1ConfigdumpApiService
 	ignoreerrors *bool
-	defaults *bool
-	externalcas *bool
-	include *[]string
-	exclude *[]string
+	defaults     *bool
+	externalcas  *bool
+	include      *[]string
+	exclude      *[]string
 }
 
 // Print a warning instead of aborting and throwing an exception on errors.
@@ -500,24 +502,25 @@ GetZipExport Get the configuration as a ZIP file.
 
 Returns a zip archive of YAML files.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetZipExportRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetZipExportRequest
 */
 func (a *V1ConfigdumpApiService) GetZipExport(ctx context.Context) ApiGetZipExportRequest {
 	return ApiGetZipExportRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return []string
+//
+//	@return []string
 func (a *V1ConfigdumpApiService) GetZipExportExecute(r ApiGetZipExportRequest) ([]string, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  []string
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue []string
 	)
 
 	localBasePath := "/ejbca/ejbca-rest-api"
@@ -614,14 +617,14 @@ func (a *V1ConfigdumpApiService) GetZipExportExecute(r ApiGetZipExportRequest) (
 }
 
 type ApiPostJsonImportRequest struct {
-	ctx context.Context
-	ApiService *V1ConfigdumpApiService
+	ctx          context.Context
+	ApiService   *V1ConfigdumpApiService
 	ignoreerrors *bool
-	initialize *bool
-	continue_ *bool
-	overwrite *string
-	resolve *string
-	body *string
+	initialize   *bool
+	continue_    *bool
+	overwrite    *string
+	resolve      *string
+	body         *string
 }
 
 // Add to warnings instead of aborting on errors.
@@ -667,26 +670,25 @@ func (r ApiPostJsonImportRequest) Execute() (*ConfigdumpResults, *http.Response,
 /*
 PostJsonImport Put the configuration in JSON.
 
-
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiPostJsonImportRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiPostJsonImportRequest
 */
 func (a *V1ConfigdumpApiService) PostJsonImport(ctx context.Context) ApiPostJsonImportRequest {
 	return ApiPostJsonImportRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return ConfigdumpResults
+//
+//	@return ConfigdumpResults
 func (a *V1ConfigdumpApiService) PostJsonImportExecute(r ApiPostJsonImportRequest) (*ConfigdumpResults, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *ConfigdumpResults
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ConfigdumpResults
 	)
 
 	localBasePath := "/ejbca/ejbca-rest-api"
@@ -769,14 +771,14 @@ func (a *V1ConfigdumpApiService) PostJsonImportExecute(r ApiPostJsonImportReques
 }
 
 type ApiPostZipImportRequest struct {
-	ctx context.Context
-	ApiService *V1ConfigdumpApiService
-	zipfile *os.File
+	ctx          context.Context
+	ApiService   *V1ConfigdumpApiService
+	zipfile      *os.File
 	ignoreerrors *bool
-	initialize *bool
-	continue_ *bool
-	overwrite *string
-	resolve *string
+	initialize   *bool
+	continue_    *bool
+	overwrite    *string
+	resolve      *string
 }
 
 // A zipfile containing directories of YAML files.
@@ -822,26 +824,25 @@ func (r ApiPostZipImportRequest) Execute() (*ConfigdumpResults, *http.Response, 
 /*
 PostZipImport Put the configuration as a ZIP file.
 
-
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiPostZipImportRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiPostZipImportRequest
 */
 func (a *V1ConfigdumpApiService) PostZipImport(ctx context.Context) ApiPostZipImportRequest {
 	return ApiPostZipImportRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return ConfigdumpResults
+//
+//	@return ConfigdumpResults
 func (a *V1ConfigdumpApiService) PostZipImportExecute(r ApiPostZipImportRequest) (*ConfigdumpResults, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *ConfigdumpResults
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ConfigdumpResults
 	)
 
 	localBasePath := "/ejbca/ejbca-rest-api"
@@ -870,11 +871,10 @@ func (a *V1ConfigdumpApiService) PostZipImportExecute(r ApiPostZipImportRequest)
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	var zipfileLocalVarFormFileName string
-	var zipfileLocalVarFileName     string
-	var zipfileLocalVarFileBytes    []byte
+	var zipfileLocalVarFileName string
+	var zipfileLocalVarFileBytes []byte
 
 	zipfileLocalVarFormFileName = "zipfile"
-
 
 	zipfileLocalVarFile := r.zipfile
 
@@ -939,7 +939,7 @@ func (a *V1ConfigdumpApiService) PostZipImportExecute(r ApiPostZipImportRequest)
 }
 
 type ApiStatus4Request struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *V1ConfigdumpApiService
 }
 
@@ -952,24 +952,25 @@ Status4 Get the status of this REST Resource
 
 Returns status, API version and EJBCA version.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiStatus4Request
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiStatus4Request
 */
 func (a *V1ConfigdumpApiService) Status4(ctx context.Context) ApiStatus4Request {
 	return ApiStatus4Request{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return RestResourceStatusRestResponse
+//
+//	@return RestResourceStatusRestResponse
 func (a *V1ConfigdumpApiService) Status4Execute(r ApiStatus4Request) (*RestResourceStatusRestResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *RestResourceStatusRestResponse
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *RestResourceStatusRestResponse
 	)
 
 	localBasePath := "/ejbca/ejbca-rest-api"

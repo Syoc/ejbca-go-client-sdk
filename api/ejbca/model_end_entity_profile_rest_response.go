@@ -34,7 +34,7 @@ type EndEntityProfileRestResponse struct {
 	// End Entity profile ID
 	Id *int64 `json:"id,omitempty"`
 	// Description
-	Description *string `json:"description,omitempty"`
+	Description          *string `json:"description,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -154,7 +154,7 @@ func (o *EndEntityProfileRestResponse) SetDescription(v string) {
 }
 
 func (o EndEntityProfileRestResponse) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -234,5 +234,3 @@ func (v *NullableEndEntityProfileRestResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

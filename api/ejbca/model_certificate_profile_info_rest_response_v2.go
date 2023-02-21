@@ -29,10 +29,10 @@ var _ MappedNullable = &CertificateProfileInfoRestResponseV2{}
 
 // CertificateProfileInfoRestResponseV2 struct for CertificateProfileInfoRestResponseV2
 type CertificateProfileInfoRestResponseV2 struct {
-	AvailableKeyAlgs []string `json:"available_key_algs,omitempty"`
-	AvailableBitLenghts []int32 `json:"available_bit_lenghts,omitempty"`
+	AvailableKeyAlgs     []string `json:"available_key_algs,omitempty"`
+	AvailableBitLenghts  []int32  `json:"available_bit_lenghts,omitempty"`
 	AvailableEcdsaCurves []string `json:"available_ecdsa_curves,omitempty"`
-	AvailableCas []string `json:"available_cas,omitempty"`
+	AvailableCas         []string `json:"available_cas,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -184,7 +184,7 @@ func (o *CertificateProfileInfoRestResponseV2) SetAvailableCas(v []string) {
 }
 
 func (o CertificateProfileInfoRestResponseV2) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -268,5 +268,3 @@ func (v *NullableCertificateProfileInfoRestResponseV2) UnmarshalJSON(src []byte)
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

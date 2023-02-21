@@ -29,13 +29,12 @@ import (
 	"strings"
 )
 
-
 // V2CertificateApiService V2CertificateApi service
 type V2CertificateApiService service
 
 type ApiGetCertificateProfileInfoRequest struct {
-	ctx context.Context
-	ApiService *V2CertificateApiService
+	ctx         context.Context
+	ApiService  *V2CertificateApiService
 	profileName string
 }
 
@@ -46,28 +45,27 @@ func (r ApiGetCertificateProfileInfoRequest) Execute() (*CertificateProfileInfoR
 /*
 GetCertificateProfileInfo Get Certificate Profile Info.
 
-
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param profileName
- @return ApiGetCertificateProfileInfoRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param profileName
+	@return ApiGetCertificateProfileInfoRequest
 */
 func (a *V2CertificateApiService) GetCertificateProfileInfo(ctx context.Context, profileName string) ApiGetCertificateProfileInfoRequest {
 	return ApiGetCertificateProfileInfoRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:  a,
+		ctx:         ctx,
 		profileName: profileName,
 	}
 }
 
 // Execute executes the request
-//  @return CertificateProfileInfoRestResponseV2
+//
+//	@return CertificateProfileInfoRestResponseV2
 func (a *V2CertificateApiService) GetCertificateProfileInfoExecute(r ApiGetCertificateProfileInfoRequest) (*CertificateProfileInfoRestResponseV2, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *CertificateProfileInfoRestResponseV2
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *CertificateProfileInfoRestResponseV2
 	)
 
 	localBasePath := "/ejbca/ejbca-rest-api"
@@ -134,8 +132,8 @@ func (a *V2CertificateApiService) GetCertificateProfileInfoExecute(r ApiGetCerti
 }
 
 type ApiSearchCertificates1Request struct {
-	ctx context.Context
-	ApiService *V2CertificateApiService
+	ctx                             context.Context
+	ApiService                      *V2CertificateApiService
 	searchCertificatesRestRequestV2 *SearchCertificatesRestRequestV2
 }
 
@@ -154,24 +152,25 @@ SearchCertificates1 Searches for certificates confirming given criteria and pagi
 
 Insert as many search criteria as needed. A reference about allowed values for criteria could be found below, under SearchCertificateCriteriaRestRequestV2 model.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiSearchCertificates1Request
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiSearchCertificates1Request
 */
 func (a *V2CertificateApiService) SearchCertificates1(ctx context.Context) ApiSearchCertificates1Request {
 	return ApiSearchCertificates1Request{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return SearchCertificatesRestResponseV2
+//
+//	@return SearchCertificatesRestResponseV2
 func (a *V2CertificateApiService) SearchCertificates1Execute(r ApiSearchCertificates1Request) (*SearchCertificatesRestResponseV2, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *SearchCertificatesRestResponseV2
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *SearchCertificatesRestResponseV2
 	)
 
 	localBasePath := "/ejbca/ejbca-rest-api"
@@ -239,7 +238,7 @@ func (a *V2CertificateApiService) SearchCertificates1Execute(r ApiSearchCertific
 }
 
 type ApiStatus3Request struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *V2CertificateApiService
 }
 
@@ -252,24 +251,25 @@ Status3 Get the status of this REST Resource
 
 Returns status, API version and EJBCA version.
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiStatus3Request
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiStatus3Request
 */
 func (a *V2CertificateApiService) Status3(ctx context.Context) ApiStatus3Request {
 	return ApiStatus3Request{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return RestResourceStatusRestResponse
+//
+//	@return RestResourceStatusRestResponse
 func (a *V2CertificateApiService) Status3Execute(r ApiStatus3Request) (*RestResourceStatusRestResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *RestResourceStatusRestResponse
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *RestResourceStatusRestResponse
 	)
 
 	localBasePath := "/ejbca/ejbca-rest-api"

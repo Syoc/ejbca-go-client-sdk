@@ -23,7 +23,7 @@ package ejbca
 import (
 	"bytes"
 	"context"
-    "crypto/tls"
+	"crypto/tls"
 	"crypto/x509"
 	"encoding/json"
 	"encoding/pem"
@@ -48,10 +48,10 @@ import (
 )
 
 var (
-	jsonCheck = regexp.MustCompile(`(?i:(?:application|text)/(?:vnd\.[^;]+\+)?json)`)
-	xmlCheck  = regexp.MustCompile(`(?i:(?:application|text)/xml)`)
+	jsonCheck       = regexp.MustCompile(`(?i:(?:application|text)/(?:vnd\.[^;]+\+)?json)`)
+	xmlCheck        = regexp.MustCompile(`(?i:(?:application|text)/xml)`)
 	queryParamSplit = regexp.MustCompile(`(^|&)([^&]+)`)
-	queryDescape    = strings.NewReplacer( "%5B", "[", "%5D", "]" )
+	queryDescape    = strings.NewReplacer("%5B", "[", "%5D", "]")
 )
 
 // APIClient manages communication with the EJBCA REST Interface API v1.0
@@ -88,36 +88,36 @@ type service struct {
 // NewAPIClient creates a new API client. Requires a userAgent string describing your application.
 // optionally a custom http.Client to allow for advanced features such as caching.
 func NewAPIClient(cfg *Configuration) (*APIClient, error) {
-    var err error
-    if cfg.HTTPClient == nil {
-        if cfg.HTTPClient, err = buildHttpClient(cfg); err != nil {
+	var err error
+	if cfg.HTTPClient == nil {
+		if cfg.HTTPClient, err = buildHttpClient(cfg); err != nil {
 			debugMessage(cfg.Debug, "Failed to build HTTP client: %s", err.Error())
-            return nil, fmt.Errorf("failed to build HTTP client: %s", err.Error())
-        }
-    }
+			return nil, fmt.Errorf("failed to build HTTP client: %s", err.Error())
+		}
+	}
 
 	c := &APIClient{}
 	c.cfg = cfg
 	c.common.client = c
 
 	// API Services
-Ser
+	Ser
 	c.V1CaApi = (*V1CaApiService)(&c.common)
-Ser
+	Ser
 	c.V1CaManagementApi = (*V1CaManagementApiService)(&c.common)
-Ser
+	Ser
 	c.V1CertificateApi = (*V1CertificateApiService)(&c.common)
-Ser
+	Ser
 	c.V1ConfigdumpApi = (*V1ConfigdumpApiService)(&c.common)
-Ser
+	Ser
 	c.V1CryptotokenApi = (*V1CryptotokenApiService)(&c.common)
-Ser
+	Ser
 	c.V1EndentityApi = (*V1EndentityApiService)(&c.common)
-Ser
+	Ser
 	c.V1SshApi = (*V1SshApiService)(&c.common)
-Ser
+	Ser
 	c.V2CertificateApi = (*V2CertificateApiService)(&c.common)
-Ser
+	Ser
 	c.V2EndentityApi = (*V2EndentityApiService)(&c.common)
 
 	return c, nil
@@ -289,15 +289,15 @@ func typeCheckParameter(obj interface{}, expected string, name string) error {
 	return nil
 }
 
-func parameterValueToString( obj interface{}, key string ) string {
+func parameterValueToString(obj interface{}, key string) string {
 	if reflect.TypeOf(obj).Kind() != reflect.Ptr {
 		return fmt.Sprintf("%v", obj)
 	}
-	var param,ok = obj.(MappedNullable)
+	var param, ok = obj.(MappedNullable)
 	if !ok {
 		return ""
 	}
-	dataMap,err := param.ToMap()
+	dataMap, err := param.ToMap()
 	if err != nil {
 		return ""
 	}
@@ -312,81 +312,81 @@ func parameterAddToQuery(queryParams interface{}, keyPrefix string, obj interfac
 		value = "null"
 	} else {
 		switch v.Kind() {
-			case reflect.Invalid:
-				value = "invalid"
+		case reflect.Invalid:
+			value = "invalid"
 
-			case reflect.Struct:
-				if t,ok := obj.(MappedNullable); ok {
-					dataMap,err := t.ToMap()
-					if err != nil {
-						return
-					}
-					parameterAddToQuery(queryParams, keyPrefix, dataMap, collectionType)
+		case reflect.Struct:
+			if t, ok := obj.(MappedNullable); ok {
+				dataMap, err := t.ToMap()
+				if err != nil {
 					return
 				}
-				if t, ok := obj.(time.Time); ok {
-					parameterAddToQuery(queryParams, keyPrefix, t.Format(time.RFC3339), collectionType)
-					return
-				}
-				value = v.Type().String() + " value"
-			case reflect.Slice:
-				var indValue = reflect.ValueOf(obj)
-				if indValue == reflect.ValueOf(nil) {
-					return
-				}
-				var lenIndValue = indValue.Len()
-				for i:=0;i<lenIndValue;i++ {
-					var arrayValue = indValue.Index(i)
-					parameterAddToQuery(queryParams, keyPrefix, arrayValue.Interface(), collectionType)
-				}
+				parameterAddToQuery(queryParams, keyPrefix, dataMap, collectionType)
 				return
-
-			case reflect.Map:
-				var indValue = reflect.ValueOf(obj)
-				if indValue == reflect.ValueOf(nil) {
-					return
-				}
-				iter := indValue.MapRange()
-				for iter.Next() {
-					k,v := iter.Key(), iter.Value()
-					parameterAddToQuery(queryParams, fmt.Sprintf("%s[%s]", keyPrefix, k.String()), v.Interface(), collectionType)
-				}
+			}
+			if t, ok := obj.(time.Time); ok {
+				parameterAddToQuery(queryParams, keyPrefix, t.Format(time.RFC3339), collectionType)
 				return
-
-			case reflect.Interface:
-				fallthrough
-			case reflect.Ptr:
-				parameterAddToQuery(queryParams, keyPrefix, v.Elem().Interface(), collectionType)
+			}
+			value = v.Type().String() + " value"
+		case reflect.Slice:
+			var indValue = reflect.ValueOf(obj)
+			if indValue == reflect.ValueOf(nil) {
 				return
+			}
+			var lenIndValue = indValue.Len()
+			for i := 0; i < lenIndValue; i++ {
+				var arrayValue = indValue.Index(i)
+				parameterAddToQuery(queryParams, keyPrefix, arrayValue.Interface(), collectionType)
+			}
+			return
 
-			case reflect.Int, reflect.Int8, reflect.Int16,
-				reflect.Int32, reflect.Int64:
-				value = strconv.FormatInt(v.Int(), 10)
-			case reflect.Uint, reflect.Uint8, reflect.Uint16,
-				reflect.Uint32, reflect.Uint64, reflect.Uintptr:
-				value = strconv.FormatUint(v.Uint(), 10)
-			case reflect.Float32, reflect.Float64:
-				value = strconv.FormatFloat(v.Float(), 'g', -1, 32)
-			case reflect.Bool:
-				value = strconv.FormatBool(v.Bool())
-			case reflect.String:
-				value = v.String()
-			default:
-				value = v.Type().String() + " value"
+		case reflect.Map:
+			var indValue = reflect.ValueOf(obj)
+			if indValue == reflect.ValueOf(nil) {
+				return
+			}
+			iter := indValue.MapRange()
+			for iter.Next() {
+				k, v := iter.Key(), iter.Value()
+				parameterAddToQuery(queryParams, fmt.Sprintf("%s[%s]", keyPrefix, k.String()), v.Interface(), collectionType)
+			}
+			return
+
+		case reflect.Interface:
+			fallthrough
+		case reflect.Ptr:
+			parameterAddToQuery(queryParams, keyPrefix, v.Elem().Interface(), collectionType)
+			return
+
+		case reflect.Int, reflect.Int8, reflect.Int16,
+			reflect.Int32, reflect.Int64:
+			value = strconv.FormatInt(v.Int(), 10)
+		case reflect.Uint, reflect.Uint8, reflect.Uint16,
+			reflect.Uint32, reflect.Uint64, reflect.Uintptr:
+			value = strconv.FormatUint(v.Uint(), 10)
+		case reflect.Float32, reflect.Float64:
+			value = strconv.FormatFloat(v.Float(), 'g', -1, 32)
+		case reflect.Bool:
+			value = strconv.FormatBool(v.Bool())
+		case reflect.String:
+			value = v.String()
+		default:
+			value = v.Type().String() + " value"
 		}
 	}
 
 	switch valuesMap := queryParams.(type) {
-		case url.Values:
-			if collectionType == "csv" && valuesMap.Get(keyPrefix) != "" {
-				valuesMap.Set(keyPrefix, valuesMap.Get(keyPrefix) + "," + value)
-			} else {
-				valuesMap.Add(keyPrefix, value)
-			}
-			break
-		case map[string]string:
-			valuesMap[keyPrefix] = value
-			break
+	case url.Values:
+		if collectionType == "csv" && valuesMap.Get(keyPrefix) != "" {
+			valuesMap.Set(keyPrefix, valuesMap.Get(keyPrefix)+","+value)
+		} else {
+			valuesMap.Add(keyPrefix, value)
+		}
+		break
+	case map[string]string:
+		valuesMap[keyPrefix] = value
+		break
 	}
 }
 
@@ -431,9 +431,9 @@ func (c *APIClient) GetConfig() *Configuration {
 }
 
 type formFile struct {
-		fileBytes []byte
-		fileName string
-		formFileName string
+	fileBytes    []byte
+	fileName     string
+	formFileName string
 }
 
 // prepareRequest build the request
@@ -487,11 +487,11 @@ func (c *APIClient) prepareRequest(
 				w.Boundary()
 				part, err := w.CreateFormFile(formFile.formFileName, filepath.Base(formFile.fileName))
 				if err != nil {
-						return nil, err
+					return nil, err
 				}
 				_, err = part.Write(formFile.fileBytes)
 				if err != nil {
-						return nil, err
+					return nil, err
 				}
 			}
 		}

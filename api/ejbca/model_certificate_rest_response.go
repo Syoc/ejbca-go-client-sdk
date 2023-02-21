@@ -40,7 +40,7 @@ type CertificateRestResponse struct {
 	// Certificate profile name
 	CertificateProfile *string `json:"certificate_profile,omitempty"`
 	// End Entity profile name
-	EndEntityProfile *string `json:"end_entity_profile,omitempty"`
+	EndEntityProfile     *string `json:"end_entity_profile,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -256,7 +256,7 @@ func (o *CertificateRestResponse) SetEndEntityProfile(v string) {
 }
 
 func (o CertificateRestResponse) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -348,5 +348,3 @@ func (v *NullableCertificateRestResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

@@ -27,12 +27,12 @@ import (
 // checks if the SearchEndEntitiesSortRestRequest type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &SearchEndEntitiesSortRestRequest{}
 
-// SearchEndEntitiesSortRestRequest Use one of allowed values as property and operation. Available propertiesUSERNAME  SUBJECT_DN  SUBJECT_ALT_NAME  END_ENTITY_PROFILE(by databse identifier, not user-given name)  CERTIFICATE_PROFILE(by identifier)  CA(by identifier)  STATUS  UPDATE_TIME  CREATED_DATE   Available operationsASC  DESC  
+// SearchEndEntitiesSortRestRequest Use one of allowed values as property and operation. Available propertiesUSERNAME  SUBJECT_DN  SUBJECT_ALT_NAME  END_ENTITY_PROFILE(by databse identifier, not user-given name)  CERTIFICATE_PROFILE(by identifier)  CA(by identifier)  STATUS  UPDATE_TIME  CREATED_DATE   Available operationsASC  DESC
 type SearchEndEntitiesSortRestRequest struct {
 	// Sorted by
 	Property *string `json:"property,omitempty"`
 	// Sort ascending or descending. 'ASC' for ascending, 'DESC' for descending.
-	Operation *string `json:"operation,omitempty"`
+	Operation            *string `json:"operation,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -120,7 +120,7 @@ func (o *SearchEndEntitiesSortRestRequest) SetOperation(v string) {
 }
 
 func (o SearchEndEntitiesSortRestRequest) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -196,5 +196,3 @@ func (v *NullableSearchEndEntitiesSortRestRequest) UnmarshalJSON(src []byte) err
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

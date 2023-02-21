@@ -30,7 +30,7 @@ var _ MappedNullable = &CaInfosRestResponse{}
 // CaInfosRestResponse struct for CaInfosRestResponse
 type CaInfosRestResponse struct {
 	CertificateAuthorities []CaInfoRestResponse `json:"certificate_authorities,omitempty"`
-	AdditionalProperties map[string]interface{}
+	AdditionalProperties   map[string]interface{}
 }
 
 type _CaInfosRestResponse CaInfosRestResponse
@@ -85,7 +85,7 @@ func (o *CaInfosRestResponse) SetCertificateAuthorities(v []CaInfoRestResponse) 
 }
 
 func (o CaInfosRestResponse) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -157,5 +157,3 @@ func (v *NullableCaInfosRestResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

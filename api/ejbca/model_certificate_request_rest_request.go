@@ -34,11 +34,11 @@ type CertificateRequestRestRequest struct {
 	// Username
 	Username *string `json:"username,omitempty"`
 	// Password
-	Password *string `json:"password,omitempty"`
-	IncludeChain *bool `json:"include_chain,omitempty"`
+	Password     *string `json:"password,omitempty"`
+	IncludeChain *bool   `json:"include_chain,omitempty"`
 	// Certificate Authority (CA) name
 	CertificateAuthorityName *string `json:"certificate_authority_name,omitempty"`
-	AdditionalProperties map[string]interface{}
+	AdditionalProperties     map[string]interface{}
 }
 
 type _CertificateRequestRestRequest CertificateRequestRestRequest
@@ -221,7 +221,7 @@ func (o *CertificateRequestRestRequest) SetCertificateAuthorityName(v string) {
 }
 
 func (o CertificateRequestRestRequest) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -309,5 +309,3 @@ func (v *NullableCertificateRequestRestRequest) UnmarshalJSON(src []byte) error 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-
