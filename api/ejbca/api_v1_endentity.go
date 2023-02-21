@@ -1,4 +1,14 @@
 /*
+Copyright 2022 Keyfactor
+Licensed under the Apache License, Version 2.0 (the "License"); you may
+not use this file except in compliance with the License.  You may obtain a
+copy of the License at http://www.apache.org/licenses/LICENSE-2.0.  Unless
+required by applicable law or agreed to in writing, software distributed
+under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES
+OR CONDITIONS OF ANY KIND, either express or implied. See the License for
+thespecific language governing permissions and limitations under the
+License.
+
 EJBCA REST Interface
 
 API reference documentation.
@@ -62,10 +72,7 @@ func (a *V1EndentityApiService) AddExecute(r ApiAddRequest) (*http.Response, err
 		formFiles            []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "V1EndentityApiService.Add")
-	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
-	}
+	localBasePath := "/ejbca/ejbca-rest-api"
 
 	localVarPath := localBasePath + "/v1/endentity"
 
@@ -155,10 +162,7 @@ func (a *V1EndentityApiService) DeleteExecute(r ApiDeleteRequest) (*http.Respons
 		formFiles            []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "V1EndentityApiService.Delete")
-	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
-	}
+	localBasePath := "/ejbca/ejbca-rest-api"
 
 	localVarPath := localBasePath + "/v1/endentity/{endentity_name}"
 	localVarPath = strings.Replace(localVarPath, "{"+"endentity_name"+"}", url.PathEscape(parameterValueToString(r.endentityName, "endentityName")), -1)
@@ -254,10 +258,7 @@ func (a *V1EndentityApiService) RevokeExecute(r ApiRevokeRequest) (*http.Respons
 		formFiles            []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "V1EndentityApiService.Revoke")
-	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
-	}
+	localBasePath := "/ejbca/ejbca-rest-api"
 
 	localVarPath := localBasePath + "/v1/endentity/{endentity_name}/revoke"
 	localVarPath = strings.Replace(localVarPath, "{"+"endentity_name"+"}", url.PathEscape(parameterValueToString(r.endentityName, "endentityName")), -1)
@@ -354,10 +355,7 @@ func (a *V1EndentityApiService) SearchExecute(r ApiSearchRequest) (*SearchEndEnt
 		localVarReturnValue  *SearchEndEntitiesRestResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "V1EndentityApiService.Search")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
+	localBasePath := "/ejbca/ejbca-rest-api"
 
 	localVarPath := localBasePath + "/v1/endentity/search"
 
@@ -463,10 +461,7 @@ func (a *V1EndentityApiService) SetstatusExecute(r ApiSetstatusRequest) (*http.R
 		formFiles            []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "V1EndentityApiService.Setstatus")
-	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
-	}
+	localBasePath := "/ejbca/ejbca-rest-api"
 
 	localVarPath := localBasePath + "/v1/endentity/{endentity_name}/setstatus"
 	localVarPath = strings.Replace(localVarPath, "{"+"endentity_name"+"}", url.PathEscape(parameterValueToString(r.endentityName, "endentityName")), -1)
@@ -556,10 +551,7 @@ func (a *V1EndentityApiService) Status6Execute(r ApiStatus6Request) (*RestResour
 		localVarReturnValue  *RestResourceStatusRestResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "V1EndentityApiService.Status6")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
+	localBasePath := "/ejbca/ejbca-rest-api"
 
 	localVarPath := localBasePath + "/v1/endentity/status"
 

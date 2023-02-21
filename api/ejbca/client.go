@@ -1,4 +1,14 @@
 /*
+Copyright 2022 Keyfactor
+Licensed under the Apache License, Version 2.0 (the "License"); you may
+not use this file except in compliance with the License.  You may obtain a
+copy of the License at http://www.apache.org/licenses/LICENSE-2.0.  Unless
+required by applicable law or agreed to in writing, software distributed
+under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES
+OR CONDITIONS OF ANY KIND, either express or implied. See the License for
+thespecific language governing permissions and limitations under the
+License.
+
 EJBCA REST Interface
 
 API reference documentation.
@@ -91,14 +101,23 @@ func NewAPIClient(cfg *Configuration) (*APIClient, error) {
 	c.common.client = c
 
 	// API Services
+Ser
 	c.V1CaApi = (*V1CaApiService)(&c.common)
+Ser
 	c.V1CaManagementApi = (*V1CaManagementApiService)(&c.common)
+Ser
 	c.V1CertificateApi = (*V1CertificateApiService)(&c.common)
+Ser
 	c.V1ConfigdumpApi = (*V1ConfigdumpApiService)(&c.common)
+Ser
 	c.V1CryptotokenApi = (*V1CryptotokenApiService)(&c.common)
+Ser
 	c.V1EndentityApi = (*V1EndentityApiService)(&c.common)
+Ser
 	c.V1SshApi = (*V1SshApiService)(&c.common)
+Ser
 	c.V2CertificateApi = (*V2CertificateApiService)(&c.common)
+Ser
 	c.V2EndentityApi = (*V2EndentityApiService)(&c.common)
 
 	return c, nil
@@ -106,7 +125,7 @@ func NewAPIClient(cfg *Configuration) (*APIClient, error) {
 
 func debugMessage(isDebug bool, message string, args ...interface{}) {
 	if isDebug {
-		fmt.Printf(message+"\n", args...)
+		log.Printf(message+"\n", args...)
 	}
 }
 
@@ -117,22 +136,18 @@ func buildHttpClient(config *Configuration) (*http.Client, error) {
 	}
 
 	// Configure new TLS object
-	debugMessage(config.Debug, "Setting up TLS to use client certificate")
-	debugMessage(config.Debug, "Setting TLS renegotiation to RenegotiateOnceAsClient [1]")
 	tlsConfig := &tls.Config{
 		Certificates:  []tls.Certificate{*cert},
 		Renegotiation: tls.RenegotiateOnceAsClient,
 	}
 
 	// Configure HTTP transports with TLS config
-	debugMessage(config.Debug, "Setting TLS handshake timeout to 10 seconds")
 	transport := &http.Transport{
 		TLSClientConfig:     tlsConfig,
 		TLSHandshakeTimeout: 10 * time.Second,
 	}
 
 	// Build new HTTP object to communicate with EJBCA
-	debugMessage(config.Debug, "Setting HTTP timeout to 10 seconds")
 	httpClient := &http.Client{
 		Transport: transport,
 		Timeout:   10 * time.Second,

@@ -1,4 +1,14 @@
 /*
+Copyright 2022 Keyfactor
+Licensed under the Apache License, Version 2.0 (the "License"); you may
+not use this file except in compliance with the License.  You may obtain a
+copy of the License at http://www.apache.org/licenses/LICENSE-2.0.  Unless
+required by applicable law or agreed to in writing, software distributed
+under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES
+OR CONDITIONS OF ANY KIND, either express or implied. See the License for
+thespecific language governing permissions and limitations under the
+License.
+
 EJBCA REST Interface
 
 API reference documentation.
@@ -68,10 +78,7 @@ func (a *V1CaApiService) CreateCrlExecute(r ApiCreateCrlRequest) (*CreateCrlRest
 		localVarReturnValue  *CreateCrlRestResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "V1CaApiService.CreateCrl")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
+	localBasePath := "/ejbca/ejbca-rest-api"
 
 	localVarPath := localBasePath + "/v1/ca/{issuer_dn}/createcrl"
 	localVarPath = strings.Replace(localVarPath, "{"+"issuer_dn"+"}", url.PathEscape(parameterValueToString(r.issuerDn, "issuerDn")), -1)
@@ -172,10 +179,7 @@ func (a *V1CaApiService) GetCertificateAsPemExecute(r ApiGetCertificateAsPemRequ
 		formFiles            []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "V1CaApiService.GetCertificateAsPem")
-	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
-	}
+	localBasePath := "/ejbca/ejbca-rest-api"
 
 	localVarPath := localBasePath + "/v1/ca/{subject_dn}/certificate/download"
 	localVarPath = strings.Replace(localVarPath, "{"+"subject_dn"+"}", url.PathEscape(parameterValueToString(r.subjectDn, "subjectDn")), -1)
@@ -280,10 +284,7 @@ func (a *V1CaApiService) GetLatestCrlExecute(r ApiGetLatestCrlRequest) (*CrlRest
 		localVarReturnValue  *CrlRestResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "V1CaApiService.GetLatestCrl")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
+	localBasePath := "/ejbca/ejbca-rest-api"
 
 	localVarPath := localBasePath + "/v1/ca/{issuer_dn}/getLatestCrl"
 	localVarPath = strings.Replace(localVarPath, "{"+"issuer_dn"+"}", url.PathEscape(parameterValueToString(r.issuerDn, "issuerDn")), -1)
@@ -401,10 +402,7 @@ func (a *V1CaApiService) ImportCrlExecute(r ApiImportCrlRequest) (*http.Response
 		formFiles            []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "V1CaApiService.ImportCrl")
-	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
-	}
+	localBasePath := "/ejbca/ejbca-rest-api"
 
 	localVarPath := localBasePath + "/v1/ca/{issuer_dn}/importcrl"
 	localVarPath = strings.Replace(localVarPath, "{"+"issuer_dn"+"}", url.PathEscape(parameterValueToString(r.issuerDn, "issuerDn")), -1)
@@ -512,10 +510,7 @@ func (a *V1CaApiService) ListCasExecute(r ApiListCasRequest) (*CaInfosRestRespon
 		localVarReturnValue  *CaInfosRestResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "V1CaApiService.ListCas")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
+	localBasePath := "/ejbca/ejbca-rest-api"
 
 	localVarPath := localBasePath + "/v1/ca"
 
@@ -611,10 +606,7 @@ func (a *V1CaApiService) Status1Execute(r ApiStatus1Request) (*RestResourceStatu
 		localVarReturnValue  *RestResourceStatusRestResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "V1CaApiService.Status1")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
+	localBasePath := "/ejbca/ejbca-rest-api"
 
 	localVarPath := localBasePath + "/v1/ca/status"
 

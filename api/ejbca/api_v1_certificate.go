@@ -1,4 +1,14 @@
 /*
+Copyright 2022 Keyfactor
+Licensed under the Apache License, Version 2.0 (the "License"); you may
+not use this file except in compliance with the License.  You may obtain a
+copy of the License at http://www.apache.org/licenses/LICENSE-2.0.  Unless
+required by applicable law or agreed to in writing, software distributed
+under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES
+OR CONDITIONS OF ANY KIND, either express or implied. See the License for
+thespecific language governing permissions and limitations under the
+License.
+
 EJBCA REST Interface
 
 API reference documentation.
@@ -64,10 +74,7 @@ func (a *V1CertificateApiService) CertificateRequestExecute(r ApiCertificateRequ
 		localVarReturnValue  *CertificateRestResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "V1CertificateApiService.CertificateRequest")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
+	localBasePath := "/ejbca/ejbca-rest-api"
 
 	localVarPath := localBasePath + "/v1/certificate/certificaterequest"
 
@@ -171,10 +178,7 @@ func (a *V1CertificateApiService) EnrollKeystoreExecute(r ApiEnrollKeystoreReque
 		localVarReturnValue  *CertificateRestResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "V1CertificateApiService.EnrollKeystore")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
+	localBasePath := "/ejbca/ejbca-rest-api"
 
 	localVarPath := localBasePath + "/v1/certificate/enrollkeystore"
 
@@ -278,10 +282,7 @@ func (a *V1CertificateApiService) EnrollPkcs10CertificateExecute(r ApiEnrollPkcs
 		localVarReturnValue  *CertificateRestResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "V1CertificateApiService.EnrollPkcs10Certificate")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
+	localBasePath := "/ejbca/ejbca-rest-api"
 
 	localVarPath := localBasePath + "/v1/certificate/pkcs10enroll"
 
@@ -389,10 +390,7 @@ func (a *V1CertificateApiService) FinalizeEnrollmentExecute(r ApiFinalizeEnrollm
 		localVarReturnValue  *CertificateRestResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "V1CertificateApiService.FinalizeEnrollment")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
+	localBasePath := "/ejbca/ejbca-rest-api"
 
 	localVarPath := localBasePath + "/v1/certificate/{request_id}/finalize"
 	localVarPath = strings.Replace(localVarPath, "{"+"request_id"+"}", url.PathEscape(parameterValueToString(r.requestId, "requestId")), -1)
@@ -512,10 +510,7 @@ func (a *V1CertificateApiService) GetCertificatesAboutToExpireExecute(r ApiGetCe
 		localVarReturnValue  *ExpiringCertificatesRestResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "V1CertificateApiService.GetCertificatesAboutToExpire")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
+	localBasePath := "/ejbca/ejbca-rest-api"
 
 	localVarPath := localBasePath + "/v1/certificate/expire"
 
@@ -626,10 +621,7 @@ func (a *V1CertificateApiService) RevocationStatusExecute(r ApiRevocationStatusR
 		localVarReturnValue  *RevokeStatusRestResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "V1CertificateApiService.RevocationStatus")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
+	localBasePath := "/ejbca/ejbca-rest-api"
 
 	localVarPath := localBasePath + "/v1/certificate/{issuer_dn}/{certificate_serial_number}/revocationstatus"
 	localVarPath = strings.Replace(localVarPath, "{"+"issuer_dn"+"}", url.PathEscape(parameterValueToString(r.issuerDn, "issuerDn")), -1)
@@ -747,10 +739,7 @@ func (a *V1CertificateApiService) RevokeCertificateExecute(r ApiRevokeCertificat
 		localVarReturnValue  *RevokeStatusRestResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "V1CertificateApiService.RevokeCertificate")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
+	localBasePath := "/ejbca/ejbca-rest-api"
 
 	localVarPath := localBasePath + "/v1/certificate/{issuer_dn}/{certificate_serial_number}/revoke"
 	localVarPath = strings.Replace(localVarPath, "{"+"issuer_dn"+"}", url.PathEscape(parameterValueToString(r.issuerDn, "issuerDn")), -1)
@@ -861,10 +850,7 @@ func (a *V1CertificateApiService) SearchCertificatesExecute(r ApiSearchCertifica
 		localVarReturnValue  *SearchCertificatesRestResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "V1CertificateApiService.SearchCertificates")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
+	localBasePath := "/ejbca/ejbca-rest-api"
 
 	localVarPath := localBasePath + "/v1/certificate/search"
 
@@ -962,10 +948,7 @@ func (a *V1CertificateApiService) Status2Execute(r ApiStatus2Request) (*RestReso
 		localVarReturnValue  *RestResourceStatusRestResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "V1CertificateApiService.Status2")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
+	localBasePath := "/ejbca/ejbca-rest-api"
 
 	localVarPath := localBasePath + "/v1/certificate/status"
 

@@ -23,6 +23,6 @@ _testmain.go
 *.test
 *.prof
 
-# Open-API
+# OpenAPI generator files
 .openapi-generator
 test

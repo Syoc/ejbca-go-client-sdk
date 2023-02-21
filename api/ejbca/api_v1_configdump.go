@@ -1,4 +1,14 @@
 /*
+Copyright 2022 Keyfactor
+Licensed under the Apache License, Version 2.0 (the "License"); you may
+not use this file except in compliance with the License.  You may obtain a
+copy of the License at http://www.apache.org/licenses/LICENSE-2.0.  Unless
+required by applicable law or agreed to in writing, software distributed
+under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES
+OR CONDITIONS OF ANY KIND, either express or implied. See the License for
+thespecific language governing permissions and limitations under the
+License.
+
 EJBCA REST Interface
 
 API reference documentation.
@@ -94,10 +104,7 @@ func (a *V1ConfigdumpApiService) GetJsonConfigdumpExecute(r ApiGetJsonConfigdump
 		localVarReturnValue  []string
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "V1ConfigdumpApiService.GetJsonConfigdump")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
+	localBasePath := "/ejbca/ejbca-rest-api"
 
 	localVarPath := localBasePath + "/v1/configdump"
 
@@ -248,10 +255,7 @@ func (a *V1ConfigdumpApiService) GetJsonConfigdumpForTypeExecute(r ApiGetJsonCon
 		localVarReturnValue  []string
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "V1ConfigdumpApiService.GetJsonConfigdumpForType")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
+	localBasePath := "/ejbca/ejbca-rest-api"
 
 	localVarPath := localBasePath + "/v1/configdump/{type}"
 	localVarPath = strings.Replace(localVarPath, "{"+"type"+"}", url.PathEscape(parameterValueToString(r.type_, "type_")), -1)
@@ -377,10 +381,7 @@ func (a *V1ConfigdumpApiService) GetJsonConfigdumpForTypeAndSettingExecute(r Api
 		localVarReturnValue  []string
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "V1ConfigdumpApiService.GetJsonConfigdumpForTypeAndSetting")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
+	localBasePath := "/ejbca/ejbca-rest-api"
 
 	localVarPath := localBasePath + "/v1/configdump/{type}/{setting}"
 	localVarPath = strings.Replace(localVarPath, "{"+"type"+"}", url.PathEscape(parameterValueToString(r.type_, "type_")), -1)
@@ -519,10 +520,7 @@ func (a *V1ConfigdumpApiService) GetZipExportExecute(r ApiGetZipExportRequest) (
 		localVarReturnValue  []string
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "V1ConfigdumpApiService.GetZipExport")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
+	localBasePath := "/ejbca/ejbca-rest-api"
 
 	localVarPath := localBasePath + "/v1/configdump/configdump.zip"
 
@@ -691,10 +689,7 @@ func (a *V1ConfigdumpApiService) PostJsonImportExecute(r ApiPostJsonImportReques
 		localVarReturnValue  *ConfigdumpResults
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "V1ConfigdumpApiService.PostJsonImport")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
+	localBasePath := "/ejbca/ejbca-rest-api"
 
 	localVarPath := localBasePath + "/v1/configdump"
 
@@ -849,10 +844,7 @@ func (a *V1ConfigdumpApiService) PostZipImportExecute(r ApiPostZipImportRequest)
 		localVarReturnValue  *ConfigdumpResults
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "V1ConfigdumpApiService.PostZipImport")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
+	localBasePath := "/ejbca/ejbca-rest-api"
 
 	localVarPath := localBasePath + "/v1/configdump/configdump.zip"
 
@@ -980,10 +972,7 @@ func (a *V1ConfigdumpApiService) Status4Execute(r ApiStatus4Request) (*RestResou
 		localVarReturnValue  *RestResourceStatusRestResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "V1ConfigdumpApiService.Status4")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
+	localBasePath := "/ejbca/ejbca-rest-api"
 
 	localVarPath := localBasePath + "/v1/configdump/status"
 
