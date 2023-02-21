@@ -101,23 +101,14 @@ func NewAPIClient(cfg *Configuration) (*APIClient, error) {
 	c.common.client = c
 
 	// API Services
-	Ser
 	c.V1CaApi = (*V1CaApiService)(&c.common)
-	Ser
 	c.V1CaManagementApi = (*V1CaManagementApiService)(&c.common)
-	Ser
 	c.V1CertificateApi = (*V1CertificateApiService)(&c.common)
-	Ser
 	c.V1ConfigdumpApi = (*V1ConfigdumpApiService)(&c.common)
-	Ser
 	c.V1CryptotokenApi = (*V1CryptotokenApiService)(&c.common)
-	Ser
 	c.V1EndentityApi = (*V1EndentityApiService)(&c.common)
-	Ser
 	c.V1SshApi = (*V1SshApiService)(&c.common)
-	Ser
 	c.V2CertificateApi = (*V2CertificateApiService)(&c.common)
-	Ser
 	c.V2EndentityApi = (*V2EndentityApiService)(&c.common)
 
 	return c, nil
