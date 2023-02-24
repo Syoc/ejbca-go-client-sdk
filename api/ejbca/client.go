@@ -89,6 +89,12 @@ type service struct {
 // optionally a custom http.Client to allow for advanced features such as caching.
 func NewAPIClient(cfg *Configuration) (*APIClient, error) {
 	var err error
+
+	cfg.Host, err = cleanHostname(cfg.Host)
+	if err != nil {
+		return nil, err
+	}
+
 	if cfg.HTTPClient == nil {
 		if cfg.HTTPClient, err = buildHttpClient(cfg); err != nil {
 			debugMessage(cfg.Debug, "Failed to build HTTP client: %s", err.Error())
@@ -117,6 +123,19 @@ func NewAPIClient(cfg *Configuration) (*APIClient, error) {
 func debugMessage(isDebug bool, message string, args ...interface{}) {
 	if isDebug {
 		log.Printf(message+"\n", args...)
+	}
+}
+
+func cleanHostname(hostname string) (string, error) {
+	if hostname == "" {
+		return "", errors.New("hostname cannot be empty")
+	}
+
+	if u, err := url.Parse(hostname); err == nil {
+		return u.Host, nil
+	} else {
+		fmt.Errorf("EJBCA_HOSTNAME is not a valid URL: %s", err)
+		return "", err
 	}
 }
 
