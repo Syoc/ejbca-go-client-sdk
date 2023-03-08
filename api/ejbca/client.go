@@ -131,6 +131,11 @@ func cleanHostname(hostname string) (string, error) {
 		return "", errors.New("hostname cannot be empty")
 	}
 
+	// When parsing a hostname without a scheme, Go will assume it is a path.
+	if !strings.HasPrefix(hostname, "http://") && !strings.HasPrefix(hostname, "https://") {
+		hostname = "http://" + hostname
+	}
+
 	if u, err := url.Parse(hostname); err == nil {
 		return u.Host, nil
 	} else {

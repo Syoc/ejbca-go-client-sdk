@@ -23,7 +23,6 @@ package ejbca
 import (
 	"fmt"
 	"net/http"
-	"net/url"
 	"os"
 )
 
@@ -76,8 +75,8 @@ func NewConfiguration() *Configuration {
 	// Get hostname from environment variable
 	hostname := os.Getenv("EJBCA_HOSTNAME")
 	if hostname != "" {
-		if u, err := url.Parse(hostname); err == nil {
-			cfg.Host = u.Host
+		if hostname, err := cleanHostname(hostname); err == nil {
+			cfg.Host = hostname
 		} else {
 			fmt.Errorf("EJBCA_HOSTNAME is not a valid URL: %s", err)
 		}

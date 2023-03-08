@@ -9,7 +9,7 @@ import (
 
 func main() {
 	configuration := ejbca.NewConfiguration()
-	configuration.Host = "example.com"
+	configuration.Host = "example.com/"
 	configuration.ClientCertificatePath = "auth_cert.pem" // Path to client certificate. The private key can be in the same file or in a file specified by the ClientCertificateKeyPath
 	configuration.ClientCertificateKeyPath = "auth_key.pem"
 
