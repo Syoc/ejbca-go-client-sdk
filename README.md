@@ -35,12 +35,14 @@ configuration.ClientCertificatePath = "auth_cert.pem" // Path to client certific
 configuration.ClientCertificateKeyPath = "auth_key.pem"
 ```
 
-The following environment variables can be used to configure the client as well, and will override the values set in the configuration struct:
+The following environment variables can be used to configure the client as well:
 ```shell
 export EJBCA_HOSTNAME="example.com"
 export EJBCA_CLIENT_CERT_PATH="auth_cert.pem"
 export EJBCA_CLIENT_CERT_KEY_PATH="auth_key.key"
 ```
+
+Configuration of the EJBCA client via the `ejbca.Configuration` struct will override values set in environment variables.
 
 If the EJBCA REST API uses a port other than 443, it can be configured with the `EJBCA_HOSTNAME` or the `Host` field in the configuration struct by
 adding `:port` to the end of the hostname.
