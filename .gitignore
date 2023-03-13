@@ -25,4 +25,5 @@ _testmain.go
 
 # OpenAPI generator files
 .openapi-generator
+.idea
 test
