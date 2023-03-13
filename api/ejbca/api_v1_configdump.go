@@ -27,7 +27,6 @@ import (
 	"net/http"
 	"net/url"
 	"os"
-	"reflect"
 	"strings"
 )
 
@@ -123,25 +122,11 @@ func (a *V1ConfigdumpApiService) GetJsonConfigdumpExecute(r ApiGetJsonConfigdump
 	}
 	if r.include != nil {
 		t := *r.include
-		if reflect.TypeOf(t).Kind() == reflect.Slice {
-			s := reflect.ValueOf(t)
-			for i := 0; i < s.Len(); i++ {
-				parameterAddToQuery(localVarQueryParams, "include", s.Index(i), "multi")
-			}
-		} else {
-			parameterAddToQuery(localVarQueryParams, "include", t, "multi")
-		}
+		parameterAddToQuery(localVarQueryParams, "include", t, "multi")
 	}
 	if r.exclude != nil {
 		t := *r.exclude
-		if reflect.TypeOf(t).Kind() == reflect.Slice {
-			s := reflect.ValueOf(t)
-			for i := 0; i < s.Len(); i++ {
-				parameterAddToQuery(localVarQueryParams, "exclude", s.Index(i), "multi")
-			}
-		} else {
-			parameterAddToQuery(localVarQueryParams, "exclude", t, "multi")
-		}
+		parameterAddToQuery(localVarQueryParams, "exclude", t, "multi")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -542,25 +527,11 @@ func (a *V1ConfigdumpApiService) GetZipExportExecute(r ApiGetZipExportRequest) (
 	}
 	if r.include != nil {
 		t := *r.include
-		if reflect.TypeOf(t).Kind() == reflect.Slice {
-			s := reflect.ValueOf(t)
-			for i := 0; i < s.Len(); i++ {
-				parameterAddToQuery(localVarQueryParams, "include", s.Index(i), "multi")
-			}
-		} else {
-			parameterAddToQuery(localVarQueryParams, "include", t, "multi")
-		}
+		parameterAddToQuery(localVarQueryParams, "include", t, "multi")
 	}
 	if r.exclude != nil {
 		t := *r.exclude
-		if reflect.TypeOf(t).Kind() == reflect.Slice {
-			s := reflect.ValueOf(t)
-			for i := 0; i < s.Len(); i++ {
-				parameterAddToQuery(localVarQueryParams, "exclude", s.Index(i), "multi")
-			}
-		} else {
-			parameterAddToQuery(localVarQueryParams, "exclude", t, "multi")
-		}
+		parameterAddToQuery(localVarQueryParams, "exclude", t, "multi")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
