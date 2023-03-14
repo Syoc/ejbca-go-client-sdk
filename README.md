@@ -1,11 +1,13 @@
-# Community supported
+# Go Client SDK for Keyfactor EJBCA
+
+The Go Client SDK for Keyfactor EJBCA enables management of EJBCA resources utilizing the Go programming language.
+
+# Support for the Keyfactor EJBCA Go Client SDK
 We welcome contributions.
 
 The Keyfactor EJBCA Go Client SDK is open source and community supported, meaning that there is **no SLA** applicable for these tools.
 
-To report a problem or suggest a new feature, use the **[Issues](../../issues)** tab. If you want to contribute actual bug fixes or proposed enhancements, use the **[Pull requests](../../pulls)** tab.
-
-# Go Client SDK for Keyfactor EJBCA
+###### To report a problem or suggest a new feature, use the **[Issues](../../issues)** tab. If you want to contribute actual bug fixes or proposed enhancements, use the **[Pull requests](../../pulls)** tab.
 
 ## Installation
 
