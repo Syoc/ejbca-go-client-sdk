@@ -21,6 +21,7 @@ API version: 1.0
 package ejbca
 
 import (
+	"crypto/tls"
 	"fmt"
 	"net/http"
 	"os"
@@ -62,6 +63,7 @@ type Configuration struct {
 	ClientCertificatePath    string            `json:"clientCertificatePath,omitempty"`
 	ClientCertificateKeyPath string            `json:"clientCertificateKeyPath,omitempty"`
 	HTTPClient               *http.Client
+	clientTlsCertificate     *tls.Certificate
 }
 
 // NewConfiguration returns a new Configuration object
@@ -100,4 +102,10 @@ func NewConfiguration() *Configuration {
 // AddDefaultHeader adds a new HTTP header to the default header in the request
 func (c *Configuration) AddDefaultHeader(key string, value string) {
 	c.DefaultHeader[key] = value
+}
+
+func (c *Configuration) SetClientCertificate(clientCertificate *tls.Certificate) {
+	if clientCertificate != nil {
+		c.clientTlsCertificate = clientCertificate
+	}
 }

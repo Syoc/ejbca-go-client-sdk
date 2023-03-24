@@ -174,6 +174,10 @@ func findClientCertificate(config *Configuration) (*tls.Certificate, error) {
 	// Load client certificate
 	var cert tls.Certificate
 
+	if config.clientTlsCertificate != nil {
+		return config.clientTlsCertificate, nil
+	}
+
 	if config.ClientCertificatePath == "" {
 		return nil, fmt.Errorf("path to client certificate is required")
 	}
