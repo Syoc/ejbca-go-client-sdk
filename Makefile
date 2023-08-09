@@ -16,7 +16,7 @@ generate: clean
 		java -jar openapi-generator-cli.jar generate -i $(OPENAPI_YAML) -p packageName=$(GO_PACKAGE_NAME) $(OPENAPI_ARGS) -g go -p isGoSubmodule=false -p disallowAdditionalPropertiesIfNotPresent=false --git-user-id $(GIT_USER_ID) --git-repo-id $(GIT_REPO_NAME); \
  	fi
 	@mkdir ./api/$(GO_PACKAGE_NAME) || (echo /api/$(GO_PACKAGE_NAME) exists)
-	@mv ./*.go ./api/$(GO_PACKAGE_NAME) -f || (echo no files to move)
+	@mv -f ./*.go ./api/$(GO_PACKAGE_NAME) || (echo no files to move)
 	@rm .travis.yml || (echo no .travis.yml to remove)
 	@rm .openapi-generator-ignore || (echo no .openapi-generator-ignore to remove)
 	@rm git_push.sh || (echo no git_push.sh to remove)

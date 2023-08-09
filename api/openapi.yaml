@@ -1619,7 +1619,7 @@ components:
         \ 8601 Date string; \nREVOCATION_DATE 'AFTER' - multiplicity [0, 1] - ISO\
         \ 8601 Date string. \nUPDATE_TIME 'BEFORE' - multiplicity [0, 1] - ISO 8601\
         \ Date string; \nUPDATE_TIME 'AFTER' - multiplicity [0, 1] - ISO 8601 Date\
-        \ string; \n"
+        \ string;\n"
       example:
         property: CERTIFICATE_PROFILE
         value: ENDUSER
@@ -1985,7 +1985,7 @@ components:
         \ propertiesUSERNAME \nISSUER_DN \nSUBJECT_DN \nEXTERNAL_ACCOUNT_BINDING_ID\
         \ \nEND_ENTITY_PROFILE \nCERTIFICATE_PROFILE \nSTATUS \nTAG \nTYPE \nUPDATE_TIME\
         \ \nISSUED_DATE \nEXPIRE_DATE \nREVOCATION_DATE \n\nAvailable operationsASC\
-        \ \nDESC \n"
+        \ \nDESC\n"
       example:
         property: USERNAME
         operation: ASC
@@ -2348,7 +2348,7 @@ components:
         \ INPROCESS, GENERATED, REVOKED, HISTORICAL, KEYRECOVERY, WAITINGFORADDAPPROVAL;\n\
         \nEND_ENTITY_PROFILE, CERTIFICATE_PROFILE, CA - multiplicity [0, *) - exact\
         \ match of the name for referencing End Entity Profile, Certificate Profile\
-        \ or CA; \n"
+        \ or CA;\n"
       example:
         property: QUERY
         value: exampleUsername
@@ -2557,7 +2557,7 @@ components:
         \ propertiesUSERNAME \nSUBJECT_DN \nSUBJECT_ALT_NAME \nEND_ENTITY_PROFILE(by\
         \ databse identifier, not user-given name) \nCERTIFICATE_PROFILE(by identifier)\
         \ \nCA(by identifier) \nSTATUS \nUPDATE_TIME \nCREATED_DATE \n\nAvailable\
-        \ operationsASC \nDESC \n"
+        \ operationsASC \nDESC\n"
       example:
         property: USERNAME
         operation: ASC

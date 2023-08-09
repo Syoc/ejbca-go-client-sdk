@@ -22,6 +22,7 @@ package ejbca
 
 import (
 	"crypto/tls"
+	"crypto/x509"
 	"fmt"
 	"net/http"
 	"os"
@@ -62,8 +63,10 @@ type Configuration struct {
 	Debug                    bool              `json:"debug,omitempty"`
 	ClientCertificatePath    string            `json:"clientCertificatePath,omitempty"`
 	ClientCertificateKeyPath string            `json:"clientCertificateKeyPath,omitempty"`
+	CaCertificatePath        string            `json:"caCertificatePath,omitempty"`
 	HTTPClient               *http.Client
 	clientTlsCertificate     *tls.Certificate
+	caCertificates           []*x509.Certificate
 }
 
 // NewConfiguration returns a new Configuration object
@@ -96,6 +99,12 @@ func NewConfiguration() *Configuration {
 		cfg.ClientCertificateKeyPath = clientCertKeyPath
 	}
 
+	// Get CA certificate path from environment variable
+	caCertPath := os.Getenv("EJBCA_CA_CERT_PATH")
+	if caCertPath != "" {
+		cfg.CaCertificatePath = caCertPath
+	}
+
 	return cfg
 }
 
@@ -107,5 +116,11 @@ func (c *Configuration) AddDefaultHeader(key string, value string) {
 func (c *Configuration) SetClientCertificate(clientCertificate *tls.Certificate) {
 	if clientCertificate != nil {
 		c.clientTlsCertificate = clientCertificate
+	}
+}
+
+func (c *Configuration) SetCaCertificates(caCertificates []*x509.Certificate) {
+	if caCertificates != nil {
+		c.caCertificates = caCertificates
 	}
 }

@@ -27,3 +27,4 @@ _testmain.go
 .openapi-generator
 .idea
 test
+ejbca-7.10.0.1-patched.yaml
