@@ -1,0 +1,47 @@
+{{>partial_header}}
+package {{packageName}}
+
+import (
+	"fmt"
+	"os"
+)
+
+// Configuration stores the configuration of the API client
+type Configuration struct {
+	Host                     string            `json:"host,omitempty"`
+	DefaultHeader            map[string]string `json:"defaultHeader,omitempty"`
+	UserAgent                string            `json:"userAgent,omitempty"`
+	Debug                    bool              `json:"debug,omitempty"`
+    authenticator            Authenticator
+}
+
+// NewConfiguration returns a new Configuration object
+func NewConfiguration() *Configuration {
+	cfg := &Configuration{
+		DefaultHeader:    make(map[string]string),
+		UserAgent:        "{{{httpUserAgent}}}{{^httpUserAgent}}OpenAPI-Generator/{{{packageVersion}}}/go{{/httpUserAgent}}",
+		Debug:            false,
+	}
+
+	// Get hostname from environment variable
+	hostname := os.Getenv("EJBCA_HOSTNAME")
+	if hostname != "" {
+		if hostname, err := cleanHostname(hostname); err == nil {
+			cfg.Host = hostname
+		} else {
+			fmt.Errorf("EJBCA_HOSTNAME is not a valid URL: %s", err)
+		}
+	}
+
+	return cfg
+}
+
+// AddDefaultHeader adds a new HTTP header to the default header in the request
+func (c *Configuration) AddDefaultHeader(key string, value string) {
+	c.DefaultHeader[key] = value
+}
+
+func (c *Configuration) SetAuthenticator(authenticator Authenticator) {
+    c.authenticator = authenticator
+}
+

@@ -1,0 +1,8 @@
+templateDir: .openapi-generator/templates/go
+additionalProperties:
+  isGoSubmodule: false
+  disallowAdditionalPropertiesIfNotPresent: false
+files:
+  auth.mustache:
+    templateType: SupportingFiles
+    destinationFilename: auth.go
