@@ -35,6 +35,7 @@ import (
 	"strings"
 	"time"
 
+	"golang.org/x/oauth2"
 	"golang.org/x/oauth2/clientcredentials"
 )
 
@@ -126,7 +127,11 @@ func (b *OAuthAuthenticatorBuilder) Build() (Authenticator, error) {
 		},
 	}
 
-	client := config.Client(context.Background())
+	tokenSource := config.TokenSource(context.Background())
+	oauthTransport := &oauth2.Transport{
+		Base:   http.DefaultTransport,
+		Source: tokenSource,
+	}
 
 	if b.caCertificates == nil {
 		var err error
@@ -136,25 +141,26 @@ func (b *OAuthAuthenticatorBuilder) Build() (Authenticator, error) {
 		}
 	}
 
-	if b.caCertificates != nil {
+	if len(b.caCertificates) > 0 {
 		tlsConfig := &tls.Config{
 			Renegotiation: tls.RenegotiateOnceAsClient,
 		}
 
-		if len(b.caCertificates) > 0 {
-			tlsConfig.RootCAs = x509.NewCertPool()
-			for _, caCert := range b.caCertificates {
-				tlsConfig.RootCAs.AddCert(caCert)
-			}
-
-			tlsConfig.ClientCAs = tlsConfig.RootCAs
+		tlsConfig.RootCAs = x509.NewCertPool()
+		for _, caCert := range b.caCertificates {
+			tlsConfig.RootCAs.AddCert(caCert)
 		}
 
 		customTransport := http.DefaultTransport.(*http.Transport).Clone()
 		customTransport.TLSClientConfig = tlsConfig
 		customTransport.TLSHandshakeTimeout = 10 * time.Second
 
-		client.Transport = customTransport
+		// Wrap the custom transport with the oauth2.Transport
+		oauthTransport.Base = customTransport
+	}
+
+	client := &http.Client{
+		Transport: oauthTransport,
 	}
 
 	return &OAuthAuthenticator{client: client}, nil
@@ -264,7 +270,7 @@ func (b *MTLSAuthenticatorBuilder) Build() (Authenticator, error) {
 		}
 	}
 
-	if b.caCertificates == nil {
+	if len(b.caCertificates) == 0 {
 		b.caCertificates, err = findCaCertificate(b.caCertificatePath)
 		if err != nil {
 			return nil, fmt.Errorf("failed to find CA certificates: %w", err)
@@ -281,8 +287,6 @@ func (b *MTLSAuthenticatorBuilder) Build() (Authenticator, error) {
 		for _, caCert := range b.caCertificates {
 			tlsConfig.RootCAs.AddCert(caCert)
 		}
-
-		tlsConfig.ClientCAs = tlsConfig.RootCAs
 	}
 
 	customTransport := http.DefaultTransport.(*http.Transport).Clone()
