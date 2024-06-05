@@ -123,12 +123,6 @@ func NewAPIClient(cfg *Configuration) (*APIClient, error) {
 	return c, nil
 }
 
-func debugMessage(isDebug bool, message string, args ...interface{}) {
-	if isDebug {
-		log.Printf(message+"\n", args...)
-	}
-}
-
 func cleanHostname(hostname string) (string, error) {
 	if hostname == "" {
 		return "", errors.New("hostname cannot be empty")
