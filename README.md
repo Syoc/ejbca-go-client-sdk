@@ -57,7 +57,7 @@ if err != nil {
     panic(err)
 }
 
-authenticator, err = ejbca.NewMTLSAuthenticatorBuilder().
+authenticator, err := ejbca.NewMTLSAuthenticatorBuilder().
     WithClientCertificate(&tlsCert).
     WithCaCertificates(caCerts).
     Build()
@@ -71,7 +71,7 @@ The `ejbca.MTLSAuthenticatorBuilder` can also source the client certificate, key
 ```go
 import "github.com/Keyfactor/ejbca-go-client-sdk/api/ejbca"
 
-authenticator, err = ejbca.NewMTLSAuthenticatorBuilder().
+authenticator, err := ejbca.NewMTLSAuthenticatorBuilder().
     WithClientCertificatePath("<path to client certificate>").
     WithClientCertificateKeyPath("<path to client key>").
     WithCaCertificatePath("<path to ca certificate>").
@@ -86,7 +86,7 @@ OAuth2.0 is configured using the `ejbca.OAuthAuthenticatorBuilder`. Under the ho
 ```go
 import "github.com/Keyfactor/ejbca-go-client-sdk/api/ejbca"
 
-authenticator, err = ejbca.NewOAuthAuthenticatorBuilder().
+authenticator, err := ejbca.NewOAuthAuthenticatorBuilder().
     WithCaCertificates(caCerts).
 //  WithCaCertificatePath("<path to ca certificate>").
     WithTokenUrl("<url to token endpoint>").
