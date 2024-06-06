@@ -65,18 +65,7 @@ type OAuthAuthenticatorBuilder struct {
 }
 
 func NewOAuthAuthenticatorBuilder() *OAuthAuthenticatorBuilder {
-	scopesString := os.Getenv("OAUTH_SCOPES")
-	scopes := []string{}
-	if scopesString != "" {
-		scopes = strings.Split(scopesString, " ")
-	}
-	return &OAuthAuthenticatorBuilder{
-		clientId:     os.Getenv("OAUTH_CLIENT_ID"),
-		clientSecret: os.Getenv("OAUTH_CLIENT_SECRET"),
-		tokenUrl:     os.Getenv("OAUTH_TOKEN_URL"),
-		audience:     os.Getenv("OAUTH_AUDIENCE"),
-		scopes:       scopes,
-	}
+	return &OAuthAuthenticatorBuilder{}
 }
 
 func (b *OAuthAuthenticatorBuilder) WithClientId(clientId string) *OAuthAuthenticatorBuilder {
@@ -120,11 +109,14 @@ func (b *OAuthAuthenticatorBuilder) Build() (Authenticator, error) {
 		ClientSecret: b.clientSecret,
 		TokenURL:     b.tokenUrl,
 		Scopes:       b.scopes,
-		EndpointParams: map[string][]string{
+	}
+
+	if b.audience != "" {
+		config.EndpointParams = map[string][]string{
 			"audience": {
 				b.audience,
 			},
-		},
+		}
 	}
 
 	tokenSource := config.TokenSource(context.Background())
@@ -187,11 +179,7 @@ type MTLSAuthenticatorBuilder struct {
 }
 
 func NewMTLSAuthenticatorBuilder() *MTLSAuthenticatorBuilder {
-	return &MTLSAuthenticatorBuilder{
-		clientCertificatePath:    os.Getenv("EJBCA_CLIENT_CERT_PATH"),
-		clientCertificateKeyPath: os.Getenv("EJBCA_CLIENT_CERT_KEY_PATH"),
-		caCertificatePath:        os.Getenv("EJBCA_CA_CERT_PATH"),
-	}
+	return &MTLSAuthenticatorBuilder{}
 }
 
 func (b *MTLSAuthenticatorBuilder) WithClientCertificatePath(clientCertificatePath string) *MTLSAuthenticatorBuilder {

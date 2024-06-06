@@ -109,8 +109,7 @@ func cleanHostname(hostname string) (string, error) {
 	if u, err := url.Parse(hostname); err == nil {
 		return u.Host, nil
 	} else {
-		fmt.Errorf("EJBCA_HOSTNAME is not a valid URL: %s", err)
-		return "", err
+		return "", fmt.Errorf("ejbca hostname is not a valid URL: %s", err)
 	}
 }
 

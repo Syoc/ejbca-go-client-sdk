@@ -24,39 +24,22 @@ API version: 1.0
 
 package ejbca
 
-import (
-	"fmt"
-	"os"
-)
-
 // Configuration stores the configuration of the API client
 type Configuration struct {
 	Host          string            `json:"host,omitempty"`
 	DefaultHeader map[string]string `json:"defaultHeader,omitempty"`
 	UserAgent     string            `json:"userAgent,omitempty"`
-	Debug         bool              `json:"debug,omitempty"`
+	Debug         bool
 	authenticator Authenticator
 }
 
 // NewConfiguration returns a new Configuration object
 func NewConfiguration() *Configuration {
-	cfg := &Configuration{
+	return &Configuration{
 		DefaultHeader: make(map[string]string),
 		UserAgent:     "OpenAPI-Generator/1.0.0/go",
 		Debug:         false,
 	}
-
-	// Get hostname from environment variable
-	hostname := os.Getenv("EJBCA_HOSTNAME")
-	if hostname != "" {
-		if hostname, err := cleanHostname(hostname); err == nil {
-			cfg.Host = hostname
-		} else {
-			fmt.Errorf("EJBCA_HOSTNAME is not a valid URL: %s", err)
-		}
-	}
-
-	return cfg
 }
 
 // AddDefaultHeader adds a new HTTP header to the default header in the request

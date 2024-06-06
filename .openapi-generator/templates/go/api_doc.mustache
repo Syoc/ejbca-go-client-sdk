@@ -29,10 +29,8 @@ import (
     "context"
     "fmt"
     "os"
-{{#vendorExtensions.x-go-import}}
-{{{vendorExtensions.x-go-import}}}
-{{/vendorExtensions.x-go-import}}
-    {{goImportAlias}} "./openapi"
+
+    {{goImportAlias}} "{{gitHost}}/{{gitUserId}}/{{gitRepoId}}/{{packageName}}"
 )
 
 func main() {
@@ -40,7 +38,19 @@ func main() {
     {{paramName}} := {{{vendorExtensions.x-go-example}}} // {{{dataType}}} | {{{description}}}{{^required}} (optional){{/required}}{{#defaultValue}} (default to {{{.}}}){{/defaultValue}}
     {{/allParams}}
 
+    authenticator, err := {{goImportAlias}}.NewMTLSAuthenticatorBuilder().
+        WithClientCertificatePath("<path to client certificate>").
+        WithClientCertificateKeyPath("<path to client key>").
+        WithCaCertificatePath("<path to ca certificate>").
+        Build()
+    if err != nil {
+        panic(err)
+    }
+
     configuration := {{goImportAlias}}.NewConfiguration()
+    configuration.Host = "<hostname>:<optional port>"
+    configuration.SetAuthenticator(authenticator)
+
     apiClient := {{goImportAlias}}.NewAPIClient(configuration)
     resp, r, err := apiClient.{{classname}}.{{operationId}}(context.Background(){{#pathParams}}, {{paramName}}{{/pathParams}}){{#allParams}}{{^isPathParam}}.{{vendorExtensions.x-export-param-name}}({{paramName}}){{/isPathParam}}{{/allParams}}.Execute()
     if err != nil {

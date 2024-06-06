@@ -33,13 +33,26 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    openapiclient "github.com/Keyfactor/ejbca-go-client-sdk/ejbca"
 )
 
 func main() {
     certificateRequestRestRequest := *openapiclient.NewCertificateRequestRestRequest() // CertificateRequestRestRequest |  (optional)
 
+    authenticator, err := openapiclient.NewMTLSAuthenticatorBuilder().
+        WithClientCertificatePath("<path to client certificate>").
+        WithClientCertificateKeyPath("<path to client key>").
+        WithCaCertificatePath("<path to ca certificate>").
+        Build()
+    if err != nil {
+        panic(err)
+    }
+
     configuration := openapiclient.NewConfiguration()
+    configuration.Host = "<hostname>:<optional port>"
+    configuration.SetAuthenticator(authenticator)
+
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.V1CertificateApi.CertificateRequest(context.Background()).CertificateRequestRestRequest(certificateRequestRestRequest).Execute()
     if err != nil {
@@ -99,13 +112,26 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    openapiclient "github.com/Keyfactor/ejbca-go-client-sdk/ejbca"
 )
 
 func main() {
     keyStoreRestRequest := *openapiclient.NewKeyStoreRestRequest() // KeyStoreRestRequest |  (optional)
 
+    authenticator, err := openapiclient.NewMTLSAuthenticatorBuilder().
+        WithClientCertificatePath("<path to client certificate>").
+        WithClientCertificateKeyPath("<path to client key>").
+        WithCaCertificatePath("<path to ca certificate>").
+        Build()
+    if err != nil {
+        panic(err)
+    }
+
     configuration := openapiclient.NewConfiguration()
+    configuration.Host = "<hostname>:<optional port>"
+    configuration.SetAuthenticator(authenticator)
+
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.V1CertificateApi.EnrollKeystore(context.Background()).KeyStoreRestRequest(keyStoreRestRequest).Execute()
     if err != nil {
@@ -165,13 +191,26 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    openapiclient "github.com/Keyfactor/ejbca-go-client-sdk/ejbca"
 )
 
 func main() {
     enrollCertificateRestRequest := *openapiclient.NewEnrollCertificateRestRequest() // EnrollCertificateRestRequest |  (optional)
 
+    authenticator, err := openapiclient.NewMTLSAuthenticatorBuilder().
+        WithClientCertificatePath("<path to client certificate>").
+        WithClientCertificateKeyPath("<path to client key>").
+        WithCaCertificatePath("<path to ca certificate>").
+        Build()
+    if err != nil {
+        panic(err)
+    }
+
     configuration := openapiclient.NewConfiguration()
+    configuration.Host = "<hostname>:<optional port>"
+    configuration.SetAuthenticator(authenticator)
+
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.V1CertificateApi.EnrollPkcs10Certificate(context.Background()).EnrollCertificateRestRequest(enrollCertificateRestRequest).Execute()
     if err != nil {
@@ -231,14 +270,27 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    openapiclient "github.com/Keyfactor/ejbca-go-client-sdk/ejbca"
 )
 
 func main() {
     requestId := int32(56) // int32 | Approval request id
     finalizeRestRequest := *openapiclient.NewFinalizeRestRequest() // FinalizeRestRequest | responseFormat must be one of 'P12', 'BCFKS', 'JKS', 'DER' (optional)
 
+    authenticator, err := openapiclient.NewMTLSAuthenticatorBuilder().
+        WithClientCertificatePath("<path to client certificate>").
+        WithClientCertificateKeyPath("<path to client key>").
+        WithCaCertificatePath("<path to ca certificate>").
+        Build()
+    if err != nil {
+        panic(err)
+    }
+
     configuration := openapiclient.NewConfiguration()
+    configuration.Host = "<hostname>:<optional port>"
+    configuration.SetAuthenticator(authenticator)
+
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.V1CertificateApi.FinalizeEnrollment(context.Background(), requestId).FinalizeRestRequest(finalizeRestRequest).Execute()
     if err != nil {
@@ -303,7 +355,8 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    openapiclient "github.com/Keyfactor/ejbca-go-client-sdk/ejbca"
 )
 
 func main() {
@@ -311,7 +364,19 @@ func main() {
     offset := int32(56) // int32 | Next offset to display results of, if maxNumberOfResults is exceeded. Starts from 0. (optional)
     maxNumberOfResults := int32(56) // int32 | Maximum number of certificates to display. If result exceeds this value. Modify 'offset' to retrieve more results (optional)
 
+    authenticator, err := openapiclient.NewMTLSAuthenticatorBuilder().
+        WithClientCertificatePath("<path to client certificate>").
+        WithClientCertificateKeyPath("<path to client key>").
+        WithCaCertificatePath("<path to ca certificate>").
+        Build()
+    if err != nil {
+        panic(err)
+    }
+
     configuration := openapiclient.NewConfiguration()
+    configuration.Host = "<hostname>:<optional port>"
+    configuration.SetAuthenticator(authenticator)
+
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.V1CertificateApi.GetCertificatesAboutToExpire(context.Background()).Days(days).Offset(offset).MaxNumberOfResults(maxNumberOfResults).Execute()
     if err != nil {
@@ -373,14 +438,27 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    openapiclient "github.com/Keyfactor/ejbca-go-client-sdk/ejbca"
 )
 
 func main() {
     issuerDn := "issuerDn_example" // string | Subject DN of the issuing CA
     certificateSerialNumber := "certificateSerialNumber_example" // string | hex serial number (without prefix, e.g. '00')
 
+    authenticator, err := openapiclient.NewMTLSAuthenticatorBuilder().
+        WithClientCertificatePath("<path to client certificate>").
+        WithClientCertificateKeyPath("<path to client key>").
+        WithCaCertificatePath("<path to ca certificate>").
+        Build()
+    if err != nil {
+        panic(err)
+    }
+
     configuration := openapiclient.NewConfiguration()
+    configuration.Host = "<hostname>:<optional port>"
+    configuration.SetAuthenticator(authenticator)
+
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.V1CertificateApi.RevocationStatus(context.Background(), issuerDn, certificateSerialNumber).Execute()
     if err != nil {
@@ -446,8 +524,8 @@ import (
     "context"
     "fmt"
     "os"
-    "time"
-    openapiclient "./openapi"
+
+    openapiclient "github.com/Keyfactor/ejbca-go-client-sdk/ejbca"
 )
 
 func main() {
@@ -456,7 +534,19 @@ func main() {
     reason := "reason_example" // string | Must be valid RFC5280 reason. One of  NOT_REVOKED, UNSPECIFIED ,KEY_COMPROMISE,  CA_COMPROMISE, AFFILIATION_CHANGED, SUPERSEDED, CESSATION_OF_OPERATION,  CERTIFICATE_HOLD, REMOVE_FROM_CRL, PRIVILEGES_WITHDRAWN, AA_COMPROMISE (optional)
     date := time.Now() // time.Time | ISO 8601 Date string, eg. '2018-06-15T14:07:09Z' (optional)
 
+    authenticator, err := openapiclient.NewMTLSAuthenticatorBuilder().
+        WithClientCertificatePath("<path to client certificate>").
+        WithClientCertificateKeyPath("<path to client key>").
+        WithCaCertificatePath("<path to ca certificate>").
+        Build()
+    if err != nil {
+        panic(err)
+    }
+
     configuration := openapiclient.NewConfiguration()
+    configuration.Host = "<hostname>:<optional port>"
+    configuration.SetAuthenticator(authenticator)
+
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.V1CertificateApi.RevokeCertificate(context.Background(), issuerDn, certificateSerialNumber).Reason(reason).Date(date).Execute()
     if err != nil {
@@ -524,13 +614,26 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    openapiclient "github.com/Keyfactor/ejbca-go-client-sdk/ejbca"
 )
 
 func main() {
     searchCertificatesRestRequest := *openapiclient.NewSearchCertificatesRestRequest() // SearchCertificatesRestRequest | Maximum number of results and collection of search criterias. (optional)
 
+    authenticator, err := openapiclient.NewMTLSAuthenticatorBuilder().
+        WithClientCertificatePath("<path to client certificate>").
+        WithClientCertificateKeyPath("<path to client key>").
+        WithCaCertificatePath("<path to ca certificate>").
+        Build()
+    if err != nil {
+        panic(err)
+    }
+
     configuration := openapiclient.NewConfiguration()
+    configuration.Host = "<hostname>:<optional port>"
+    configuration.SetAuthenticator(authenticator)
+
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.V1CertificateApi.SearchCertificates(context.Background()).SearchCertificatesRestRequest(searchCertificatesRestRequest).Execute()
     if err != nil {
@@ -590,12 +693,25 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    openapiclient "github.com/Keyfactor/ejbca-go-client-sdk/ejbca"
 )
 
 func main() {
 
+    authenticator, err := openapiclient.NewMTLSAuthenticatorBuilder().
+        WithClientCertificatePath("<path to client certificate>").
+        WithClientCertificateKeyPath("<path to client key>").
+        WithCaCertificatePath("<path to ca certificate>").
+        Build()
+    if err != nil {
+        panic(err)
+    }
+
     configuration := openapiclient.NewConfiguration()
+    configuration.Host = "<hostname>:<optional port>"
+    configuration.SetAuthenticator(authenticator)
+
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.V1CertificateApi.Status2(context.Background()).Execute()
     if err != nil {

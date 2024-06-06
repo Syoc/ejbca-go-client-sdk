@@ -29,14 +29,27 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    openapiclient "github.com/Keyfactor/ejbca-go-client-sdk/ejbca"
 )
 
 func main() {
     cryptotokenName := "cryptotokenName_example" // string | Name of the token to activate
     cryptoTokenActivationRestRequest := *openapiclient.NewCryptoTokenActivationRestRequest() // CryptoTokenActivationRestRequest | activation code (optional)
 
+    authenticator, err := openapiclient.NewMTLSAuthenticatorBuilder().
+        WithClientCertificatePath("<path to client certificate>").
+        WithClientCertificateKeyPath("<path to client key>").
+        WithCaCertificatePath("<path to ca certificate>").
+        Build()
+    if err != nil {
+        panic(err)
+    }
+
     configuration := openapiclient.NewConfiguration()
+    configuration.Host = "<hostname>:<optional port>"
+    configuration.SetAuthenticator(authenticator)
+
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.V1CryptotokenApi.Activate1(context.Background(), cryptotokenName).CryptoTokenActivationRestRequest(cryptoTokenActivationRestRequest).Execute()
     if err != nil {
@@ -99,13 +112,26 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    openapiclient "github.com/Keyfactor/ejbca-go-client-sdk/ejbca"
 )
 
 func main() {
     cryptotokenName := "cryptotokenName_example" // string | Name of the token to deactivate
 
+    authenticator, err := openapiclient.NewMTLSAuthenticatorBuilder().
+        WithClientCertificatePath("<path to client certificate>").
+        WithClientCertificateKeyPath("<path to client key>").
+        WithCaCertificatePath("<path to ca certificate>").
+        Build()
+    if err != nil {
+        panic(err)
+    }
+
     configuration := openapiclient.NewConfiguration()
+    configuration.Host = "<hostname>:<optional port>"
+    configuration.SetAuthenticator(authenticator)
+
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.V1CryptotokenApi.Deactivate1(context.Background(), cryptotokenName).Execute()
     if err != nil {
@@ -167,14 +193,27 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    openapiclient "github.com/Keyfactor/ejbca-go-client-sdk/ejbca"
 )
 
 func main() {
     cryptotokenName := "cryptotokenName_example" // string | Name of the token to generate keys for
     cryptoTokenKeyGenerationRestRequest := *openapiclient.NewCryptoTokenKeyGenerationRestRequest() // CryptoTokenKeyGenerationRestRequest |  (optional)
 
+    authenticator, err := openapiclient.NewMTLSAuthenticatorBuilder().
+        WithClientCertificatePath("<path to client certificate>").
+        WithClientCertificateKeyPath("<path to client key>").
+        WithCaCertificatePath("<path to ca certificate>").
+        Build()
+    if err != nil {
+        panic(err)
+    }
+
     configuration := openapiclient.NewConfiguration()
+    configuration.Host = "<hostname>:<optional port>"
+    configuration.SetAuthenticator(authenticator)
+
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.V1CryptotokenApi.GenerateKeys(context.Background(), cryptotokenName).CryptoTokenKeyGenerationRestRequest(cryptoTokenKeyGenerationRestRequest).Execute()
     if err != nil {
@@ -237,14 +276,27 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    openapiclient "github.com/Keyfactor/ejbca-go-client-sdk/ejbca"
 )
 
 func main() {
     cryptotokenName := "cryptotokenName_example" // string | Name of the token to remove keys for.
     keyPairAlias := "keyPairAlias_example" // string | Alias for the key to be removed from the crypto token.
 
+    authenticator, err := openapiclient.NewMTLSAuthenticatorBuilder().
+        WithClientCertificatePath("<path to client certificate>").
+        WithClientCertificateKeyPath("<path to client key>").
+        WithCaCertificatePath("<path to ca certificate>").
+        Build()
+    if err != nil {
+        panic(err)
+    }
+
     configuration := openapiclient.NewConfiguration()
+    configuration.Host = "<hostname>:<optional port>"
+    configuration.SetAuthenticator(authenticator)
+
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.V1CryptotokenApi.RemoveKeys(context.Background(), cryptotokenName, keyPairAlias).Execute()
     if err != nil {
@@ -308,12 +360,25 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    openapiclient "github.com/Keyfactor/ejbca-go-client-sdk/ejbca"
 )
 
 func main() {
 
+    authenticator, err := openapiclient.NewMTLSAuthenticatorBuilder().
+        WithClientCertificatePath("<path to client certificate>").
+        WithClientCertificateKeyPath("<path to client key>").
+        WithCaCertificatePath("<path to ca certificate>").
+        Build()
+    if err != nil {
+        panic(err)
+    }
+
     configuration := openapiclient.NewConfiguration()
+    configuration.Host = "<hostname>:<optional port>"
+    configuration.SetAuthenticator(authenticator)
+
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.V1CryptotokenApi.Status5(context.Background()).Execute()
     if err != nil {

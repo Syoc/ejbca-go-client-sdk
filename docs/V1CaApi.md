@@ -30,14 +30,27 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    openapiclient "github.com/Keyfactor/ejbca-go-client-sdk/ejbca"
 )
 
 func main() {
     issuerDn := "issuerDn_example" // string | the CRL issuers DN (CAs subject DN)
     deltacrl := true // bool | true to also create the deltaCRL, false to only create the base CRL (optional) (default to false)
 
+    authenticator, err := openapiclient.NewMTLSAuthenticatorBuilder().
+        WithClientCertificatePath("<path to client certificate>").
+        WithClientCertificateKeyPath("<path to client key>").
+        WithCaCertificatePath("<path to ca certificate>").
+        Build()
+    if err != nil {
+        panic(err)
+    }
+
     configuration := openapiclient.NewConfiguration()
+    configuration.Host = "<hostname>:<optional port>"
+    configuration.SetAuthenticator(authenticator)
+
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.V1CaApi.CreateCrl(context.Background(), issuerDn).Deltacrl(deltacrl).Execute()
     if err != nil {
@@ -102,13 +115,26 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    openapiclient "github.com/Keyfactor/ejbca-go-client-sdk/ejbca"
 )
 
 func main() {
     subjectDn := "subjectDn_example" // string | CAs subject DN
 
+    authenticator, err := openapiclient.NewMTLSAuthenticatorBuilder().
+        WithClientCertificatePath("<path to client certificate>").
+        WithClientCertificateKeyPath("<path to client key>").
+        WithCaCertificatePath("<path to ca certificate>").
+        Build()
+    if err != nil {
+        panic(err)
+    }
+
     configuration := openapiclient.NewConfiguration()
+    configuration.Host = "<hostname>:<optional port>"
+    configuration.SetAuthenticator(authenticator)
+
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.V1CaApi.GetCertificateAsPem(context.Background(), subjectDn).Execute()
     if err != nil {
@@ -170,7 +196,8 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    openapiclient "github.com/Keyfactor/ejbca-go-client-sdk/ejbca"
 )
 
 func main() {
@@ -178,7 +205,19 @@ func main() {
     deltaCrl := true // bool | true to get the latest deltaCRL, false to get the latest complete CRL (optional) (default to false)
     crlPartitionIndex := int32(56) // int32 | the CRL partition index (optional) (default to 0)
 
+    authenticator, err := openapiclient.NewMTLSAuthenticatorBuilder().
+        WithClientCertificatePath("<path to client certificate>").
+        WithClientCertificateKeyPath("<path to client key>").
+        WithCaCertificatePath("<path to ca certificate>").
+        Build()
+    if err != nil {
+        panic(err)
+    }
+
     configuration := openapiclient.NewConfiguration()
+    configuration.Host = "<hostname>:<optional port>"
+    configuration.SetAuthenticator(authenticator)
+
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.V1CaApi.GetLatestCrl(context.Background(), issuerDn).DeltaCrl(deltaCrl).CrlPartitionIndex(crlPartitionIndex).Execute()
     if err != nil {
@@ -244,7 +283,8 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    openapiclient "github.com/Keyfactor/ejbca-go-client-sdk/ejbca"
 )
 
 func main() {
@@ -252,7 +292,19 @@ func main() {
     crlFile := os.NewFile(1234, "some_file") // *os.File | CRL file in DER format (optional)
     crlPartitionIndex := int32(56) // int32 | CRL partition index (optional) (default to 0)
 
+    authenticator, err := openapiclient.NewMTLSAuthenticatorBuilder().
+        WithClientCertificatePath("<path to client certificate>").
+        WithClientCertificateKeyPath("<path to client key>").
+        WithCaCertificatePath("<path to ca certificate>").
+        Build()
+    if err != nil {
+        panic(err)
+    }
+
     configuration := openapiclient.NewConfiguration()
+    configuration.Host = "<hostname>:<optional port>"
+    configuration.SetAuthenticator(authenticator)
+
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.V1CaApi.ImportCrl(context.Background(), issuerDn).CrlFile(crlFile).CrlPartitionIndex(crlPartitionIndex).Execute()
     if err != nil {
@@ -316,12 +368,25 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    openapiclient "github.com/Keyfactor/ejbca-go-client-sdk/ejbca"
 )
 
 func main() {
 
+    authenticator, err := openapiclient.NewMTLSAuthenticatorBuilder().
+        WithClientCertificatePath("<path to client certificate>").
+        WithClientCertificateKeyPath("<path to client key>").
+        WithCaCertificatePath("<path to ca certificate>").
+        Build()
+    if err != nil {
+        panic(err)
+    }
+
     configuration := openapiclient.NewConfiguration()
+    configuration.Host = "<hostname>:<optional port>"
+    configuration.SetAuthenticator(authenticator)
+
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.V1CaApi.ListCas(context.Background()).Execute()
     if err != nil {
@@ -377,12 +442,25 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    openapiclient "github.com/Keyfactor/ejbca-go-client-sdk/ejbca"
 )
 
 func main() {
 
+    authenticator, err := openapiclient.NewMTLSAuthenticatorBuilder().
+        WithClientCertificatePath("<path to client certificate>").
+        WithClientCertificateKeyPath("<path to client key>").
+        WithCaCertificatePath("<path to ca certificate>").
+        Build()
+    if err != nil {
+        panic(err)
+    }
+
     configuration := openapiclient.NewConfiguration()
+    configuration.Host = "<hostname>:<optional port>"
+    configuration.SetAuthenticator(authenticator)
+
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.V1CaApi.Status1(context.Background()).Execute()
     if err != nil {

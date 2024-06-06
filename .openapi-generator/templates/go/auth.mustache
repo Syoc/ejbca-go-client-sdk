@@ -32,27 +32,17 @@ type OAuthAuthenticator struct {
 }
 
 type OAuthAuthenticatorBuilder struct {
-    clientId          string
-    clientSecret      string
-    tokenUrl          string
-    audience          string
-    scopes            []string
-    caCertificatePath string
-    caCertificates    []*x509.Certificate
+	clientId          string
+	clientSecret      string
+	tokenUrl          string
+	audience          string
+	scopes            []string
+	caCertificatePath string
+	caCertificates    []*x509.Certificate
 }
 
 func NewOAuthAuthenticatorBuilder() *OAuthAuthenticatorBuilder {
-	scopesString := os.Getenv("OAUTH_SCOPES")
-	scopes := []string{}
-	if scopesString != "" {
-		scopes = strings.Split(scopesString, " ")
-	}
 	return &OAuthAuthenticatorBuilder{
-		clientId:     os.Getenv("OAUTH_CLIENT_ID"),
-		clientSecret: os.Getenv("OAUTH_CLIENT_SECRET"),
-		tokenUrl:     os.Getenv("OAUTH_TOKEN_URL"),
-        audience:     os.Getenv("OAUTH_AUDIENCE"),
-		scopes:       scopes,
 	}
 }
 
@@ -77,18 +67,18 @@ func (b *OAuthAuthenticatorBuilder) WithScopes(scopes []string) *OAuthAuthentica
 }
 
 func (b *OAuthAuthenticatorBuilder) WithAudience(audience string) *OAuthAuthenticatorBuilder {
-    b.audience = audience
-    return b
+	b.audience = audience
+	return b
 }
 
 func (b *OAuthAuthenticatorBuilder) WithCaCertificatePath(caCertificatePath string) *OAuthAuthenticatorBuilder {
-    b.caCertificatePath = caCertificatePath
-    return b
+	b.caCertificatePath = caCertificatePath
+	return b
 }
 
 func (b *OAuthAuthenticatorBuilder) WithCaCertificates(caCertificates []*x509.Certificate) *OAuthAuthenticatorBuilder {
-    b.caCertificates = caCertificates
-    return b
+	b.caCertificates = caCertificates
+	return b
 }
 
 func (b *OAuthAuthenticatorBuilder) Build() (Authenticator, error) {
@@ -97,14 +87,17 @@ func (b *OAuthAuthenticatorBuilder) Build() (Authenticator, error) {
 		ClientSecret: b.clientSecret,
 		TokenURL:     b.tokenUrl,
 		Scopes:       b.scopes,
-        EndpointParams: map[string][]string{
-            "audience": { 
-                b.audience,
-            },
-        },
 	}
 
-    tokenSource := config.TokenSource(context.Background())
+    if b.audience != "" {
+		config.EndpointParams = map[string][]string{
+			"audience": {
+				b.audience,
+			},
+		}
+    }
+
+	tokenSource := config.TokenSource(context.Background())
 	oauthTransport := &oauth2.Transport{
 		Base:   http.DefaultTransport,
 		Source: tokenSource,
@@ -123,10 +116,10 @@ func (b *OAuthAuthenticatorBuilder) Build() (Authenticator, error) {
 			Renegotiation: tls.RenegotiateOnceAsClient,
 		}
 
-        tlsConfig.RootCAs = x509.NewCertPool()
-        for _, caCert := range b.caCertificates {
-            tlsConfig.RootCAs.AddCert(caCert)
-        }
+		tlsConfig.RootCAs = x509.NewCertPool()
+		for _, caCert := range b.caCertificates {
+			tlsConfig.RootCAs.AddCert(caCert)
+		}
 
 		customTransport := http.DefaultTransport.(*http.Transport).Clone()
 		customTransport.TLSClientConfig = tlsConfig
@@ -156,54 +149,51 @@ type MTLSAuthenticator struct {
 }
 
 type MTLSAuthenticatorBuilder struct {
-    clientCertificate         *tls.Certificate
-    clientCertificatePath     string
-    clientCertificateKeyPath  string
-    caCertificatePath         string
-    caCertificates            []*x509.Certificate
+	clientCertificate        *tls.Certificate
+	clientCertificatePath    string
+	clientCertificateKeyPath string
+	caCertificatePath        string
+	caCertificates           []*x509.Certificate
 }
 
 func NewMTLSAuthenticatorBuilder() *MTLSAuthenticatorBuilder {
-    return &MTLSAuthenticatorBuilder{
-        clientCertificatePath:    os.Getenv("EJBCA_CLIENT_CERT_PATH"),
-        clientCertificateKeyPath: os.Getenv("EJBCA_CLIENT_CERT_KEY_PATH"),
-        caCertificatePath:        os.Getenv("EJBCA_CA_CERT_PATH"),
-    }
+	return &MTLSAuthenticatorBuilder{
+	}
 }
 
 func (b *MTLSAuthenticatorBuilder) WithClientCertificatePath(clientCertificatePath string) *MTLSAuthenticatorBuilder {
-    b.clientCertificatePath = clientCertificatePath
-    return b
+	b.clientCertificatePath = clientCertificatePath
+	return b
 }
 
 func (b *MTLSAuthenticatorBuilder) WithClientCertificateKeyPath(clientCertificateKeyPath string) *MTLSAuthenticatorBuilder {
-    b.clientCertificateKeyPath = clientCertificateKeyPath
-    return b
+	b.clientCertificateKeyPath = clientCertificateKeyPath
+	return b
 }
 
 func (b *MTLSAuthenticatorBuilder) WithCaCertificatePath(caCertificatePath string) *MTLSAuthenticatorBuilder {
-    b.caCertificatePath = caCertificatePath
-    return b
+	b.caCertificatePath = caCertificatePath
+	return b
 }
 
 func (b *MTLSAuthenticatorBuilder) WithClientCertificate(clientCertificate *tls.Certificate) *MTLSAuthenticatorBuilder {
-    b.clientCertificate = clientCertificate
-    return b
+	b.clientCertificate = clientCertificate
+	return b
 }
 
 func (b *MTLSAuthenticatorBuilder) WithCaCertificates(caCertificates []*x509.Certificate) *MTLSAuthenticatorBuilder {
-    b.caCertificates = caCertificates
-    return b
+	b.caCertificates = caCertificates
+	return b
 }
 
 func (b *MTLSAuthenticatorBuilder) findClientCert() error {
-    if b.clientCertificatePath == "" {
-        return fmt.Errorf("no client certificate path specified")
-    }
+	if b.clientCertificatePath == "" {
+		return fmt.Errorf("no client certificate path specified")
+	}
 	// Read and parse the passed certificate file which could contain the certificate and private key
 	buf, err := os.ReadFile(b.clientCertificatePath)
 	if err != nil {
-        return err
+		return err
 	}
 	certificates, privKey, err := decodePEMBytes(buf)
 	if err != nil {
@@ -229,30 +219,30 @@ func (b *MTLSAuthenticatorBuilder) findClientCert() error {
 	if len(certificates) <= 0 {
 		return fmt.Errorf("didn't find certificate in file at path %s", b.clientCertificateKeyPath)
 	}
-    cert, err := tls.X509KeyPair(pem.EncodeToMemory(certificates[0]), privKey)
+	cert, err := tls.X509KeyPair(pem.EncodeToMemory(certificates[0]), privKey)
 	if err != nil {
 		return err
 	}
 
-    b.clientCertificate = &cert
-    return nil
+	b.clientCertificate = &cert
+	return nil
 }
 
 func (b *MTLSAuthenticatorBuilder) Build() (Authenticator, error) {
-    var err error
-    if b.clientCertificate == nil {
-        err = b.findClientCert()
-        if err != nil {
-            return nil, fmt.Errorf("failed to find client certificate: %w", err)
-        }
-    }
+	var err error
+	if b.clientCertificate == nil {
+		err = b.findClientCert()
+		if err != nil {
+			return nil, fmt.Errorf("failed to find client certificate: %w", err)
+		}
+	}
 
-    if len(b.caCertificates) == 0 {
-        b.caCertificates, err = findCaCertificate(b.caCertificatePath)
-        if err != nil {
-            return nil, fmt.Errorf("failed to find CA certificates: %w", err)
-        }
-    }
+	if len(b.caCertificates) == 0 {
+		b.caCertificates, err = findCaCertificate(b.caCertificatePath)
+		if err != nil {
+			return nil, fmt.Errorf("failed to find CA certificates: %w", err)
+		}
+	}
 
 	tlsConfig := &tls.Config{
 		Certificates:  []tls.Certificate{*b.clientCertificate},
@@ -275,17 +265,17 @@ func (b *MTLSAuthenticatorBuilder) Build() (Authenticator, error) {
 		Timeout:   10 * time.Second,
 	}
 
-    return &MTLSAuthenticator{client: httpClient}, nil
+	return &MTLSAuthenticator{client: httpClient}, nil
 }
 
 func (a *MTLSAuthenticator) GetHttpClient() (*http.Client, error) {
-    return a.client, nil
+	return a.client, nil
 }
 
 func findCaCertificate(caCertificatePath string) ([]*x509.Certificate, error) {
-    if caCertificatePath == "" {
-        return nil, nil
-    }
+	if caCertificatePath == "" {
+		return nil, nil
+	}
 
 	buf, err := os.ReadFile(caCertificatePath)
 	if err != nil {
@@ -311,7 +301,7 @@ func findCaCertificate(caCertificatePath string) ([]*x509.Certificate, error) {
 		caChain = append(caChain, cert)
 	}
 
-    return caChain, nil
+	return caChain, nil
 }
 
 func decodePEMBytes(buf []byte) ([]*pem.Block, []byte, error) {
@@ -330,3 +320,4 @@ func decodePEMBytes(buf []byte) ([]*pem.Block, []byte, error) {
 	}
 	return certificates, privKey, nil
 }
+

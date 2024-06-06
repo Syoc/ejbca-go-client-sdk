@@ -28,12 +28,25 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    openapiclient "github.com/Keyfactor/ejbca-go-client-sdk/ejbca"
 )
 
 func main() {
 
+    authenticator, err := openapiclient.NewMTLSAuthenticatorBuilder().
+        WithClientCertificatePath("<path to client certificate>").
+        WithClientCertificateKeyPath("<path to client key>").
+        WithCaCertificatePath("<path to ca certificate>").
+        Build()
+    if err != nil {
+        panic(err)
+    }
+
     configuration := openapiclient.NewConfiguration()
+    configuration.Host = "<hostname>:<optional port>"
+    configuration.SetAuthenticator(authenticator)
+
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.V2EndentityApi.GetAuthorizedEndEntityProfiles(context.Background()).Execute()
     if err != nil {
@@ -89,13 +102,26 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    openapiclient "github.com/Keyfactor/ejbca-go-client-sdk/ejbca"
 )
 
 func main() {
     endentityProfileName := "endentityProfileName_example" // string | 
 
+    authenticator, err := openapiclient.NewMTLSAuthenticatorBuilder().
+        WithClientCertificatePath("<path to client certificate>").
+        WithClientCertificateKeyPath("<path to client key>").
+        WithCaCertificatePath("<path to ca certificate>").
+        Build()
+    if err != nil {
+        panic(err)
+    }
+
     configuration := openapiclient.NewConfiguration()
+    configuration.Host = "<hostname>:<optional port>"
+    configuration.SetAuthenticator(authenticator)
+
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.V2EndentityApi.Profile(context.Background(), endentityProfileName).Execute()
     if err != nil {
@@ -159,13 +185,26 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    openapiclient "github.com/Keyfactor/ejbca-go-client-sdk/ejbca"
 )
 
 func main() {
     searchEndEntitiesRestRequestV2 := *openapiclient.NewSearchEndEntitiesRestRequestV2() // SearchEndEntitiesRestRequestV2 | Maximum number of results and collection of search criterias. (optional)
 
+    authenticator, err := openapiclient.NewMTLSAuthenticatorBuilder().
+        WithClientCertificatePath("<path to client certificate>").
+        WithClientCertificateKeyPath("<path to client key>").
+        WithCaCertificatePath("<path to ca certificate>").
+        Build()
+    if err != nil {
+        panic(err)
+    }
+
     configuration := openapiclient.NewConfiguration()
+    configuration.Host = "<hostname>:<optional port>"
+    configuration.SetAuthenticator(authenticator)
+
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.V2EndentityApi.SortedSearch(context.Background()).SearchEndEntitiesRestRequestV2(searchEndEntitiesRestRequestV2).Execute()
     if err != nil {
@@ -225,12 +264,25 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    openapiclient "github.com/Keyfactor/ejbca-go-client-sdk/ejbca"
 )
 
 func main() {
 
+    authenticator, err := openapiclient.NewMTLSAuthenticatorBuilder().
+        WithClientCertificatePath("<path to client certificate>").
+        WithClientCertificateKeyPath("<path to client key>").
+        WithCaCertificatePath("<path to ca certificate>").
+        Build()
+    if err != nil {
+        panic(err)
+    }
+
     configuration := openapiclient.NewConfiguration()
+    configuration.Host = "<hostname>:<optional port>"
+    configuration.SetAuthenticator(authenticator)
+
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.V2EndentityApi.Status7(context.Background()).Execute()
     if err != nil {

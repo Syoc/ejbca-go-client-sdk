@@ -27,13 +27,26 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    openapiclient "github.com/Keyfactor/ejbca-go-client-sdk/ejbca"
 )
 
 func main() {
     caName := "caName_example" // string | Name of the CA to activate
 
+    authenticator, err := openapiclient.NewMTLSAuthenticatorBuilder().
+        WithClientCertificatePath("<path to client certificate>").
+        WithClientCertificateKeyPath("<path to client key>").
+        WithCaCertificatePath("<path to ca certificate>").
+        Build()
+    if err != nil {
+        panic(err)
+    }
+
     configuration := openapiclient.NewConfiguration()
+    configuration.Host = "<hostname>:<optional port>"
+    configuration.SetAuthenticator(authenticator)
+
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.V1CaManagementApi.Activate(context.Background(), caName).Execute()
     if err != nil {
@@ -95,13 +108,26 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    openapiclient "github.com/Keyfactor/ejbca-go-client-sdk/ejbca"
 )
 
 func main() {
     caName := "caName_example" // string | Name of the CA to deactivate
 
+    authenticator, err := openapiclient.NewMTLSAuthenticatorBuilder().
+        WithClientCertificatePath("<path to client certificate>").
+        WithClientCertificateKeyPath("<path to client key>").
+        WithCaCertificatePath("<path to ca certificate>").
+        Build()
+    if err != nil {
+        panic(err)
+    }
+
     configuration := openapiclient.NewConfiguration()
+    configuration.Host = "<hostname>:<optional port>"
+    configuration.SetAuthenticator(authenticator)
+
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.V1CaManagementApi.Deactivate(context.Background(), caName).Execute()
     if err != nil {
@@ -163,12 +189,25 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+
+    openapiclient "github.com/Keyfactor/ejbca-go-client-sdk/ejbca"
 )
 
 func main() {
 
+    authenticator, err := openapiclient.NewMTLSAuthenticatorBuilder().
+        WithClientCertificatePath("<path to client certificate>").
+        WithClientCertificateKeyPath("<path to client key>").
+        WithCaCertificatePath("<path to ca certificate>").
+        Build()
+    if err != nil {
+        panic(err)
+    }
+
     configuration := openapiclient.NewConfiguration()
+    configuration.Host = "<hostname>:<optional port>"
+    configuration.SetAuthenticator(authenticator)
+
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.V1CaManagementApi.Status(context.Background()).Execute()
     if err != nil {
