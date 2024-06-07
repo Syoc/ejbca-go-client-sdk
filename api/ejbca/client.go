@@ -1,13 +1,17 @@
 /*
-Copyright 2022 Keyfactor
-Licensed under the Apache License, Version 2.0 (the "License"); you may
-not use this file except in compliance with the License.  You may obtain a
-copy of the License at http://www.apache.org/licenses/LICENSE-2.0.  Unless
-required by applicable law or agreed to in writing, software distributed
-under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES
-OR CONDITIONS OF ANY KIND, either express or implied. See the License for
-thespecific language governing permissions and limitations under the
-License.
+Copyright 2024 Keyfactor
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
 
 EJBCA REST Interface
 
@@ -23,15 +27,11 @@ package ejbca
 import (
 	"bytes"
 	"context"
-	"crypto/tls"
-	"crypto/x509"
 	"encoding/json"
-	"encoding/pem"
 	"encoding/xml"
 	"errors"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"log"
 	"mime/multipart"
 	"net/http"
@@ -59,6 +59,7 @@ var (
 type APIClient struct {
 	cfg    *Configuration
 	common service // Reuse a single struct instead of allocating one for each service on the heap.
+	client *http.Client
 
 	// API Services
 
@@ -90,21 +91,23 @@ type service struct {
 func NewAPIClient(cfg *Configuration) (*APIClient, error) {
 	var err error
 
+	if cfg.authenticator == nil {
+		return nil, errors.New("authenticator is required - use Configuration.SetAuthenticator() to set it")
+	}
+
 	cfg.Host, err = cleanHostname(cfg.Host)
 	if err != nil {
 		return nil, err
 	}
 
-	if cfg.HTTPClient == nil {
-		if cfg.HTTPClient, err = buildHttpClient(cfg); err != nil {
-			debugMessage(cfg.Debug, "Failed to build HTTP client: %s", err.Error())
-			return nil, fmt.Errorf("failed to build HTTP client: %s", err.Error())
-		}
-	}
-
 	c := &APIClient{}
 	c.cfg = cfg
 	c.common.client = c
+
+	c.client, err = c.cfg.authenticator.GetHttpClient()
+	if err != nil {
+		return nil, err
+	}
 
 	// API Services
 	c.V1CaApi = (*V1CaApiService)(&c.common)
@@ -120,12 +123,6 @@ func NewAPIClient(cfg *Configuration) (*APIClient, error) {
 	return c, nil
 }
 
-func debugMessage(isDebug bool, message string, args ...interface{}) {
-	if isDebug {
-		log.Printf(message+"\n", args...)
-	}
-}
-
 func cleanHostname(hostname string) (string, error) {
 	if hostname == "" {
 		return "", errors.New("hostname cannot be empty")
@@ -139,163 +136,8 @@ func cleanHostname(hostname string) (string, error) {
 	if u, err := url.Parse(hostname); err == nil {
 		return u.Host, nil
 	} else {
-		fmt.Errorf("EJBCA_HOSTNAME is not a valid URL: %s", err)
-		return "", err
+		return "", fmt.Errorf("ejbca hostname is not a valid URL: %s", err)
 	}
-}
-
-func buildHttpClient(config *Configuration) (*http.Client, error) {
-	// Load the client certificate
-	clientCertificate, err := findClientCertificate(config)
-	if err != nil {
-		return nil, err
-	}
-
-	// Configure new TLS object
-	tlsConfig := &tls.Config{
-		Certificates:  []tls.Certificate{*clientCertificate},
-		Renegotiation: tls.RenegotiateOnceAsClient,
-	}
-
-	// Load the CA certificate
-	caChain, err := findCaCertificate(config)
-	if err != nil {
-		return nil, err
-	}
-
-	// Add the CA certificate to the TLS config, if any CA certificate were found
-	if len(caChain) > 0 {
-		tlsConfig.RootCAs = x509.NewCertPool()
-		for _, caCert := range caChain {
-			tlsConfig.RootCAs.AddCert(caCert)
-		}
-
-		// Add the pool to the TLS config
-		tlsConfig.ClientCAs = tlsConfig.RootCAs
-	}
-
-	// Configure HTTP transports with TLS config
-	customTransport := http.DefaultTransport.(*http.Transport).Clone()
-	customTransport.TLSClientConfig = tlsConfig
-	customTransport.TLSHandshakeTimeout = 10 * time.Second
-
-	// Build new HTTP object to communicate with EJBCA
-	httpClient := &http.Client{
-		Transport: customTransport,
-		Timeout:   10 * time.Second,
-	}
-	return httpClient, nil
-}
-
-func findClientCertificate(config *Configuration) (*tls.Certificate, error) {
-	// Load client certificate
-	var cert tls.Certificate
-
-	if config.clientTlsCertificate != nil {
-		return config.clientTlsCertificate, nil
-	}
-
-	if config.ClientCertificatePath == "" {
-		return nil, fmt.Errorf("path to client certificate is required")
-	}
-
-	// Read and parse the passed certificate file which could contain the certificate and private key
-	debugMessage(config.Debug, "Reading client certificate from %s", config.ClientCertificatePath)
-	buf, err := ioutil.ReadFile(config.ClientCertificatePath)
-	if err != nil {
-		return nil, err
-	}
-	certificates, privKey, err := decodePEMBytes(buf, config.Debug)
-	if err != nil {
-		return nil, err
-	}
-	if len(privKey) <= 0 {
-		// if no private key was found, see if a path was specified to a private key
-		if config.ClientCertificateKeyPath == "" {
-			return nil, fmt.Errorf("no private key found in %s and no path to a private key specified", config.ClientCertificatePath)
-		}
-		debugMessage(config.Debug, "Didn't find private key in client certificate file, looking in %s", config.ClientCertificateKeyPath)
-		buf, err = ioutil.ReadFile(config.ClientCertificateKeyPath)
-		if err != nil {
-			return nil, err
-		}
-		_, privKey, err = decodePEMBytes(buf, config.Debug)
-		if err != nil {
-			return nil, err
-		}
-		if len(privKey) <= 0 {
-			return nil, fmt.Errorf("didn't find private key in path %s", config.ClientCertificateKeyPath)
-		}
-	}
-	if len(certificates) <= 0 {
-		return nil, fmt.Errorf("didn't find certificate in file at path %s", config.ClientCertificatePath)
-	}
-	cert, err = tls.X509KeyPair(pem.EncodeToMemory(certificates[0]), privKey)
-	if err != nil {
-		return nil, err
-	}
-
-	debugMessage(config.Debug, "Successfully loaded client certificate")
-
-	return &cert, nil
-}
-
-func findCaCertificate(config *Configuration) ([]*x509.Certificate, error) {
-	// Load CA certificate
-	if config.caCertificates != nil {
-		return config.caCertificates, nil
-	}
-
-	// If no CA certificate path is specified, return nil since the default CA certificates will be used
-	if config.CaCertificatePath == "" {
-		return nil, nil
-	}
-
-	// Read and parse the passed certificate file which should contain the CA certificate and chain
-	debugMessage(config.Debug, "Reading CA certificate from %s", config.CaCertificatePath)
-	buf, err := ioutil.ReadFile(config.CaCertificatePath)
-	if err != nil {
-		return nil, err
-	}
-	// Decode the PEM encoded certificates into a slice of PEM blocks
-	chainBlocks, _, err := decodePEMBytes(buf, config.Debug)
-	if err != nil {
-		return nil, err
-	}
-	if len(chainBlocks) <= 0 {
-		return nil, fmt.Errorf("didn't find certificate in file at path %s", config.ClientCertificatePath)
-	}
-
-	caChain := []*x509.Certificate{}
-	for _, block := range chainBlocks {
-		// Parse the PEM block into an x509 certificate
-		cert, err := x509.ParseCertificate(block.Bytes)
-		if err != nil {
-			return nil, err
-		}
-
-		caChain = append(caChain, cert)
-	}
-
-	return caChain, nil
-}
-
-func decodePEMBytes(buf []byte, isDebug bool) ([]*pem.Block, []byte, error) {
-	var privKey []byte
-	var certificates []*pem.Block
-	var block *pem.Block
-	for {
-		block, buf = pem.Decode(buf)
-		if block == nil {
-			break
-		} else if strings.Contains(block.Type, "PRIVATE KEY") {
-			privKey = pem.EncodeToMemory(block)
-		} else {
-			certificates = append(certificates, block)
-		}
-		debugMessage(isDebug, "Found PEM block of type %s", block.Type)
-	}
-	return certificates, privKey, nil
 }
 
 func atoi(in string) (int, error) {
@@ -470,7 +312,7 @@ func (c *APIClient) callAPI(request *http.Request) (*http.Response, error) {
 		log.Printf("\n%s\n", string(dump))
 	}
 
-	resp, err := c.cfg.HTTPClient.Do(request)
+	resp, err := c.client.Do(request)
 	if err != nil {
 		return resp, err
 	}
@@ -632,11 +474,6 @@ func (c *APIClient) prepareRequest(
 
 		// Walk through any authentication.
 
-		// AccessToken Authentication
-		if auth, ok := ctx.Value(ContextAccessToken).(string); ok {
-			localVarRequest.Header.Add("Authorization", "Bearer "+auth)
-		}
-
 	}
 
 	for header, value := range c.cfg.DefaultHeader {
@@ -654,7 +491,7 @@ func (c *APIClient) decode(v interface{}, b []byte, contentType string) (err err
 		return nil
 	}
 	if f, ok := v.(*os.File); ok {
-		f, err = ioutil.TempFile("", "HttpClientFile")
+		f, err = os.CreateTemp("", "HttpClientFile")
 		if err != nil {
 			return
 		}
@@ -666,7 +503,7 @@ func (c *APIClient) decode(v interface{}, b []byte, contentType string) (err err
 		return
 	}
 	if f, ok := v.(**os.File); ok {
-		*f, err = ioutil.TempFile("", "HttpClientFile")
+		*f, err = os.CreateTemp("", "HttpClientFile")
 		if err != nil {
 			return
 		}

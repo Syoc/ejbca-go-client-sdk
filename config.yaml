@@ -1,0 +1,9 @@
+templateDir: .openapi-generator/templates/go
+additionalProperties:
+  isGoSubmodule: false
+  disallowAdditionalPropertiesIfNotPresent: false
+  packageName: ejbca
+files:
+  auth.mustache:
+    templateType: SupportingFiles
+    destinationFilename: auth.go

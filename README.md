@@ -7,7 +7,7 @@ We welcome contributions.
 
 The Keyfactor EJBCA Go Client SDK is open source and community supported, meaning that there is **no SLA** applicable for these tools.
 
-###### To report a problem or suggest a new feature, use the **[Issues](../../issues)** tab. If you want to contribute actual bug fixes or proposed enhancements, use the **[Pull requests](../../pulls)** tab.
+> To report a problem or suggest a new feature, use the **[Issues](../../issues)** tab. If you want to contribute actual bug fixes or proposed enhancements, use the **[Pull requests](../../pulls)** tab.
 
 ## Installation
 
@@ -25,29 +25,97 @@ import "github.com/Keyfactor/ejbca-go-client-sdk/api/ejbca"
 
 ## Configuration
 
-Communication with the EJBCA REST API is authenticated using a client certificate. The client certificate
-must be a PEM encoded X509v3 certificate with an unencrypted private key in PKCS#8 format. These fields can
-be configured either using environment variables or with an `ejbca.Configuration` struct. Configure
-the configuration struct as shown below:
+Communication with the EJBCA REST API is authenticated using mTLS (client certificate) or OAuth 2.0 (token). Authentication is handled via the `ejbca.Authenticator` interface, and the SDK ships with two default implementations, described below.
+
+Both the mTLS and OAuth authenticators enable configuration of a CA Certificate if the target EJBCA server doesn't serve a certificate signed by a publically trusted root. Your application may elect to source this CA certificate via an appropriate authentication mechanism, or provide the appropriate authenticator builder with a path. Both methods are demonstrated below.
+
+The following code snippets demonstrate how to configure the EJBCA client with an mTLS authenticator:
 
 ```go
+import (
+    "crypto/x509"
+    "fmt"
+    "crypto/tls"
+
+    "github.com/Keyfactor/ejbca-go-client-sdk/api/ejbca"
+)
+
+// Source the CA chain by an appropriate method for your application
+caChain := []byte("<ca chain source by your application>")
+
+caCerts, err := x509.ParseCertificates(caChain)
+if err != nil {
+    panic(err)
+}
+
+// Source the client certificate and key by an appropriate method for your application
+clientCertificate := []byte("<client certificate source by your application>")
+clientKey := []byte("<client key source by your application>")
+
+tlsCert, err := tls.X509KeyPair(clientCertificate, clientKey)
+if err != nil {
+    panic(err)
+}
+
+authenticator, err := ejbca.NewMTLSAuthenticatorBuilder().
+    WithClientCertificate(&tlsCert).
+    WithCaCertificates(caCerts).
+    Build()
+if err != nil {
+    panic(err)
+}
+```
+
+The `ejbca.MTLSAuthenticatorBuilder` can also source the client certificate, key and CA certificate from a provided path. It's important that the certificates at the specified paths be PEM encoded X.509 certificates, and the private key must be an unencrypted PKCS#8 key.
+
+```go
+import "github.com/Keyfactor/ejbca-go-client-sdk/api/ejbca"
+
+authenticator, err := ejbca.NewMTLSAuthenticatorBuilder().
+    WithClientCertificatePath("<path to client certificate>").
+    WithClientCertificateKeyPath("<path to client key>").
+    WithCaCertificatePath("<path to ca certificate>").
+    Build()
+if err != nil {
+    panic(err)
+}
+```
+
+OAuth2.0 is configured using the `ejbca.OAuthAuthenticatorBuilder`. Under the hood, this authenticator uses the `golang.org/x/oauth2/clientcredentials` package to implement the OAuth2.0 "client credentials" token flow, since the client is acting on its own behalf.
+
+```go
+import "github.com/Keyfactor/ejbca-go-client-sdk/api/ejbca"
+
+authenticator, err := ejbca.NewOAuthAuthenticatorBuilder().
+    WithCaCertificates(caCerts).
+//  WithCaCertificatePath("<path to ca certificate>").
+    WithTokenUrl("<url to token endpoint>").
+    WithClientId("<client ID>").
+    WithClientSecret("<client secret>").
+    WithAudience("<optional audience").
+    WithScopes("<optional scopes>").
+    Build()
+if err != nil {
+    panic(err)
+}
+```
+
+Finally, the EJBCA client is configured with the authenticator and the hostname of the EJBCA server:
+
+```go
+import "github.com/Keyfactor/ejbca-go-client-sdk/api/ejbca"
+
 configuration := ejbca.NewConfiguration()
-configuration.Host = "example.com"
-configuration.ClientCertificatePath = "auth_cert.pem" // Path to client certificate. The private key can be in the same file or in a file specified by the ClientCertificateKeyPath
-configuration.ClientCertificateKeyPath = "auth_key.pem"
+configuration.Host = "<hostname>:<optional port>"
+configuration.SetAuthenticator(authenticator)
+
+ejbcaClient, err := ejbca.NewAPIClient(configuration)
+if err != nil {
+    panic(err)
+}
 ```
 
-The following environment variables can be used to configure the client as well:
-```shell
-export EJBCA_HOSTNAME="example.com"
-export EJBCA_CLIENT_CERT_PATH="auth_cert.pem"
-export EJBCA_CLIENT_CERT_KEY_PATH="auth_key.key"
-```
-
-Configuration of the EJBCA client via the `ejbca.Configuration` struct will override values set in environment variables.
-
-If the EJBCA REST API uses a port other than 443, it can be configured with the `EJBCA_HOSTNAME` or the `Host` field in the configuration struct by
-adding `:port` to the end of the hostname.
+> If neither authentication mechanism is suitable for your application, you can implement your own authenticator by implementing the `ejbca.Authenticator` interface.
 
 ## Documentation for API Endpoints
 
