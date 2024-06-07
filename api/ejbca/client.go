@@ -104,7 +104,7 @@ func NewAPIClient(cfg *Configuration) (*APIClient, error) {
 	c.cfg = cfg
 	c.common.client = c
 
-	c.client, err = c.cfg.authenticator.GetHttpClient()
+	c.client, err = c.cfg.authenticator.GetHTTPClient()
 	if err != nil {
 		return nil, err
 	}

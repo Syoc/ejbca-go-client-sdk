@@ -42,7 +42,7 @@ import (
 // Authenticator is used to build HTTP clients with a built-in authentication mechanism. It's expected that
 // the authenticator will handle the authentication of the client and set the necessary headers.
 type Authenticator interface {
-	GetHttpClient() (*http.Client, error)
+	GetHTTPClient() (*http.Client, error)
 }
 
 // OAuth Authenticator
@@ -158,7 +158,7 @@ func (b *OAuthAuthenticatorBuilder) Build() (Authenticator, error) {
 	return &OAuthAuthenticator{client: client}, nil
 }
 
-func (a *OAuthAuthenticator) GetHttpClient() (*http.Client, error) {
+func (a *OAuthAuthenticator) GetHTTPClient() (*http.Client, error) {
 	return a.client, nil
 }
 
@@ -289,7 +289,7 @@ func (b *MTLSAuthenticatorBuilder) Build() (Authenticator, error) {
 	return &MTLSAuthenticator{client: httpClient}, nil
 }
 
-func (a *MTLSAuthenticator) GetHttpClient() (*http.Client, error) {
+func (a *MTLSAuthenticator) GetHTTPClient() (*http.Client, error) {
 	return a.client, nil
 }
 
