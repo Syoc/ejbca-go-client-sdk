@@ -28,7 +28,7 @@ import (
     "fmt"
     "os"
 
-    openapiclient "github.com/Keyfactor/ejbca-go-client-sdk/ejbca"
+    openapiclient "github.com/Keyfactor/ejbca-go-client-sdk/api/ejbca"
 )
 
 func main() {
@@ -111,7 +111,7 @@ import (
     "fmt"
     "os"
 
-    openapiclient "github.com/Keyfactor/ejbca-go-client-sdk/ejbca"
+    openapiclient "github.com/Keyfactor/ejbca-go-client-sdk/api/ejbca"
 )
 
 func main() {
@@ -190,7 +190,7 @@ import (
     "fmt"
     "os"
 
-    openapiclient "github.com/Keyfactor/ejbca-go-client-sdk/ejbca"
+    openapiclient "github.com/Keyfactor/ejbca-go-client-sdk/api/ejbca"
 )
 
 func main() {
